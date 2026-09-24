@@ -9,7 +9,7 @@
   --ink2: #C5DCD4;
   --ink3: #8AA89E;
   
-  /* Silver Care Design Tokens */
+  /* Silver Care Design Tokens (Default) */
   --primary: #2F6F5E;
   --primary-light: #44927E;
   --accent: #7FBCA8;
@@ -30,10 +30,122 @@
   --pulse: #FFFFFF;
   --nucleus: #2F6F5E;
 
+  /* Theme Engine Variables */
+  --node-g1: #E2C285;
+  --node-g2: #7FBCA8;
+  --node-default: #A7E8D4;
+  --line-rgb: 127, 188, 168;
+  --bg-glow: rgba(47, 111, 94, 0.35);
+
   --display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --mono: 'JetBrains Mono', 'IBM Plex Mono', Menlo, Consolas, monospace;
   --radius: 4px;
+}
+
+/* Motyw 2: Clinical Blue (Szpitalny, sterylny błękit i kobalt) */
+[data-theme="clinical"] {
+  --bg: #071018;
+  --bg2: #03070b;
+  --ink: #F0F6FC;
+  --ink2: #B5D2EE;
+  --ink3: #759ABE;
+  
+  --primary: #1E5086;
+  --primary-light: #2D6EBA;
+  --accent: #4EA8DE;
+  --accent-soft: #90E0EF;
+  --accent-gold: #FFB703;
+  --ok: #52B788;
+  --warn: #FB8500;
+  --risk: #E63946;
+  
+  --line: rgba(78, 168, 222, 0.25);
+  --line2: rgba(78, 168, 222, 0.12);
+  --panel: rgba(7, 16, 24, 0.75);
+  --termbg: rgba(3, 8, 14, 0.95);
+  --termink: #D0EFFF;
+  
+  --node: #4EA8DE;
+  --link: rgba(78, 168, 222, 0.32);
+  --pulse: #FFFFFF;
+  --nucleus: #1E5086;
+
+  --node-g1: #FFB703;
+  --node-g2: #4EA8DE;
+  --node-default: #90E0EF;
+  --line-rgb: 78, 168, 222;
+  --bg-glow: rgba(30, 80, 134, 0.4);
+}
+
+/* Motyw 3: Warm Care (Ciepły bursztyn, miedź, human touch) */
+[data-theme="warm"] {
+  --bg: #140E0A;
+  --bg2: #0B0705;
+  --ink: #FAF5F0;
+  --ink2: #E8D5C4;
+  --ink3: #BFA590;
+  
+  --primary: #8C4A2F;
+  --primary-light: #B46342;
+  --accent: #E08D64;
+  --accent-soft: #F5C6AA;
+  --accent-gold: #F2BA52;
+  --ok: #7EB77F;
+  --warn: #F2BA52;
+  --risk: #D9534F;
+  
+  --line: rgba(224, 141, 100, 0.25);
+  --line2: rgba(224, 141, 100, 0.12);
+  --panel: rgba(20, 14, 10, 0.75);
+  --termbg: rgba(12, 8, 5, 0.95);
+  --termink: #FFF3EB;
+  
+  --node: #E08D64;
+  --link: rgba(224, 141, 100, 0.32);
+  --pulse: #FFF7ED;
+  --nucleus: #8C4A2F;
+
+  --node-g1: #F2BA52;
+  --node-g2: #E08D64;
+  --node-default: #F5C6AA;
+  --line-rgb: 224, 141, 100;
+  --bg-glow: rgba(140, 74, 47, 0.35);
+}
+
+/* Motyw 4: Midnight Tech (Głębokie indygo i neon cyjan) */
+[data-theme="midnight"] {
+  --bg: #0A0D18;
+  --bg2: #05070E;
+  --ink: #F4F6FB;
+  --ink2: #CAD4F5;
+  --ink3: #8897CA;
+  
+  --primary: #4338CA;
+  --primary-light: #6366F1;
+  --accent: #38BDF8;
+  --accent-soft: #7DD3FC;
+  --accent-gold: #FBBF24;
+  --ok: #34D399;
+  --warn: #F59E0B;
+  --risk: #F87171;
+  
+  --line: rgba(56, 189, 248, 0.25);
+  --line2: rgba(56, 189, 248, 0.12);
+  --panel: rgba(10, 13, 24, 0.75);
+  --termbg: rgba(5, 7, 14, 0.95);
+  --termink: #E0F2FE;
+  
+  --node: #38BDF8;
+  --link: rgba(56, 189, 248, 0.32);
+  --pulse: #FFFFFF;
+  --nucleus: #4338CA;
+
+  --node-g1: #FBBF24;
+  --node-g2: #38BDF8;
+  --node-default: #7DD3FC;
+  --line-rgb: 56, 189, 248;
+  --bg-glow: rgba(67, 56, 202, 0.4);
 }
 
 * { box-sizing: border-box; }
@@ -44,6 +156,7 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Tło canvas z węzłami */
@@ -61,16 +174,18 @@ canvas#org {
   z-index: 0;
   pointer-events: none;
   background-image: 
-    linear-gradient(rgba(127, 188, 168, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(127, 188, 168, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(var(--line-rgb), 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--line-rgb), 0.05) 1px, transparent 1px);
   background-size: 48px 48px;
+  transition: background-image 0.4s ease;
 }
 
 .bgfx::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(65% 55% at 50% 45%, rgba(47, 111, 94, 0.35), transparent 75%);
+  background: radial-gradient(65% 55% at 50% 45%, var(--bg-glow), transparent 75%);
+  transition: background 0.4s ease;
 }
 
 /* Pasek postępu na samej górze */

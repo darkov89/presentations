@@ -127,6 +127,10 @@
       case 'F':
         toggleFullscreen();
         break;
+      case 'm':
+      case 'M':
+        cycleTheme();
+        break;
       case 'Escape':
         if (notesDrawer && notesDrawer.classList.contains('open')) {
           toggleNotes(false);
@@ -192,7 +196,50 @@
       if (document.exitFullscreen) document.exitFullscreen();
     }
   }
-  if (btnFs) btnFs.addEventListener('click', toggleFullscreen);
+  // 8.5. Dynamiczny Silnik Motywów (Theme Engine)
+  const themes = ['default', 'clinical', 'warm', 'midnight'];
+  const themeNames = {
+    'default': 'Szałwia',
+    'clinical': 'Clinical Blue',
+    'warm': 'Warm Care',
+    'midnight': 'Midnight Tech'
+  };
+  let currentThemeIdx = 0;
+  const btnTheme = document.getElementById('btn-theme');
+
+  let colorNode1 = '#E2C285';
+  let colorNode2 = '#7FBCA8';
+  let colorNodeDefault = '#A7E8D4';
+  let lineRgb = '127, 188, 168';
+
+  function updateThemeColors() {
+    const cs = getComputedStyle(document.documentElement);
+    colorNode1 = cs.getPropertyValue('--node-g1').trim() || '#E2C285';
+    colorNode2 = cs.getPropertyValue('--node-g2').trim() || '#7FBCA8';
+    colorNodeDefault = cs.getPropertyValue('--node-default').trim() || '#A7E8D4';
+    lineRgb = cs.getPropertyValue('--line-rgb').trim() || '127, 188, 168';
+  }
+
+  function applyTheme(idx) {
+    currentThemeIdx = (idx + themes.length) % themes.length;
+    const t = themes[currentThemeIdx];
+    if (t === 'default') {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', t);
+    }
+    if (btnTheme) {
+      btnTheme.textContent = `Motyw: ${themeNames[t]} [M]`;
+    }
+    updateThemeColors();
+  }
+
+  function cycleTheme() {
+    applyTheme(currentThemeIdx + 1);
+  }
+
+  if (btnTheme) btnTheme.addEventListener('click', cycleTheme);
+  updateThemeColors();
 
   // Inicjalizacja pierwszego slajdu
   updateState(0);
@@ -364,7 +411,7 @@
       cx.beginPath();
       cx.moveTo(n1.x, n1.y);
       cx.lineTo(n2.x, n2.y);
-      cx.strokeStyle = `rgba(127, 188, 168, ${alpha * 0.4})`;
+      cx.strokeStyle = `rgba(${lineRgb}, ${alpha * 0.4})`;
       cx.lineWidth = 1;
       cx.stroke();
     }
@@ -382,13 +429,13 @@
 
       cx.beginPath();
       cx.arc(n.x, n.y, rad, 0, 6.28);
-      // Kolor węzła zależny od grupy
+      // Kolor węzła zależny od grupy i dynamicznego motywu
       if (n.g === 1) {
-        cx.fillStyle = '#E2C285'; // Personel (złoty)
+        cx.fillStyle = colorNode1;
       } else if (n.g === 2) {
-        cx.fillStyle = '#7FBCA8'; // Rodziny (szałwia)
+        cx.fillStyle = colorNode2;
       } else {
-        cx.fillStyle = '#A7E8D4'; // Neutralne
+        cx.fillStyle = colorNodeDefault;
       }
       cx.fill();
     }
