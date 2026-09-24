@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presentations Hub · Dariusz Olszewski</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #091512;
+      --surface: #0e1e1a;
+      --surface-border: rgba(127, 188, 168, 0.18);
+      --surface-hover: #142923;
+      --sage: #2F6F5E;
+      --mint: #7FBCA8;
+      --mint-glow: #A7E8D4;
+      --cream: #FBFAF8;
+      --muted: #8FA69F;
+      --font-display: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--cream);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(rgba(127, 188, 168, 0.08) 1px, transparent 1px),
+        radial-gradient(rgba(47, 111, 94, 0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(47, 111, 94, 0.25) 0%, rgba(9, 21, 18, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      background: rgba(9, 21, 18, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: var(--cream);
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #000;
+      border: 1px solid var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(127, 188, 168, 0.2);
+    }
+
+    .brand-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: #fff;
+      transform: translateX(1px);
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-name span {
+      color: var(--mint);
+    }
+
+    .sys-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--mint);
+      background: rgba(47, 111, 94, 0.2);
+      border: 1px solid rgba(127, 188, 168, 0.3);
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sys-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--mint-glow);
+      box-shadow: 0 0 8px var(--mint-glow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--mint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--mint);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 640px;
+      line-height: 1.6;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--surface-border);
+    }
+
+    .decks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+    }
+
+    .deck-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+    }
+
+    .deck-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sage), var(--mint));
+      opacity: 0.6;
+      transition: opacity 0.25s;
+    }
+
+    .deck-card:hover {
+      background: var(--surface-hover);
+      border-color: rgba(127, 188, 168, 0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(127, 188, 168, 0.08);
+    }
+
+    .deck-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-mint {
+      background: rgba(127, 188, 168, 0.15);
+      color: var(--mint-glow);
+      border: 1px solid rgba(127, 188, 168, 0.25);
+    }
+
+    .tag-sage {
+      background: rgba(47, 111, 94, 0.2);
+      color: var(--mint);
+      border: 1px solid rgba(47, 111, 94, 0.3);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 2rem;
+      flex: 1;
+    }
+
+    .card-meta {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--mint-glow);
+      font-weight: 600;
+      transition: gap 0.2s;
+    }
+
+    .deck-card:hover .btn-launch {
+      gap: 0.65rem;
+      color: #fff;
+    }
+
+    /* Template / Add Card */
+    .card-new {
+      border-style: dashed;
+      background: rgba(14, 30, 26, 0.4);
+    }
+
+    .card-new::before {
+      display: none;
+    }
+
+    .card-new:hover {
+      border-color: var(--mint);
+      background: rgba(14, 30, 26, 0.8);
+    }
+
+    footer {
+      border-top: 1px solid var(--surface-border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: rgba(9, 21, 18, 0.7);
+    }
+
+    footer a {
+      color: var(--mint);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div class="brand-name">presentations<span>.deck</span></div>
+      </a>
+      <div class="sys-badge">Netlify Connected · Ready</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="hero-eyebrow">// Centralny Katalog Prezentacji</span>
+      <h1>Interaktywne <em>Prezentacje</em> & Pitch Decki</h1>
+      <p>
+        Wszystkie prezentacje internetowe, pitch decki inwestorskie oraz oferty pilotażowe zgromadzone w jednym miejscu. Każdy deck działa z wbudowanym HUD-em, notatkami prelegenta oraz stoperem.
+      </p>
+    </section>
+
+    <div class="section-title">Dostępne Prezentacje</div>
+
+    <div class="decks-grid">
+      <!-- DECK 1: SILVER CARE -->
+      <a href="./silver-care/" class="deck-card">
+        <div>
+          <div class="card-tags">
+            <span class="tag tag-mint">Pilotaż B2B</span>
+            <span class="tag tag-sage">14 Slajdów</span>
+            <span class="tag tag-sage">MDR Compliant</span>
+          </div>
+          <div class="card-title">Silver Care · Blueprint Deck</div>
+          <div class="card-desc">
+            Prezentacja pilotażowa dla domów seniora. Oferta partnerska: spokój dla rodzin podopiecznych i automatyzacja raportowania dla personelu opiekuńczego.
+          </div>
+        </div>
+        <div class="card-meta">
+          <span>~20 min · 14 slajdów</span>
+          <span class="btn-launch">Otwórz deck →</span>
+        </div>
+      </a>
+
+      <!-- NEW DECK HELPER -->
+      <div class="deck-card card-new">
+        <div>
+          <div class="card-tags">
+            <span class="tag tag-sage">+ Nowa Prezentacja</span>
+          </div>
+          <div class="card-title">Dodaj kolejną prezentację</div>
+          <div class="card-desc">
+            Wystarczy utworzyć nowy folder w projekcie (np. <code>/nowy-projekt/</code>) z plikami <code>index.html</code>, <code>deck.css</code> i <code>deck.js</code>, a następnie dodać kafelek w tym pliku.
+          </div>
+        </div>
+        <div class="card-meta">
+          <span>Szablon gotowy</span>
+          <span style="color: var(--mint);">Gotowe do rozbudowy</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Presentations Engine · Powered by Netlify &amp; GitHub · Dariusz Olszewski Rink</p>
+  </footer>
+
+</body>
+</html>

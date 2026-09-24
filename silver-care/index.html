@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Silver Care · Program Pilotażowy</title>
+  
+  <!-- Fonty: Inter, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+  <!-- Tło animowane canvas i siatka blueprint -->
+  <div class="bgfx"></div>
+  <canvas id="org"></canvas>
+
+  <!-- Pasek postępu na samej górze -->
+  <div id="bar"></div>
+
+  <!-- Pasek HUD -->
+  <div id="hud">
+    <div class="brand">
+      <div class="sc-logo" title="Silver Care Logo">
+        <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+      </div>
+      <span>Silver Care</span>
+    </div>
+    <div class="meta">
+      <span id="num">01 / 14</span>
+      <span id="clock" title="Kliknij lub naciśnij T, aby włączyć/zatrzymać stoper. R zeruje.">00:00</span>
+      <div class="tools">
+        <a href="../" class="hud-btn" style="text-decoration:none;display:inline-flex;align-items:center;" title="Wróć do katalogu prezentacji">← Hub</a>
+        <button id="btn-notes" class="hud-btn" title="Notatki prelegenta (N)">Notatki [N]</button>
+        <button id="btn-fs" class="hud-btn" title="Pełny ekran (F)">Pełny ekran [F]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kropki nawigacyjne po prawej stronie -->
+  <nav id="dots"></nav>
+
+  <!-- Pasek pomocy na dole -->
+  <div id="help">↓ / spacja dalej · N notatki · T stoper · F pełny ekran</div>
+
+  <!-- Główny kontener prezentacji -->
+  <main id="deck">
+
+    <!-- 01 · OKŁADKA -->
+    <section class="card" data-form="network" data-t="Okładka">
+      <div class="inner">
+        <div class="eyebrow">Program Pilotażowy · Oferta Partnerska</div>
+        <h1>Silver <em>Care</em></h1>
+        <p class="lede">
+          Nowy standard komunikacji w opiece senioralnej.<br>
+          <strong>Święty spokój dla rodzin. Cenne godziny dla personelu.</strong>
+        </p>
+        <div style="margin-top: 2rem;">
+          <a href="#deck" onclick="document.querySelectorAll('.card')[1].scrollIntoView({behavior:'smooth'}); return false;" class="btn-cta">
+            Poznaj założenia pilotażu →
+          </a>
+        </div>
+        <p class="byline">Dariusz Olszewski-Rink · Łukasz Romanowicz · Michał Sznurowski</p>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>0:00 · Otwarcie</b>
+        <p>„Dzień dobry. Nazywamy się Silver Care. Przez najbliższe 15 minut pokażemy Państwu, w jaki sposób zdejmujemy z personelu ciężar telefonów od rodzin, oddajemy im czas na opiekę i jak możecie jako pierwsi w Polsce przetestować ten system w swojej placówce zupełnie bezkosztowo.”</p>
+      </aside>
+    </section>
+
+    <!-- 02 · PROBLEM -->
+    <section class="card" data-form="split" data-side="right" data-t="Problem">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Wyzwanie branży · Dwa bieguny</div>
+        <h2>W domach seniora codziennie trwa <em>cicha, niewidoczna walka</em>.</h2>
+        <div class="grid2">
+          <div class="block">
+            <h3>Biegun 1 · Personel opiekuńczy</h3>
+            <div class="big">Przeciążenie</div>
+            <p>Niedostateczna liczebność, walka z czasem, gaszenie pożarów, żmudna administracja i dziesiątki odbieranych telefonów zamiast realnego czasu przy mieszkańcu.</p>
+          </div>
+          <div class="block">
+            <h3>Biegun 2 · Rodziny mieszkańców</h3>
+            <div class="big">Niepokój</div>
+            <p>Poczucie winy i brak wiedzy, co dzieje się z bliskim. Dzwonią z lęku, lub nie dzwonią ze wstydu. Brak systematycznego kontaktu rodzi stres i pretensje.</p>
+          </div>
+        </div>
+        <div class="means">
+          <p>To nie jest wina ludzi ani placówki. To <strong>strukturalna bolączka</strong> opieki długoterminowej: personel nie ma narzędzi do szybkiej, proaktywnej komunikacji.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>1:30 · Problem</b>
+        <p>„Znamy realia placówek od środka: opiekunowie chcą opiekować się mieszkańcami, a nie wisieć na słuchawce i tłumaczyć po raz setny, czy mama zjadła obiad. Rodziny z kolei dzwonią nie ze złośliwości, tylko z samotności i lęku. Silver Care zasypuje tę przepaść.”</p>
+      </aside>
+    </section>
+
+    <!-- 03 · BADANIA POTRZEB -->
+    <section class="card" data-form="network" data-side="right" data-t="Badania potrzeb">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Wnioski z badań · Partner badawczy Marconi</div>
+        <h2>Rodziny nie oczekują medycznych raportów. <em>Chcą prostych faktów.</em></h2>
+        <p class="lede">Wczesne badania jakościowe i ankiety przeprowadzone wśród rodzin podopiecznych (w tym w Domu Seniora Marconi) ujawniły klarowny wzorzec:</p>
+        <div class="grid4">
+          <div class="block">
+            <h3>Potrzeba 01</h3>
+            <div class="big">90%</div>
+            <p>Kontakt dotyczy wyłącznie podstawowego samopoczucia i humoru bliskiej osoby.</p>
+          </div>
+          <div class="block">
+            <h3>Potrzeba 02</h3>
+            <div class="big">Sen i Dieta</div>
+            <p>Najczęściej zadawane pytania: czy przespał noc, czy zjadł posiłek, ile wypił wody.</p>
+          </div>
+          <div class="block">
+            <h3>Potrzeba 03</h3>
+            <div class="big">Krótka forma</div>
+            <p>Preferowany kanał to krótka, zwięzła informacja w telefonie zamiast długich rozmów.</p>
+          </div>
+          <div class="block gold">
+            <h3>Źródło stresu</h3>
+            <div class="big">Cisza</div>
+            <p>Największym generatorem pretensji jest brak systematyczności, a nie brak personelu.</p>
+          </div>
+        </div>
+        <div class="means">
+          <p>To nie jest problem braku technologii. <strong>To problem braku spokoju.</strong></p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>3:00 · Badania Marconi</b>
+        <p>„Zamiast zgadywać zza biurka, zapytaliśmy rodziny w Domu Seniora Marconi. Okazało się, że bliscy nie potrzebują wykresów EKG ani żargonu pielęgniarskiego. Chcą jednego zdania: 'Tata zjadł obiad, uciął sobie drzemkę i spacerował w ogrodzie'. Tylko tyle i aż tyle.”</p>
+      </aside>
+    </section>
+
+    <!-- 04 · ROZWIĄZANIE -->
+    <section class="card" data-form="shield" data-side="right" data-t="Rozwiązanie">
+      <div class="inner two">
+        <div>
+          <div class="veil"></div>
+          <div class="eyebrow">Rozwiązanie · Pakiet Spokoju</div>
+          <h2>Silver Care: <em>Empatyczna warstwa komunikacji</em> dla placówki.</h2>
+          <p class="lede">Dajemy personelowi narzędzie do natychmiastowego raportowania głosem, a rodzinom dostarczamy regularny, ciepły obraz dnia ich bliskiego.</p>
+          <div class="stack">
+            <div class="layer">
+              <b>GŁOS</b>
+              <span><strong>Mówisz zamiast pisać.</strong> Opiekun dyktuje krótką notatkę w 30 sekund na telefonie lub tablecie, bez odrywania się od pracy.</span>
+            </div>
+            <div class="layer">
+              <b>AI</b>
+              <span><strong>Tłumacz żargonu na empatię.</strong> Model AI z Guardrails przekłada surowy wsad w ciepły, zrozumiały raport dla bliskich (<em>Peace Letter</em>).</span>
+            </div>
+            <div class="layer">
+              <b>NON-MDR</b>
+              <span><strong>Świadomy status Non-MDR Device.</strong> Brak funkcji diagnostycznych – pełna lekkość prawna i zero certyfikacyjnych przestojów.</span>
+            </div>
+            <div class="layer">
+              <b>BEZ KAMER</b>
+              <span><strong>100% poszanowania intymności.</strong> Zero monitoringu wideo. Pełna akceptacja podopiecznych, personelu i związków.</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="block gold">
+            <h3>Ścisła separacja danych</h3>
+            <div class="big">Tarcza Bezpieczeństwa</div>
+            <p style="margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55;">
+              W portalu rodziny bliscy widzą <strong>wyłącznie metryki behawioralne</strong> (kroki, orientacyjny czas aktywności, długość snu).<br><br>
+              Wszystkie uwagi medyczne są <strong>automatycznie odcinane PRZED wysyłką do AI</strong> i trafiają wyłącznie do wewnętrznego brudnopisu personelu.
+            </p>
+            <span class="tag">RODO Art. 9 Compliant</span>
+          </div>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>4:30 · Rozwiązanie</b>
+        <p>„Zbudowaliśmy system wokół głosu, bo opiekun w domu opieki nie ma czasu na pisanie na klawiaturze. I co kluczowe: świadomie nie jesteśmy wyrobem medycznym. Nie stawiamy kamer w pokojach. Chronimy godność seniora i spokój dyrekcji.”</p>
+      </aside>
+    </section>
+
+    <!-- 05 · EKOSYSTEM MODUŁÓW -->
+    <section class="card" data-form="hub" data-t="Moduły">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Ekosystem Produktu · Kompleksowe wsparcie placówki</div>
+        <h2>Wszystkie narzędzia codziennego życia <em>w jednym panelu</em>.</h2>
+        <div class="grid3">
+          <div class="block">
+            <h3>01 · Obłożenie i Pokoje</h3>
+            <div class="big">Facility & Bed</div>
+            <p>Rejestr pięter, sektorów, pokoi i łóżek. Automatyczny wskaźnik obłożenia placówki dla dyrekcji i historia pobytów.</p>
+          </div>
+          <div class="block">
+            <h3>02 · Harmonogram</h3>
+            <div class="big">Agenda Dnia</div>
+            <p>Plan posiłków, rehabilitacji, aktywności i wizyt. Widoczny w planie dyżuru opiekuna oraz wybiórczo w portalu rodziny.</p>
+          </div>
+          <div class="block">
+            <h3>03 · Bezpieczny Czat</h3>
+            <div class="big">Family Messages</div>
+            <p>Dwukierunkowa skrzynka wiadomości między bliskimi a dyrekcją i personelem. Koniec z gubiącymi się karteczkami.</p>
+          </div>
+          <div class="block">
+            <h3>04 · Przyjęcia</h3>
+            <div class="big">Admission Wizard</div>
+            <p>Błyskawiczny kreator wprowadzania nowego mieszkańca oraz masowy import/eksport profili podopiecznych.</p>
+          </div>
+          <div class="block">
+            <h3>05 · Kilku podopiecznych</h3>
+            <div class="big">Multi-Resident</div>
+            <p>Wygodne przełączanie profilu seniora dla rodzin posiadających więcej niż jednego krewnego w placówce.</p>
+          </div>
+          <div class="block">
+            <h3>06 · Bezpieczna Galeria</h3>
+            <div class="big">Resident Media</div>
+            <p>Szyfrowane przechowywanie i udostępnianie zdjęć oraz pamiątek z życia placówki z pełną zgodą wizerunkową.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>6:00 · Ekosystem</b>
+        <p>„Silver Care to nie tylko aplikacja do wiadomości. To kompletny panel ułatwiający zarządzanie pokojami, przyjęciami mieszkańców, agendą dnia oraz bezpieczną galerią zdjęć. Wszystko zintegrowane w jednym, przejrzystym systemie.”</p>
+      </aside>
+    </section>
+
+    <!-- 06 · PRZEPUSTKA DO DEMO -->
+    <section class="card" data-form="streams" data-t="Zapowiedź Demo">
+      <div class="inner" style="text-align: center; max-width: 820px; margin: 0 auto;">
+        <div class="veil"></div>
+        <div class="eyebrow" style="justify-content: center;">Dowód działania · Na żywo</div>
+        <h1 style="font-size: clamp(2.5rem, 5.5vw, 4.5rem);">Zobaczmy to <em>w praktyce</em>.</h1>
+        <p class="lede" style="margin: 1.5rem auto; max-width: 48ch;">
+          Przejdźmy teraz do 90-sekundowego pokazu na żywo: od podyktowania notatki na korytarzu, przez filtr bezpieczeństwa AI, aż po ekran telefonu rodziny.
+        </p>
+        <div class="stat-strip" style="justify-content: center; gap: 3rem;">
+          <div><b>Krok 1</b><span>Panel Dyrektora</span></div>
+          <div><b>Krok 2</b><span>Mobilne PWA Offline</span></div>
+          <div><b>Krok 3</b><span>Filtr AI & Peace Letter</span></div>
+          <div><b>Krok 4</b><span>Portal Bliskich</span></div>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>7:30 · Zapowiedź Demo</b>
+        <p>„W tym momencie przełączamy się na żywy ekran systemu. Pokażę Państwu dokładnie 4 kroki: od panelu dyrektora, przez dyktowanie głosem na telefonie bez internetu, aż po gotowy list dla córki seniora.”</p>
+      </aside>
+    </section>
+
+    <!-- 07 · DEMO WIZUALIZACJA / POTOK -->
+    <section class="card" data-form="streams" data-side="right" data-t="Potok Demo">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Architektura przepływu · Live Demo</div>
+        <h2>Jak technologia <em>chroni placówkę</em> w czasie rzeczywistym.</h2>
+        <div class="grid2">
+          <!-- Terminal 1: Głos i separacja -->
+          <div class="term">
+            <div class="bar"><i></i><i></i><i></i><em>Krok 2 & 3 · Potok Głosu i Bezpieczeństwa</em></div>
+            <div><span class="p">❯</span> PWA: Opiekun dyktuje notatkę (offline-first)</div>
+            <div class="dim">resident_id: RES-8491 (Pan Jan K.) · brak nazwiska w audio</div>
+            <div><span class="ok">✔</span> Transkrypcja: Groq Whisper EU (Zero-Data Retention)</div>
+            <div class="cut"><span class="no">✖ STRUMIEŃ MEDYCZNY ODCIĘTY PRZED AI</span><br>„Podano lek nasercowy 10mg, zgłaszał lekki ból w klatce” → Zapisano do wewnętrznego brudnopisu personelu.</div>
+            <div><span class="ok">✔</span> Strumień BEHAVIORAL + DISCOMFORT przekazany do LLM EU</div>
+            <div class="dim">Guardrails: weryfikacja pod kątem braku halucynacji i tonu empatii</div>
+            <div><span class="ok">✔</span> Raport <em>Peace Letter</em> wygenerowany w 4.2 sekundy</div>
+          </div>
+
+          <!-- Terminal 2: Wyjście dla rodziny -->
+          <div class="term">
+            <div class="bar"><i></i><i></i><i></i><em>Krok 4 · Widok w Portalu Rodziny</em></div>
+            <div><span class="p">❯</span> Wiadomość dla córki (SMS / Portal Rodziny):</div>
+            <div style="background: rgba(47, 111, 94, 0.25); border-left: 3px solid var(--accent); padding: 0.6rem 0.8rem; margin: 0.6rem 0; border-radius: 2px;">
+              „Dzień dobry! Pan Jan miał dziś spokojny, pogodny dzień. Z apetytem zjadł obiad w towarzystwie sąsiadów, a po południu uczestniczył w zajęciach plastycznych. Przesyłamy serdeczne pozdrowienia z placówki.”
+            </div>
+            <div><span class="ok">✔</span> Metryki behawioralne: Kroki (1 850), Czas aktywności (2.5h), Sen (7.5h)</div>
+            <div class="dim">Status: Dostarczono natychmiast · Zero niepokojącego żargonu</div>
+          </div>
+        </div>
+        <div class="means">
+          <p>Model AI <strong>nigdy nie ustala tożsamości z głosu</strong>. Identyfikator pochodzi z interfejsu PWA, a dane kliniczne nigdy nie opuszczają bezpiecznego serwera placówki.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>9:00 · Omówienie mechaniki Demo</b>
+        <p>„Zwróćcie Państwo uwagę na czerwoną ramkę w terminalu: słowa o podaniu leku zostały wycięte ZANIM notatka dotarła do sztucznej inteligencji. Córka pana Jana dostaje ciepłą informację o spacerze i obiedzie, a pielęgniarka ma w systemie odnotowany fakt medyczny. Pełne bezpieczeństwo prawne.”</p>
+      </aside>
+    </section>
+
+    <!-- 08 · BEZPIECZEŃSTWO I RODO -->
+    <section class="card" data-form="shield" data-side="right" data-t="Bezpieczeństwo">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Zgodność regulacyjna · Privacy by Design</div>
+        <h2>Najwyższy reżim prawny: <em>RODO Art. 9 i NIS2</em> od pierwszego dnia.</h2>
+        <div class="grid3">
+          <div class="block">
+            <h3>Ścisłe Role Prawne</h3>
+            <div class="big">Zgody Art. 9</div>
+            <p>Rozróżnienie ról: <code>legal_guardian</code> vs <code>family</code>. Zwykły członek rodziny nie może decydować o zgodach ani wglądzie w dane wrażliwe.</p>
+          </div>
+          <div class="block">
+            <h3>Niezmienialny Rejestr</h3>
+            <div class="big">Audit Logs</div>
+            <p>Każde odtworzenie notatki i zmiana statusu mieszkańca trafia do audytowalnego, niezmienialnego rejestru <code>consent_ledger</code>.</p>
+          </div>
+          <div class="block">
+            <h3>Szyfrowanie Step-Up</h3>
+            <div class="big">PESEL Hash</div>
+            <p>Dane identyfikacyjne są haszowane. Odsłonięcie numeru PESEL wymaga ponownej autoryzacji biometrycznej/hasłem (Step-Up).</p>
+          </div>
+        </div>
+        <div class="means">
+          <p>Infrastruktura w <strong>100% zlokalizowana w Unii Europejskiej</strong> (Frankfurt / Sztokholm) z politykami Row Level Security (RLS), uniemożliwiającymi wyciek danych między ośrodkami.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>10:30 · Bezpieczeństwo i RODO</b>
+        <p>„Domy opieki boją się kontroli UODO. My zdejmujemy ten strach. System rozróżnia opiekuna prawnego od dalszych krewnych, szyfruje numery PESEL, a cała baza leży na zabezpieczonych serwerach w Niemczech i Szwecji, spełniając unijne dyrektywy NIS2.”</p>
+      </aside>
+    </section>
+
+    <!-- 09 · ZAŁOŻENIA I KORZYŚCI PILOTAŻU -->
+    <section class="card" data-form="network" data-side="right" data-t="Cele Pilotażu">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Założenia Operacyjne · Cele do walidacji</div>
+        <h2>Projektowane korzyści dla <em>Państwa placówki</em>.</h2>
+        <p class="lede">Celem Programu Pilotażowego jest zmierzenie i potwierdzenie w realnych warunkach następujących wskaźników efektywności:</p>
+        <div class="stat-strip">
+          <div>
+            <b>~50-60%</b>
+            <span>Spadek powtarzalnych telefonów</span>
+          </div>
+          <div>
+            <b>1-2 godz.</b>
+            <span>Zaoszczędzonego czasu dziennie</span>
+          </div>
+          <div>
+            <b>14 dni</b>
+            <span>Czas wdrożenia bez IT</span>
+          </div>
+          <div>
+            <b>0 PLN</b>
+            <span>Koszt licencji w pilotażu</span>
+          </div>
+        </div>
+        <div class="grid3" style="margin-top: 1.4rem;">
+          <div class="block">
+            <h3>Dla Opiekunów</h3>
+            <p>Znikają dziesiątki papierowych raportów. Notatka nagrana głosem podczas przechodzenia między pokojami.</p>
+          </div>
+          <div class="block">
+            <h3>Dla Dyrekcji</h3>
+            <p>Cisza na recepcji, mniej pretensji od rodzin, stały wgląd w obłożenie placówki i nowoczesny wizerunek.</p>
+          </div>
+          <div class="block gold">
+            <h3>Dla Rodzin</h3>
+            <p>Koniec z nerwowym wyczekiwaniem na telefon. Poczucie, że ich bliski jest pod troskliwą, transparentną opieką.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>12:00 · Cele Pilotażu</b>
+        <p>„Nie obiecujemy cudów z folderu reklamowego. Mówimy o konkretnych celach, które chcemy wspólnie z Państwem zmierzyć: redukcja telefonów o ponad połowę i zwrot 1-2 godzin dziennie dla personelu. Udział w pilotażu nie kosztuje Państwa ani złotówki.”</p>
+      </aside>
+    </section>
+
+    <!-- 10 · RYNEK I MEGATREND -->
+    <section class="card" data-form="network" data-side="right" data-t="Rynek">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Skala i Demografia · Silver Economy</div>
+        <h2>Starzenie się społeczeństwa to <em>najsilniejszy megatrend</em> dekady.</h2>
+        <div class="grid3">
+          <div class="block">
+            <h3>Populacja 75+ w Polsce</h3>
+            <div class="big">4.6 mln</div>
+            <p>Do 2040 roku liczba osób 75+ wzrośnie z 3 mln do 4.6 mln, generując deficyt 124 tys. miejsc w opiece.</p>
+          </div>
+          <div class="block">
+            <h3>Brakujący Personel</h3>
+            <div class="big">-140 tys.</div>
+            <p>Szacowany deficyt pielęgniarek i opiekunów w Polsce. Automatyzacja komunikacji staje się koniecznością.</p>
+          </div>
+          <div class="block">
+            <h3>Rynek Adresowalny</h3>
+            <div class="big">>2300</div>
+            <p>Placówek całodobowej opieki w Polsce (DPS i sektor prywatny), opiekujących się ponad 128 tys. mieszkańców.</p>
+          </div>
+        </div>
+        <div class="means">
+          <p>Ośrodki, które jako pierwsze wdrożą transparentną komunikację z rodziną, zyskają <strong>decydującą przewagę w pozyskiwaniu mieszkańców</strong> i budowaniu zaufania.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>13:30 · Rynek</b>
+        <p>„Wszyscy widzimy, co dzieje się na rynku pracy: pielęgniarek i opiekunów dramatycznie brakuje. Jednocześnie rosną wymagania nowego pokolenia rodzin, które oczekują standardu komunikacji rodem z nowoczesnych aplikacji. Silver Care rozwiązuje oba te problemy naraz.”</p>
+      </aside>
+    </section>
+
+    <!-- 11 · ZESPÓŁ -->
+    <section class="card" data-form="hub" data-side="right" data-t="Zespół">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Twórcy projektu · Doświadczenie i Zaufanie</div>
+        <h2>Ludzie stojący za <em>Silver Care</em>.</h2>
+        <div class="grid3">
+          <div class="block">
+            <h3>Dariusz Olszewski-Rink</h3>
+            <div class="big">Operacje & Compliance</div>
+            <p>Wieloletnie doświadczenie korporacyjne w zarządzaniu procesami, audytami, bezpieczeństwem danych i automatyzacją operacji na dużą skalę.</p>
+          </div>
+          <div class="block">
+            <h3>Łukasz Romanowicz</h3>
+            <div class="big">Finanse & Rynek Senioralny</div>
+            <p>Doświadczony dyrektor finansowy. Głębokie, codzienne zrozumienie realiów placówek opiekuńczych dzięki współpracy z Domem Seniora Marconi.</p>
+          </div>
+          <div class="block">
+            <h3>Michał Sznurowski</h3>
+            <div class="big">Produkt & Big Data</div>
+            <p>Projektowanie i wdrażanie skomplikowanych systemów rozproszonych, podejście Agile, suwerenność technologiczna i intuicyjny UX dla personelu.</p>
+          </div>
+        </div>
+        <div class="means">
+          <p><strong>Nasza przewaga:</strong> Nie budujemy oprogramowania z zewnątrz. Tworzymy je ramię w ramię z personelem opiekuńczym i zarządami polskich placówek senioralnych.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>15:00 · Zespół</b>
+        <p>„Jesteśmy zespołem łączącym twarde doświadczenie operacyjne, znajomość finansów i technologię na najwyższym poziomie. Co najważniejsze: znamy specyfikę domu opieki od podszewki i nie uczymy się branży na Państwa placówce.”</p>
+      </aside>
+    </section>
+
+    <!-- 12 · OFERTA PROGRAMU PILOTAŻOWEGO -->
+    <section class="card" data-form="shield" data-side="right" data-t="Oferta Pilotażu">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Zostań Placówką Partnerską · Bez Ryzyka</div>
+        <h2>Co zyskuje Państwa placówka w <em>Programie Pilotażowym</em>?</h2>
+        <div class="grid2">
+          <div class="block gold">
+            <h3>01 · Zerowy Koszt Licencji</h3>
+            <div class="big">0 PLN</div>
+            <p>Pełny dostęp do platformy Silver Care dla personelu, dyrekcji i rodzin na cały okres trwania pilotażu bez żadnych opłat abonamentowych.</p>
+          </div>
+          <div class="block">
+            <h3>02 · Dedykowane Wdrożenie</h3>
+            <div class="big">Hands-on Support</div>
+            <p>Osobiście konfigurujemy układ pokoi, wprowadzamy dane i prowadzimy proste, 30-minutowe szkolenie personelu opiekuńczego.</p>
+          </div>
+          <div class="block">
+            <h3>03 · Wpływ na Rozwój</h3>
+            <div class="big">Współtwórca</div>
+            <p>Państwa uwagi i specyficzne potrzeby będą priorytetowo uwzględniane w kolejnych wersjach i modułach systemu.</p>
+          </div>
+          <div class="block">
+            <h3>04 · Przewaga Wizerunkowa</h3>
+            <div class="big">Innowacyjny Dom</div>
+            <p>Certyfikat nowoczesnej placówki dbającej o najwyższy standard relacji z rodzinami – potężny atut w rozmowach z nowymi klientami.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>16:30 · Oferta Pilotażu</b>
+        <p>„Oferujemy Państwu status placówki partnerskiej. Dajemy pełne oprogramowanie i nasze osobiste wsparcie wdrożeniowe za 0 zł. W zamian prosimy jedynie o szczery feedback personelu i rodzin po 30 dniach testów.”</p>
+      </aside>
+    </section>
+
+    <!-- 13 · JAK ZACZĄĆ (3 KROKI) -->
+    <section class="card" data-form="network" data-side="right" data-t="Jak zacząć">
+      <div class="inner">
+        <div class="veil"></div>
+        <div class="eyebrow">Proces Wdrożenia · Prosto i bez obciążania zespołu</div>
+        <h2>Trzy proste kroki do <em>uruchomienia pilotażu</em>.</h2>
+        <div class="grid3">
+          <div class="block">
+            <h3>Krok 1 · Dziś</h3>
+            <div class="big">Rozmowa zerowa</div>
+            <p>Krótka, 20-minutowa konsultacja: określenie liczby łóżek, specyfiki oddziału i wyznaczenie 1-2 koordynatorów dyżuru.</p>
+          </div>
+          <div class="block">
+            <h3>Krok 2 · Za 7 dni</h3>
+            <div class="big">Konfiguracja</div>
+            <p>Wprowadzamy strukturę pięter i pokoi. Instalujemy lekką aplikację PWA na smartfonach personelu (bez sklepu App Store/Google Play).</p>
+          </div>
+          <div class="block gold">
+            <h3>Krok 3 · Za 14 dni</h3>
+            <div class="big">Start Pilotażu</div>
+            <p>Pierwsze notatki głosowe i pierwsze powiadomienia wysłane do rodzin. Natychmiastowa ulga na recepcji i telefonach.</p>
+          </div>
+        </div>
+        <div class="means">
+          <p><strong>Zero instalowania serwerów. Zero wymiany sprzętu.</strong> System działa w przeglądarce każdego telefonu i tabletu z dostępem do sieci.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>18:00 · Jak zacząć</b>
+        <p>„Wdrożenie nie wymaga informatyków ani kupowania serwerów. Wystarczy lista pokoi, 30 minut szkolenia i po dwóch tygodniach Państwa placówka zyskuje zupełnie nową jakość relacji z bliskimi.”</p>
+      </aside>
+    </section>
+
+    <!-- 14 · PODSUMOWANIE I CTA -->
+    <section class="card" data-form="network" data-t="Podsumowanie">
+      <div class="inner" style="text-align: center; max-width: 860px; margin: 0 auto;">
+        <div class="veil"></div>
+        <div class="eyebrow" style="justify-content: center;">Partnerstwo · Następny Krok</div>
+        <h1 style="font-size: clamp(2.8rem, 6.5vw, 5.2rem);">Zbudujmy ten standard <em>razem</em>.</h1>
+        <p class="lede" style="margin: 1.6rem auto; max-width: 52ch;">
+          Dołącz do elitarnej grupy pierwszych domów seniora w Polsce, które oddają czas opiekunom i dostarczają spokój rodzinom.
+        </p>
+        <div style="margin: 2.2rem 0;">
+          <a href="mailto:kontakt@silvercare.pl?subject=Zgłoszenie do Programu Pilotażowego Silver Care" class="btn-cta">
+            Zgłoś placówkę do Programu Pilotażowego →
+          </a>
+        </div>
+        <div class="stat-strip" style="justify-content: center; gap: 2.5rem; text-align: left; margin-top: 2.5rem;">
+          <div>
+            <b>Dariusz Olszewski-Rink</b>
+            <span>Koordynator Pilotażu</span>
+          </div>
+          <div>
+            <b>kontakt@silvercare.pl</b>
+            <span>Bezpośredni adres e-mail</span>
+          </div>
+          <div>
+            <b>Polska & Region DACH</b>
+            <span>Zasięg programu pilotażowego</span>
+          </div>
+        </div>
+        <p class="byline" style="margin-top: 2rem;">Silver Care · Empatyczna warstwa komunikacji dla domów seniora</p>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>19:30 · Zamknięcie</b>
+        <p>„Bardzo dziękujemy za uwagę. Zapraszamy do wspólnego testu w Państwa placówce. Jesteśmy do dyspozycji, aby odpowiedzieć na wszelkie pytania.”</p>
+      </aside>
+    </section>
+
+  </main>
+
+  <!-- Panel Notatek Prelegenta (Drawer wysuwany klawiszem N) -->
+  <div id="notes-drawer">
+    <div class="notes-content" id="notes-content">
+      <!-- Treść notatek dynamicznie wstrzykiwana przez deck.js -->
+    </div>
+    <button id="btn-close-notes" class="close-btn" title="Zamknij notatki [Esc]">Zamknij [Esc]</button>
+  </div>
+
+  <script src="deck.js"></script>
+</body>
+</html>
