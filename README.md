@@ -6,6 +6,14 @@ Zbudowany w oparciu o czysty HTML, CSS i JS (bez zbędnych zależności node_mod
 
 ---
 
+## 🌐 Live URLs
+
+- **Presentations Hub**: [darkov-presentations.netlify.app](https://darkov-presentations.netlify.app)
+- **Silver Care · Blueprint Deck**: [darkov-presentations.netlify.app/silver-care/](https://darkov-presentations.netlify.app/silver-care/)
+- **GitHub Repository**: [github.com/darkov89/presentations](https://github.com/darkov89/presentations)
+
+---
+
 ## 📂 Dostępne Prezentacje
 
 1. **[Silver Care · Blueprint Deck](./silver-care/)**
