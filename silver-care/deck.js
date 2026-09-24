@@ -243,6 +243,7 @@
 
   // Inicjalizacja pierwszego slajdu
   updateState(0);
+  initInteractiveWidgets();
 
   // ==========================================
   // 9. ANIMOWANY CANVAS (Blueprint Topology)
@@ -263,6 +264,17 @@
   }
   resize();
   window.addEventListener('resize', resize);
+
+  // Interakcja myszką z canvasem
+  let mouse = { x: -1000, y: -1000, active: false };
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+  });
+  window.addEventListener('mouseleave', () => {
+    mouse.active = false;
+  });
 
   for (let i = 0; i < N; i++) {
     nodes.push({
@@ -424,6 +436,18 @@
       n.x += (n.tx - n.x) * 0.06;
       n.y += (n.ty - n.y) * 0.06;
 
+      // Interakcja myszką: delikatne odpychanie cząsteczek wokół kursora
+      if (mouse.active) {
+        const dx = n.x - mouse.x;
+        const dy = n.y - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 130 && dist > 1) {
+          const force = (130 - dist) / 130;
+          n.x += (dx / dist) * force * 3.4;
+          n.y += (dy / dist) * force * 3.4;
+        }
+      }
+
       const p = Math.sin(now + n.pulse);
       const rad = Math.max(1, n.r + p * 0.6);
 
@@ -446,4 +470,325 @@
   // Uruchomienie pierwszej formacji
   window.setCanvasForm('network', 'full');
   render();
+
+  // ==========================================
+  // 10. INTERAKTYWNE WIDŻETY PREZENTACJI
+  // ==========================================
+  function initInteractiveWidgets() {
+    // 1. Przełącznik trybu placówki (Slide 02)
+    const btnStd = document.getElementById('btn-mode-std');
+    const btnSc = document.getElementById('btn-mode-sc');
+    const viewStd = document.getElementById('view-mode-std');
+    const viewSc = document.getElementById('view-mode-sc');
+
+    if (btnStd && btnSc && viewStd && viewSc) {
+      btnStd.addEventListener('click', () => {
+        btnStd.classList.add('active');
+        btnSc.classList.remove('active');
+        viewStd.style.display = 'grid';
+        viewSc.style.display = 'none';
+        if (window.setCanvasForm) window.setCanvasForm('split', 'right');
+      });
+      btnSc.addEventListener('click', () => {
+        btnSc.classList.add('active');
+        btnStd.classList.remove('active');
+        viewStd.style.display = 'none';
+        viewSc.style.display = 'grid';
+        if (window.setCanvasForm) window.setCanvasForm('network', 'right');
+      });
+    }
+
+    // 2. Próbki dyktowania i filtr Non-MDR (Slide 04)
+    const samplePills = document.querySelectorAll('.sample-pill');
+    const sampleAudioText = document.getElementById('sample-audio-text');
+    const sampleCutText = document.getElementById('sample-cut-text');
+    const sampleFamilyLetter = document.getElementById('sample-family-letter');
+    const sampleMetrics = document.getElementById('sample-metrics');
+
+    const samplesData = {
+      'sample-1': {
+        audio: '„Pan Stanisław zjadł całe śniadanie, humor dopisuje, spacerował po korytarzu. Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85.”',
+        cut: '<span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85” → Zapisano do wewnętrznego brudnopisu medycznego placówki.',
+        letter: '„Dzień dobry! Pan Stanisław miał dziś wspaniały poranek. Z dużym apetytem zjadł całe śniadanie i z uśmiechem spacerował po oddziale, rozmawiając z personelem. Przesyłamy ciepłe pozdrowienia z placówki!”',
+        metrics: 'Kroki: 1 240 · Aktywność: 1.5h · Posiłek: 100% · Humor: Pogodny'
+      },
+      'sample-2': {
+        audio: '„Pani Helena uczestniczyła w zajęciach plastycznych, zrobiła piękny bukiet z papieru. Skarżyła się na lekki ból kolana przy zmianie pogody, posmarowałam maścią rozgrzewającą.”',
+        cut: '<span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Skarżyła się na lekki ból kolana (...), posmarowałam maścią rozgrzewającą” → Przekazano do pielęgniarki dyżurnej.',
+        letter: '„Dzień dobry! Pani Helena spędziła dziś twórcze popołudnie na warsztatach plastycznych – stworzyła piękny papierowy bukiet, który ozdobił jej stolik. Cieszyła się ze wspólnej herbaty z sąsiadkami.”',
+        metrics: 'Kroki: 980 · Warsztaty: 45 min · Sen nocny: 8h · Humor: Radosna'
+      },
+      'sample-3': {
+        audio: '„Pan Jan wypił 1.5 litra wody, po obiedzie uciął sobie regenerującą drzemkę. Zmiana opatrunku na przedramieniu wykonana czysto bez zaczerwienień.”',
+        cut: '<span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Zmiana opatrunku na przedramieniu (...) bez zaczerwienień” → Zapisano do karty zabiegowej placówki.',
+        letter: '„Dzień dobry! Pan Jan miał dziś bardzo spokojny i zrelaksowany dzień. Z apetytem zjadł obiad, dbał o nawodnienie i wypoczął podczas popołudniowej drzemki. Wszystko w najlepszym porządku!”',
+        metrics: 'Nawodnienie: 1.5 L · Drzemka: 45 min · Posiłek: 100% · Spokój: Wysoki'
+      }
+    };
+
+    samplePills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        samplePills.forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        const key = pill.getAttribute('data-sample');
+        const d = samplesData[key];
+        if (d && sampleAudioText && sampleCutText && sampleFamilyLetter) {
+          sampleAudioText.textContent = d.audio;
+          sampleCutText.innerHTML = d.cut;
+          sampleFamilyLetter.textContent = d.letter;
+          if (sampleMetrics) sampleMetrics.textContent = d.metrics;
+        }
+      });
+    });
+
+    // 3. Eksplorator Modułów (Slide 05)
+    const moduleItems = document.querySelectorAll('.module-nav-item');
+    const modTitle = document.getElementById('mod-preview-title');
+    const modDesc = document.getElementById('mod-preview-desc');
+    const modUi = document.getElementById('mod-preview-ui');
+
+    const modulesData = {
+      'bed': {
+        title: '01 · Obłożenie i Pokoje (Facility & Bed)',
+        desc: 'Interaktywny rejestr sektorów, pokoi i łóżek. Dyrekcja w 3 sekundy widzi stan obłożenia placówki.',
+        ui: `<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.6rem; margin-top:0.8rem;">
+              <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
+                <b style="color:var(--accent-soft);">Pokój 101</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+              </div>
+              <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
+                <b style="color:var(--accent-soft);">Pokój 102</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+              </div>
+              <div style="background:rgba(226,194,133,0.15); border:1px dashed var(--accent-gold); padding:0.6rem; border-radius:4px; text-align:center;">
+                <b style="color:var(--accent-gold);">Pokój 103</b><div style="font-size:0.75rem; color:var(--ink2);"><span style="color:#6ED6A0;">● 1 wolne łóżko</span></div>
+              </div>
+            </div>
+            <div style="margin-top:1rem; font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">
+              Łączne obłożenie: <strong style="color:var(--accent);">95.6%</strong> (43/45 miejsc aktywnych)
+            </div>`
+      },
+      'agenda': {
+        title: '02 · Agenda i Rytm Dnia',
+        desc: 'Harmonogram posiłków, rehabilitacji i wizyt. Opiekun wie co robić, a rodzina zna plan dnia.',
+        ui: `<div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.8rem;">
+              <div style="display:flex; justify-content:space-between; font-size:0.82rem; border-bottom:1px solid var(--line2); padding-bottom:0.3rem;">
+                <span style="color:var(--accent);">08:30 · Śniadanie & Leki</span><span style="color:#6ED6A0;">✔ Zakończone</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:0.82rem; border-bottom:1px solid var(--line2); padding-bottom:0.3rem;">
+                <span style="color:var(--accent);">10:30 · Zajęcia plastyczne / Ogród</span><span style="color:#6ED6A0;">✔ Zakończone</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:0.82rem; border-bottom:1px solid var(--line2); padding-bottom:0.3rem;">
+                <span style="color:var(--accent-gold);">13:30 · Obiad & Drzemka</span><span style="color:var(--accent-gold);">● W toku</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding-bottom:0.3rem;">
+                <span style="color:var(--ink2);">15:00 · Wysyłka Peace Letter do rodzin</span><span style="color:var(--ink3);">Zaplanowane</span>
+              </div>
+            </div>`
+      },
+      'chat': {
+        title: '03 · Bezpieczny Czat z Rodziną',
+        desc: 'Wygodna skrzynka zapytań od bliskich. Koniec z gubiącymi się karteczkami i telefonami w trakcie zabiegów.',
+        ui: `<div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.8rem;">
+              <div style="background:rgba(255,255,255,0.06); padding:0.6rem 0.8rem; border-radius:6px; font-size:0.82rem; max-width:85%;">
+                <b style="color:var(--accent-gold);">Córka (Pani Anna):</b><br>Dzień dobry, czy tata potrzebuje cieplejszych skarpet na jesień?
+              </div>
+              <div style="background:rgba(47,111,94,0.35); border:1px solid var(--line); padding:0.6rem 0.8rem; border-radius:6px; font-size:0.82rem; align-self:flex-end; max-width:85%;">
+                <b style="color:var(--accent-soft);">Opiekunka dyżurna:</b><br>Dzień dobry! Tak, 2 pary cieplejszych skarpet będą super. Dziękujemy!
+              </div>
+            </div>`
+      },
+      'wizard': {
+        title: '04 · Kreator Przyjęć Mieszkańca',
+        desc: 'Szybkie wprowadzenie podopiecznego do systemu w 3 minuty. Baza kontaktów, dieta i zgody RODO.',
+        ui: `<div style="display:flex; gap:0.5rem; margin-top:0.8rem; font-family:var(--mono); font-size:0.72rem;">
+              <div style="flex:1; background:rgba(47,111,94,0.4); border:1px solid var(--accent); padding:0.5rem; border-radius:4px; text-align:center;">1. Dane & PESEL (Hash)</div>
+              <div style="flex:1; background:rgba(47,111,94,0.4); border:1px solid var(--accent); padding:0.5rem; border-radius:4px; text-align:center;">2. Dieta & Preferencje</div>
+              <div style="flex:1; background:rgba(47,111,94,0.4); border:1px solid var(--accent); padding:0.5rem; border-radius:4px; text-align:center;">3. Telefon do córki</div>
+            </div>
+            <div style="margin-top:1rem; font-size:0.82rem; color:var(--ink2);">
+              System natychmiast generuje dedykowany PIN logowania dla rodziny i tworzy bezpieczny profil.
+            </div>`
+      },
+      'multi': {
+        title: '05 · Multi-Resident (Wielu podopiecznych)',
+        desc: 'Rodziny posiadające oboje rodziców w ośrodku przełączają profil jednym tapnięciem bez przelogowywania.',
+        ui: `<div style="display:flex; gap:0.8rem; margin-top:0.8rem;">
+              <div style="flex:1; border:1px solid var(--accent); background:rgba(47,111,94,0.3); padding:0.7rem; border-radius:4px;">
+                <b style="color:#FFFFFF;">Mama (Pani Krystyna)</b>
+                <div style="font-size:0.75rem; color:var(--accent);">Pokój 104 · Aktywny</div>
+              </div>
+              <div style="flex:1; border:1px solid var(--line2); background:rgba(9,21,18,0.5); padding:0.7rem; border-radius:4px;">
+                <b style="color:var(--ink2);">Tata (Pan Henryk)</b>
+                <div style="font-size:0.75rem; color:var(--ink3);">Pokój 108 · Kliknij by przełączyć</div>
+              </div>
+            </div>`
+      },
+      'gallery': {
+        title: '06 · Bezpieczna Galeria Fotografii',
+        desc: 'Szyfrowane zdjęcia z życia placówki z automatyczną weryfikacją zgody wizerunkowej RODO.',
+        ui: `<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.5rem; margin-top:0.8rem;">
+              <div style="background:rgba(255,255,255,0.06); aspect-ratio:4/3; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent);">📷 Wypiek chleba</div>
+              <div style="background:rgba(255,255,255,0.06); aspect-ratio:4/3; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent);">📷 Spacer jesienny</div>
+              <div style="background:rgba(255,255,255,0.06); aspect-ratio:4/3; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent);">📷 Muzykoterapia</div>
+            </div>
+            <div style="margin-top:0.8rem; font-family:var(--mono); font-size:0.7rem; color:#6ED6A0;">
+              ✔ Zgoda RODO zweryfikowana dla 100% widocznych mieszkańców.
+            </div>`
+      }
+    };
+
+    moduleItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        moduleItems.forEach((m) => m.classList.remove('active'));
+        item.classList.add('active');
+        const key = item.getAttribute('data-mod');
+        const d = modulesData[key];
+        if (d && modTitle && modDesc && modUi) {
+          modTitle.textContent = d.title;
+          modDesc.textContent = d.desc;
+          modUi.innerHTML = d.ui;
+        }
+      });
+    });
+
+    // 4. Live Voice Simulator (Slide 07)
+    const btnRecord = document.getElementById('btn-record-sim');
+    const waveform = document.getElementById('waveform-sim');
+    const recStatus = document.getElementById('rec-sim-status');
+    const toastFamily = document.getElementById('toast-family-sim');
+
+    if (btnRecord && waveform && recStatus) {
+      let isRecording = false;
+      btnRecord.addEventListener('click', () => {
+        if (isRecording) return;
+        isRecording = true;
+        btnRecord.classList.add('recording');
+        btnRecord.innerHTML = '<span>🔴</span> Nagrywanie głosu (3s)...';
+        waveform.classList.add('active');
+        recStatus.textContent = 'Trwa nagrywanie notatki przez mikrofon PWA...';
+
+        setTimeout(() => {
+          btnRecord.innerHTML = '<span>⚡</span> Przetwarzanie Groq Whisper EU...';
+          recStatus.textContent = 'Transkrypcja AI + filtr Guardrails Non-MDR...';
+        }, 2000);
+
+        setTimeout(() => {
+          btnRecord.classList.remove('recording');
+          btnRecord.innerHTML = '<span>✔</span> Sukces! Wysłano w 3.8s';
+          waveform.classList.remove('active');
+          recStatus.textContent = 'Notatka przetworzona · Dane medyczne odcięte · Raport w telefonie rodziny!';
+          if (toastFamily) {
+            toastFamily.style.display = 'block';
+            toastFamily.style.animation = 'fadeIn 0.4s ease';
+          }
+          setTimeout(() => {
+            btnRecord.innerHTML = '<span>🎙️</span> Przetestuj dyktowanie (Symulacja 3s)';
+            isRecording = false;
+          }, 4500);
+        }, 3800);
+      });
+    }
+
+    // 5. Interaktywny Kalkulator Korzyści (Slide 09)
+    const slider = document.getElementById('slider-residents');
+    const valDisplay = document.getElementById('calc-residents-val');
+    const outHours = document.getElementById('calc-hours-saved');
+    const outCalls = document.getElementById('calc-calls-saved');
+    const outFte = document.getElementById('calc-fte-saved');
+
+    if (slider && valDisplay && outHours && outCalls && outFte) {
+      function updateCalculator() {
+        const count = parseInt(slider.value, 10);
+        valDisplay.textContent = `${count} mieszkańców`;
+        const hours = Math.round(count * 1.6);
+        const calls = Math.round(count * 12);
+        const fte = (hours / 160).toFixed(1);
+
+        outHours.textContent = `~${hours} godz.`;
+        outCalls.textContent = `~${calls}`;
+        outFte.textContent = `~${fte} etatu`;
+      }
+      slider.addEventListener('input', updateCalculator);
+      updateCalculator();
+    }
+
+    // 6. Interaktywna Oś Czasu (Slide 13)
+    const timelineTabs = document.querySelectorAll('.timeline-step-btn');
+    const timelineDetails = document.getElementById('timeline-step-details');
+    const timelineData = {
+      '1': {
+        title: 'Krok 1 · Dziś: Rozmowa Zerowa (20 minut)',
+        desc: 'Krótka, niezobowiązująca rozmowa z dyrekcją lub koordynatorem opieki.',
+        checklist: [
+          'Określenie liczby mieszkańców i specyfiki oddziałów',
+          'Wybór 1-2 opiekunów jako koordynatorów testu',
+          'Ustalenie dogodnej godziny wysyłki Peace Letter (np. 15:00)'
+        ]
+      },
+      '2': {
+        title: 'Krok 2 · Za 7 dni: Konfiguracja & Lekkie Szkolenie (30 minut)',
+        desc: 'Wprowadzamy strukturę placówki bez angażowania działu IT.',
+        checklist: [
+          'Wprowadzenie listy pokoi i podopiecznych (szybki import)',
+          'Zainstalowanie aplikacji PWA na telefonach opiekunów (1 tapnięcie)',
+          'Krótki instruktaż dyktowania notatek głosem'
+        ]
+      },
+      '3': {
+        title: 'Krok 3 · Za 14 dni: Start Pilotażu & Pierwsze Raporty',
+        desc: 'Pierwsze podyktowane notatki i pierwsze wiadomości u rodzin.',
+        checklist: [
+          'Pierwszy Peace Letter dostarczony do córek i synów o 15:00',
+          'Natychmiastowy spadek liczby powtarzalnych telefonów na recepcji',
+          'Cotygodniowy raport dla dyrekcji ze statystykami oszczędności czasu'
+        ]
+      }
+    };
+
+    timelineTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        timelineTabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+        const step = tab.getAttribute('data-step');
+        const d = timelineData[step];
+        if (d && timelineDetails) {
+          let listHtml = d.checklist.map(item => `<li><span style="color:#6ED6A0;">✔</span> ${item}</li>`).join('');
+          timelineDetails.innerHTML = `
+            <div style="background:var(--termbg); border:1px solid var(--accent-gold); border-radius:var(--radius); padding:1.2rem; margin-top:1rem;">
+              <h4 style="font-family:var(--display); font-size:1.1rem; color:var(--accent-gold); margin:0 0 0.5rem;">${d.title}</h4>
+              <p style="color:var(--ink2); font-size:0.92rem; margin-bottom:0.8rem;">${d.desc}</p>
+              <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; font-size:0.85rem; color:var(--ink3);">
+                ${listHtml}
+              </ul>
+            </div>
+          `;
+        }
+      });
+    });
+
+    // 7. Szybkie Zgłoszenie Pilotażowe (Slide 14)
+    const pilotBtn = document.getElementById('btn-pilot-submit');
+    const inputFacility = document.getElementById('pilot-facility');
+    const inputCity = document.getElementById('pilot-city');
+    const inputBeds = document.getElementById('pilot-beds');
+
+    if (pilotBtn && inputFacility) {
+      pilotBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const facility = inputFacility.value.trim() || 'Dom Seniora';
+        const city = inputCity ? inputCity.value.trim() || 'Polska' : 'Polska';
+        const beds = inputBeds ? inputBeds.value.trim() || '40' : '40';
+
+        const subject = encodeURIComponent(`Zgłoszenie do Programu Pilotażowego Silver Care - ${facility}`);
+        const body = encodeURIComponent(
+          `Dzień dobry,\n\nZgłaszam naszą placówkę do bezpłatnego Programu Pilotażowego Silver Care:\n\n` +
+          `• Nazwa placówki: ${facility}\n` +
+          `• Miejscowość: ${city}\n` +
+          `• Szacunkowa liczba mieszkańców: ${beds}\n\n` +
+          `Prosimy o kontakt w sprawie ustalenia terminu 20-minutowej rozmowy zerowej.\n\n` +
+          `Pozdrawiam,\n`
+        );
+        window.location.href = `mailto:kontakt@silvercare.pl?subject=${subject}&body=${body}`;
+      });
+    }
+  }
 })();

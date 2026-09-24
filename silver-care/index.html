@@ -78,25 +78,57 @@
         <div class="veil"></div>
         <div class="eyebrow">Wyzwanie branży · Dwa bieguny</div>
         <h2>W domach seniora codziennie trwa <em>cicha, niewidoczna walka</em>.</h2>
-        <div class="grid2">
-          <div class="block">
-            <h3>Biegun 1 · Personel opiekuńczy</h3>
-            <div class="big">Przeciążenie</div>
-            <p>Niedostateczna liczebność, walka z czasem, gaszenie pożarów, żmudna administracja i dziesiątki odbieranych telefonów zamiast realnego czasu przy mieszkańcu.</p>
+        
+        <!-- Interaktywny przełącznik trybu placówki -->
+        <div class="mode-switch-bar">
+          <div class="mode-switch-title">
+            <span>⚖️ Porównanie operacyjne:</span>
           </div>
-          <div class="block">
-            <h3>Biegun 2 · Rodziny mieszkańców</h3>
-            <div class="big">Niepokój</div>
-            <p>Poczucie winy i brak wiedzy, co dzieje się z bliskim. Dzwonią z lęku, lub nie dzwonią ze wstydu. Brak systematycznego kontaktu rodzi stres i pretensje.</p>
+          <div class="mode-switch-pills">
+            <button id="btn-mode-std" class="switch-pill alert active" type="button">1. Standardowa placówka dzisiaj</button>
+            <button id="btn-mode-sc" class="switch-pill" type="button">2. Placówka z Silver Care</button>
           </div>
         </div>
+
+        <!-- Widok 1: Standardowa placówka -->
+        <div id="view-mode-std" class="grid2">
+          <div class="block" style="border-color: rgba(255, 120, 117, 0.4);">
+            <h3 style="color:#FFA39E;">Biegun 1 · Personel opiekuńczy</h3>
+            <div class="big" style="color:#FF7875;">Przeciążenie</div>
+            <p>Niedostateczna liczebność, walka z czasem, gaszenie pożarów, żmudna administracja i <strong>~42 odbierane telefony dziennie</strong> zamiast realnego czasu przy mieszkańcu.</p>
+            <span class="tag" style="background: rgba(255,120,117,0.15); color:#FFA39E; border:1px solid rgba(255,120,117,0.3);">140 min/dzień na słuchawce</span>
+          </div>
+          <div class="block" style="border-color: rgba(255, 120, 117, 0.4);">
+            <h3 style="color:#FFA39E;">Biegun 2 · Rodziny mieszkańców</h3>
+            <div class="big" style="color:#FF7875;">Niepokój</div>
+            <p>Poczucie winy i brak wiedzy, co dzieje się z bliskim. Dzwonią z lęku lub milczą ze wstydu. Brak systematycznego kontaktu rodzi rosnące pretensje do dyrekcji.</p>
+            <span class="tag" style="background: rgba(255,120,117,0.15); color:#FFA39E; border:1px solid rgba(255,120,117,0.3);">88% telefonów to te same pytania</span>
+          </div>
+        </div>
+
+        <!-- Widok 2: Placówka z Silver Care -->
+        <div id="view-mode-sc" class="grid2" style="display: none;">
+          <div class="block" style="border-color: rgba(127, 188, 168, 0.6); background: rgba(47, 111, 94, 0.25);">
+            <h3 style="color:var(--accent-soft);">Biegun 1 · Personel opiekuńczy</h3>
+            <div class="big" style="color:#6ED6A0;">Odzyskany Czas</div>
+            <p><strong>30 sekund notatki podyktowanej w biegu</strong> na korytarzu. Spadek powtarzalnych telefonów o 60%. Personel w 100% skupiony na mieszkańcach.</p>
+            <span class="tag" style="background: rgba(110,214,160,0.15); color:#6ED6A0; border:1px solid rgba(110,214,160,0.3);">Cisza w dyżurce · Zero papierów</span>
+          </div>
+          <div class="block" style="border-color: rgba(127, 188, 168, 0.6); background: rgba(47, 111, 94, 0.25);">
+            <h3 style="color:var(--accent-soft);">Biegun 2 · Rodziny mieszkańców</h3>
+            <div class="big" style="color:#6ED6A0;">Święty Spokój</div>
+            <p>Codzienny, ciepły raport <strong>Peace Letter</strong> w telefonie o stałej porze (np. 15:00). Rodziny widzą troskę i profesjonalizm, rośnie zaufanie i lojalność do placówki.</p>
+            <span class="tag" style="background: rgba(110,214,160,0.15); color:#6ED6A0; border:1px solid rgba(110,214,160,0.3);">100% rodzin z codzienną informacją</span>
+          </div>
+        </div>
+
         <div class="means">
           <p>To nie jest wina ludzi ani placówki. To <strong>strukturalna bolączka</strong> opieki długoterminowej: personel nie ma narzędzi do szybkiej, proaktywnej komunikacji.</p>
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>1:30 · Problem</b>
-        <p>„Znamy realia placówek od środka: opiekunowie chcą opiekować się mieszkańcami, a nie wisieć na słuchawce i tłumaczyć po raz setny, czy mama zjadła obiad. Rodziny z kolei dzwonią nie ze złośliwości, tylko z samotności i lęku. Silver Care zasypuje tę przepaść.”</p>
+        <b>1:30 · Problem (Dwa światy placówki)</b>
+        <p>„Znamy realia placówek od środka: opiekunowie chcą opiekować się mieszkańcami, a nie wisieć na słuchawce i tłumaczyć po raz setny, czy mama zjadła obiad. Kliknijcie Państwo przełącznik u góry: Silver Care zamienia 140 minut stresu na 30-sekundową notatkę głosową i codzienny spokój dla córek i synów.”</p>
       </aside>
     </section>
 
@@ -167,20 +199,46 @@
           </div>
         </div>
         <div>
-          <div class="block gold">
-            <h3>Ścisła separacja danych</h3>
-            <div class="big">Tarcza Bezpieczeństwa</div>
-            <p style="margin-top: 0.8rem; font-size: 0.92rem; line-height: 1.55;">
-              W portalu rodziny bliscy widzą <strong>wyłącznie metryki behawioralne</strong> (kroki, orientacyjny czas aktywności, długość snu).<br><br>
-              Wszystkie uwagi medyczne są <strong>automatycznie odcinane PRZED wysyłką do AI</strong> i trafiają wyłącznie do wewnętrznego brudnopisu personelu.
-            </p>
-            <span class="tag">RODO Art. 9 Compliant</span>
+          <div class="block gold" style="box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+              <h3 style="margin:0;">Interaktywny Filtr Non-MDR</h3>
+              <span class="tag" style="margin:0;">RODO Art. 9 Compliant</span>
+            </div>
+            
+            <!-- Przyciski próbek -->
+            <div class="sample-bar">
+              <button class="sample-pill active" data-sample="sample-1" type="button">🎙️ Próbka 1: Poranek</button>
+              <button class="sample-pill" data-sample="sample-2" type="button">🎙️ Próbka 2: Warsztaty</button>
+              <button class="sample-pill" data-sample="sample-3" type="button">🎙️ Próbka 3: Drzemka</button>
+            </div>
+
+            <!-- 1. Surowy wsad audio -->
+            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--ink3); margin-bottom:0.2rem;">Surowa transkrypcja opiekunki:</div>
+            <div id="sample-audio-text" style="font-size:0.85rem; background:rgba(0,0,0,0.3); padding:0.6rem; border-radius:4px; border-left:3px solid var(--accent); margin-bottom:0.7rem; color:var(--ink);">
+              „Pan Stanisław zjadł całe śniadanie, humor dopisuje, spacerował po korytarzu. Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85.”
+            </div>
+
+            <!-- 2. Odcięcie medyczne -->
+            <div id="sample-cut-text" class="cut" style="font-size:0.75rem; padding:0.5rem; margin-bottom:0.7rem;">
+              <span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85” → Zapisano do wewnętrznego brudnopisu medycznego placówki.
+            </div>
+
+            <!-- 3. Wyjście dla rodziny -->
+            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); margin-bottom:0.2rem;">Wiadomość doręczona do córki (Peace Letter):</div>
+            <div id="sample-family-letter" style="font-size:0.88rem; line-height:1.45; background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.7rem; border-radius:4px; color:#FFFFFF; margin-bottom:0.6rem;">
+              „Dzień dobry! Pan Stanisław miał dziś wspaniały poranek. Z dużym apetytem zjadł całe śniadanie i z uśmiechem spacerował po oddziale, rozmawiając z personelem. Przesyłamy ciepłe pozdrowienia z placówki!”
+            </div>
+
+            <!-- Metryki -->
+            <div id="sample-metrics" style="font-family:var(--mono); font-size:0.72rem; color:var(--accent-soft);">
+              Kroki: 1 240 · Aktywność: 1.5h · Posiłek: 100% · Humor: Pogodny
+            </div>
           </div>
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>4:30 · Rozwiązanie</b>
-        <p>„Zbudowaliśmy system wokół głosu, bo opiekun w domu opieki nie ma czasu na pisanie na klawiaturze. I co kluczowe: świadomie nie jesteśmy wyrobem medycznym. Nie stawiamy kamer w pokojach. Chronimy godność seniora i spokój dyrekcji.”</p>
+        <b>4:30 · Rozwiązanie (Interaktywny filtr AI)</b>
+        <p>„Zbudowaliśmy system wokół głosu, bo opiekun w domu opieki nie ma czasu na pisanie na klawiaturze. Zobaczcie Państwo na żywo próbki po prawej stronie: klikając Próbkę 1, 2 lub 3 widać, jak słowa o lekach czy ciśnieniu zostają automatycznie wycięte przed wysyłką do AI. Rodzina dostaje wyłącznie ciepły, bezpieczny list.”</p>
       </aside>
     </section>
 
@@ -190,42 +248,97 @@
         <div class="veil"></div>
         <div class="eyebrow">Ekosystem Produktu · Kompleksowe wsparcie placówki</div>
         <h2>Wszystkie narzędzia codziennego życia <em>w jednym panelu</em>.</h2>
-        <div class="grid3">
-          <div class="block">
-            <h3>01 · Obłożenie i Pokoje</h3>
-            <div class="big">Facility & Bed</div>
-            <p>Rejestr pięter, sektorów, pokoi i łóżek. Automatyczny wskaźnik obłożenia placówki dla dyrekcji i historia pobytów.</p>
+        
+        <div class="modules-interactive-wrap">
+          <!-- Lista modułów do klikania po lewej -->
+          <div class="modules-nav">
+            <button class="module-nav-item active" data-mod="bed" type="button">
+              <div>
+                <b>01 · Pokoje i Obłożenie</b>
+                <div style="font-size:0.75rem; color:var(--ink2);">Facility & Bed Management</div>
+              </div>
+              <span>Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="agenda" type="button">
+              <div>
+                <b>02 · Agenda i Rytm Dnia</b>
+                <div style="font-size:0.75rem; color:var(--ink2);">Plan posiłków i aktywności</div>
+              </div>
+              <span>Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="chat" type="button">
+              <div>
+                <b>03 · Bezpieczny Czat</b>
+                <div style="font-size:0.75rem; color:var(--ink2);">Family Direct Messages</div>
+              </div>
+              <span>Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="wizard" type="button">
+              <div>
+                <b>04 · Kreator Przyjęć</b>
+                <div style="font-size:0.75rem; color:var(--ink2);">Admission Wizard w 3 minuty</div>
+              </div>
+              <span>Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="multi" type="button">
+              <div>
+                <b>05 · Multi-Resident</b>
+                <div style="font-size:0.75rem; color:var(--ink2);">Kilku podopiecznych w rodzinie</div>
+              </div>
+              <span>Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="gallery" type="button">
+              <div>
+                <b>06 · Bezpieczna Galeria</b>
+                <div style="font-size:0.75rem; color:var(--ink2);">Zgody wizerunkowe & RODO</div>
+              </div>
+              <span>Podgląd →</span>
+            </button>
           </div>
-          <div class="block">
-            <h3>02 · Harmonogram</h3>
-            <div class="big">Agenda Dnia</div>
-            <p>Plan posiłków, rehabilitacji, aktywności i wizyt. Widoczny w planie dyżuru opiekuna oraz wybiórczo w portalu rodziny.</p>
-          </div>
-          <div class="block">
-            <h3>03 · Bezpieczny Czat</h3>
-            <div class="big">Family Messages</div>
-            <p>Dwukierunkowa skrzynka wiadomości między bliskimi a dyrekcją i personelem. Koniec z gubiącymi się karteczkami.</p>
-          </div>
-          <div class="block">
-            <h3>04 · Przyjęcia</h3>
-            <div class="big">Admission Wizard</div>
-            <p>Błyskawiczny kreator wprowadzania nowego mieszkańca oraz masowy import/eksport profili podopiecznych.</p>
-          </div>
-          <div class="block">
-            <h3>05 · Kilku podopiecznych</h3>
-            <div class="big">Multi-Resident</div>
-            <p>Wygodne przełączanie profilu seniora dla rodzin posiadających więcej niż jednego krewnego w placówce.</p>
-          </div>
-          <div class="block">
-            <h3>06 · Bezpieczna Galeria</h3>
-            <div class="big">Resident Media</div>
-            <p>Szyfrowane przechowywanie i udostępnianie zdjęć oraz pamiątek z życia placówki z pełną zgodą wizerunkową.</p>
+
+          <!-- Interaktywny podgląd wybranego modułu po prawej -->
+          <div class="module-preview-panel">
+            <div>
+              <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.4rem;">
+                Interaktywny Podgląd Modułu
+              </div>
+              <h3 id="mod-preview-title" style="font-family:var(--display); font-size:1.4rem; color:#FFFFFF; margin:0 0 0.5rem;">
+                01 · Obłożenie i Pokoje (Facility & Bed)
+              </h3>
+              <p id="mod-preview-desc" style="color:var(--ink2); font-size:0.95rem; line-height:1.5;">
+                Interaktywny rejestr sektorów, pokoi i łóżek. Dyrekcja w 3 sekundy widzi stan obłożenia placówki.
+              </p>
+            </div>
+
+            <!-- Kontener UI modułu -->
+            <div id="mod-preview-ui" style="background:rgba(0,0,0,0.4); border:1px solid var(--line2); padding:1rem; border-radius:6px; margin-top:1.2rem;">
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.6rem; margin-top:0.4rem;">
+                <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
+                  <b style="color:var(--accent-soft);">Pokój 101</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+                </div>
+                <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
+                  <b style="color:var(--accent-soft);">Pokój 102</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+                </div>
+                <div style="background:rgba(226,194,133,0.15); border:1px dashed var(--accent-gold); padding:0.6rem; border-radius:4px; text-align:center;">
+                  <b style="color:var(--accent-gold);">Pokój 103</b><div style="font-size:0.75rem; color:var(--ink2);"><span style="color:#6ED6A0;">● 1 wolne łóżko</span></div>
+                </div>
+              </div>
+              <div style="margin-top:1rem; font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">
+                Łączne obłożenie: <strong style="color:var(--accent);">95.6%</strong> (43/45 miejsc aktywnych)
+              </div>
+            </div>
+            
+            <div style="font-family:var(--mono); font-size:0.72rem; color:var(--ink3); margin-top:1rem; display:flex; justify-content:space-between;">
+              <span>Wszystkie moduły w cenie pilotażu (0 PLN)</span>
+              <span style="color:var(--accent-soft);">Kliknij inny moduł po lewej ↗</span>
+            </div>
           </div>
         </div>
+
       </div>
       <aside class="notes" style="display:none;">
-        <b>6:00 · Ekosystem</b>
-        <p>„Silver Care to nie tylko aplikacja do wiadomości. To kompletny panel ułatwiający zarządzanie pokojami, przyjęciami mieszkańców, agendą dnia oraz bezpieczną galerią zdjęć. Wszystko zintegrowane w jednym, przejrzystym systemie.”</p>
+        <b>6:00 · Ekosystem (Interaktywny eksplorator)</b>
+        <p>„Silver Care to nie tylko aplikacja do wiadomości. To kompletny panel ułatwiający zarządzanie pokojami, przyjęciami mieszkańców, agendą dnia oraz bezpieczną galerią zdjęć. Klikając moduły po lewej stronie, możecie Państwo podejrzeć każdy z tych elementów w działaniu.”</p>
       </aside>
     </section>
 
@@ -257,7 +370,25 @@
         <div class="veil"></div>
         <div class="eyebrow">Architektura przepływu · Live Demo</div>
         <h2>Jak technologia <em>chroni placówkę</em> w czasie rzeczywistym.</h2>
-        <div class="grid2">
+        
+        <!-- Interaktywny symulator dyktowania -->
+        <div class="voice-test-card">
+          <div style="display:flex; align-items:center; gap:1.2rem;">
+            <button id="btn-record-sim" class="btn-record-sim" type="button">
+              <span>🎙️</span> Przetestuj dyktowanie (Symulacja 3s)
+            </button>
+            <div id="waveform-sim" class="waveform">
+              <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+              <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+              <div class="wbar"></div><div class="wbar"></div>
+            </div>
+          </div>
+          <div id="rec-sim-status" style="font-family:var(--mono); font-size:0.75rem; color:var(--accent);">
+            Kliknij przycisk, aby zasymulować dyktowanie notatki na żywo...
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-top: 1rem;">
           <!-- Terminal 1: Głos i separacja -->
           <div class="term">
             <div class="bar"><i></i><i></i><i></i><em>Krok 2 & 3 · Potok Głosu i Bezpieczeństwa</em></div>
@@ -267,7 +398,7 @@
             <div class="cut"><span class="no">✖ STRUMIEŃ MEDYCZNY ODCIĘTY PRZED AI</span><br>„Podano lek nasercowy 10mg, zgłaszał lekki ból w klatce” → Zapisano do wewnętrznego brudnopisu personelu.</div>
             <div><span class="ok">✔</span> Strumień BEHAVIORAL + DISCOMFORT przekazany do LLM EU</div>
             <div class="dim">Guardrails: weryfikacja pod kątem braku halucynacji i tonu empatii</div>
-            <div><span class="ok">✔</span> Raport <em>Peace Letter</em> wygenerowany w 4.2 sekundy</div>
+            <div><span class="ok">✔</span> Raport <em>Peace Letter</em> wygenerowany w 3.8 sekundy</div>
           </div>
 
           <!-- Terminal 2: Wyjście dla rodziny -->
@@ -279,6 +410,11 @@
             </div>
             <div><span class="ok">✔</span> Metryki behawioralne: Kroki (1 850), Czas aktywności (2.5h), Sen (7.5h)</div>
             <div class="dim">Status: Dostarczono natychmiast · Zero niepokojącego żargonu</div>
+            
+            <!-- Toast powiadomienia po symulacji -->
+            <div id="toast-family-sim" style="display:none; background:rgba(110,214,160,0.18); border:1px solid #6ED6A0; padding:0.5rem 0.8rem; border-radius:4px; margin-top:0.6rem; font-size:0.78rem; color:#6ED6A0;">
+              🔔 <strong>Powiadomienie doręczone:</strong> Córka (Pani Anna) otworzyła raport na smartfonie.
+            </div>
           </div>
         </div>
         <div class="means">
@@ -286,8 +422,8 @@
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>9:00 · Omówienie mechaniki Demo</b>
-        <p>„Zwróćcie Państwo uwagę na czerwoną ramkę w terminalu: słowa o podaniu leku zostały wycięte ZANIM notatka dotarła do sztucznej inteligencji. Córka pana Jana dostaje ciepłą informację o spacerze i obiedzie, a pielęgniarka ma w systemie odnotowany fakt medyczny. Pełne bezpieczeństwo prawne.”</p>
+        <b>9:00 · Omówienie mechaniki Demo (Symulacja na żywo)</b>
+        <p>„Zwróćcie Państwo uwagę na przycisk u góry: klikając 'Przetestuj dyktowanie', możecie zasymulować nagranie głosu. System w 3 sekundy dokonuje transkrypcji, wycina frazy medyczne (czerwona ramka) i natychmiast wysyła ciepły list do córki, co potwierdza zielone powiadomienie.”</p>
       </aside>
     </section>
 
@@ -331,32 +467,57 @@
         <div class="eyebrow">Założenia Operacyjne · Cele do walidacji</div>
         <h2>Projektowane korzyści dla <em>Państwa placówki</em>.</h2>
         <p class="lede">Celem Programu Pilotażowego jest zmierzenie i potwierdzenie w realnych warunkach następujących wskaźników efektywności:</p>
-        <div class="stat-strip">
-          <div>
-            <b>~50-60%</b>
-            <span>Spadek powtarzalnych telefonów</span>
+        
+        <!-- Interaktywny Kalkulator Oszczędności -->
+        <div class="calc-box">
+          <div class="calc-top">
+            <div>
+              <span style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); letter-spacing:0.12em; text-transform:uppercase;">
+                Kalkulator Oszczędności Czasu i Kosztów
+              </span>
+              <h3 style="font-family:var(--display); font-size:1.35rem; margin:0.2rem 0 0; color:#FFFFFF;">
+                Wielkość Twojej placówki: <span id="calc-residents-val" style="color:var(--accent-soft);">40 mieszkańców</span>
+              </h3>
+            </div>
+            <span class="tag" style="background:rgba(226,194,133,0.15); color:var(--accent-gold); border:1px solid rgba(226,194,133,0.3);">
+              Przesuń suwak ↔
+            </span>
           </div>
-          <div>
-            <b>1-2 godz.</b>
-            <span>Zaoszczędzonego czasu dziennie</span>
+
+          <div class="calc-slider-row">
+            <span style="font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">15</span>
+            <input type="range" id="slider-residents" min="15" max="120" step="5" value="40" class="calc-slider" aria-label="Liczba mieszkańców">
+            <span style="font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">120</span>
           </div>
-          <div>
-            <b>14 dni</b>
-            <span>Czas wdrożenia bez IT</span>
-          </div>
-          <div>
-            <b>0 PLN</b>
-            <span>Koszt licencji w pilotażu</span>
+
+          <div class="calc-stat-grid">
+            <div class="calc-stat-item">
+              <div id="calc-hours-saved" class="calc-stat-val">~64 godz.</div>
+              <div class="calc-stat-lbl">Zaoszczędzonego czasu opiekunów w miesiącu</div>
+            </div>
+            <div class="calc-stat-item">
+              <div id="calc-calls-saved" class="calc-stat-val">~480</div>
+              <div class="calc-stat-lbl">Mniej powtarzalnych telefonów od rodzin</div>
+            </div>
+            <div class="calc-stat-item">
+              <div id="calc-fte-saved" class="calc-stat-val">~0.4 etatu</div>
+              <div class="calc-stat-lbl">Odzyskanej mocy personelu na realną opiekę</div>
+            </div>
+            <div class="calc-stat-item">
+              <div class="calc-stat-val" style="color:var(--accent-gold);">0 PLN</div>
+              <div class="calc-stat-lbl">Koszt licencji w programie pilotażowym</div>
+            </div>
           </div>
         </div>
+
         <div class="grid3" style="margin-top: 1.4rem;">
           <div class="block">
             <h3>Dla Opiekunów</h3>
-            <p>Znikają dziesiątki papierowych raportów. Notatka nagrana głosem podczas przechodzenia między pokojami.</p>
+            <p>Znikają dziesiątki papierowych raportów. Notatka nagrana głosem w 30 sekund podczas przechodzenia między pokojami.</p>
           </div>
           <div class="block">
             <h3>Dla Dyrekcji</h3>
-            <p>Cisza na recepcji, mniej pretensji od rodzin, stały wgląd w obłożenie placówki i nowoczesny wizerunek.</p>
+            <p>Cisza na recepcji, mniej pretensji od rodzin, stały wgląd w obłożenie placówki i nowoczesny wizerunek w regionie.</p>
           </div>
           <div class="block gold">
             <h3>Dla Rodzin</h3>
@@ -365,8 +526,8 @@
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>12:00 · Cele Pilotażu</b>
-        <p>„Nie obiecujemy cudów z folderu reklamowego. Mówimy o konkretnych celach, które chcemy wspólnie z Państwem zmierzyć: redukcja telefonów o ponad połowę i zwrot 1-2 godzin dziennie dla personelu. Udział w pilotażu nie kosztuje Państwa ani złotówki.”</p>
+        <b>12:00 · Cele Pilotażu (Interaktywny kalkulator)</b>
+        <p>„Zamiast suchych obietnic, spójrzmy na liczby. Możecie Państwo przesunąć suwak na liczbę łóżek w Waszej placówce: przy 40 pensjonariuszach odzyskujemy 64 godziny pracy opiekunów miesięcznie i ucinamy niemal 500 powtarzających się telefonów. To tak, jakbyście zyskali dodatkowe pół etatu wykwalifikowanego pracownika – za 0 zł.”</p>
       </aside>
     </section>
 
@@ -477,48 +638,78 @@
         <div class="veil"></div>
         <div class="eyebrow">Proces Wdrożenia · Prosto i bez obciążania zespołu</div>
         <h2>Trzy proste kroki do <em>uruchomienia pilotażu</em>.</h2>
-        <div class="grid3">
-          <div class="block">
-            <h3>Krok 1 · Dziś</h3>
-            <div class="big">Rozmowa zerowa</div>
-            <p>Krótka, 20-minutowa konsultacja: określenie liczby łóżek, specyfiki oddziału i wyznaczenie 1-2 koordynatorów dyżuru.</p>
-          </div>
-          <div class="block">
-            <h3>Krok 2 · Za 7 dni</h3>
-            <div class="big">Konfiguracja</div>
-            <p>Wprowadzamy strukturę pięter i pokoi. Instalujemy lekką aplikację PWA na smartfonach personelu (bez sklepu App Store/Google Play).</p>
-          </div>
-          <div class="block gold">
-            <h3>Krok 3 · Za 14 dni</h3>
-            <div class="big">Start Pilotażu</div>
-            <p>Pierwsze notatki głosowe i pierwsze powiadomienia wysłane do rodzin. Natychmiastowa ulga na recepcji i telefonach.</p>
+        
+        <!-- Interaktywne etapy wdrożenia -->
+        <div class="timeline-tabs">
+          <button class="timeline-step-btn active" data-step="1" type="button">
+            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); margin-bottom:0.2rem;">KROK 1 · DZIŚ</div>
+            <b style="font-family:var(--display); font-size:1.15rem; color:#FFFFFF;">Rozmowa zerowa</b>
+            <div style="font-size:0.78rem; color:var(--ink2); margin-top:0.3rem;">20 minut konsultacji online</div>
+          </button>
+          <button class="timeline-step-btn" data-step="2" type="button">
+            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent); margin-bottom:0.2rem;">KROK 2 · ZA 7 DNI</div>
+            <b style="font-family:var(--display); font-size:1.15rem; color:#FFFFFF;">Konfiguracja</b>
+            <div style="font-size:0.78rem; color:var(--ink2); margin-top:0.3rem;">PWA na telefonach & lista pokoi</div>
+          </button>
+          <button class="timeline-step-btn" data-step="3" type="button">
+            <div style="font-family:var(--mono); font-size:0.75rem; color:#6ED6A0; margin-bottom:0.2rem;">KROK 3 · ZA 14 DNI</div>
+            <b style="font-family:var(--display); font-size:1.15rem; color:#FFFFFF;">Start Pilotażu</b>
+            <div style="font-size:0.78rem; color:var(--ink2); margin-top:0.3rem;">Pierwsze notatki & Peace Letters</div>
+          </button>
+        </div>
+
+        <!-- Dynamiczne szczegóły wybranego kroku -->
+        <div id="timeline-step-details">
+          <div style="background:var(--termbg); border:1px solid var(--accent-gold); border-radius:var(--radius); padding:1.2rem; margin-top:1rem;">
+            <h4 style="font-family:var(--display); font-size:1.1rem; color:var(--accent-gold); margin:0 0 0.5rem;">Krok 1 · Dziś: Rozmowa Zerowa (20 minut)</h4>
+            <p style="color:var(--ink2); font-size:0.92rem; margin-bottom:0.8rem;">Krótka, niezobowiązująca rozmowa z dyrekcją lub koordynatorem opieki.</p>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; font-size:0.85rem; color:var(--ink3);">
+              <li><span style="color:#6ED6A0;">✔</span> Określenie liczby mieszkańców i specyfiki oddziałów</li>
+              <li><span style="color:#6ED6A0;">✔</span> Wybór 1-2 opiekunów jako koordynatorów testu</li>
+              <li><span style="color:#6ED6A0;">✔</span> Ustalenie dogodnej godziny wysyłki Peace Letter (np. 15:00)</li>
+            </ul>
           </div>
         </div>
+
         <div class="means">
           <p><strong>Zero instalowania serwerów. Zero wymiany sprzętu.</strong> System działa w przeglądarce każdego telefonu i tabletu z dostępem do sieci.</p>
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>18:00 · Jak zacząć</b>
-        <p>„Wdrożenie nie wymaga informatyków ani kupowania serwerów. Wystarczy lista pokoi, 30 minut szkolenia i po dwóch tygodniach Państwa placówka zyskuje zupełnie nową jakość relacji z bliskimi.”</p>
+        <b>18:00 · Jak zacząć (Interaktywny harmonogram)</b>
+        <p>„Wdrożenie nie wymaga informatyków ani kupowania serwerów. Kliknijcie Państwo w Krok 1, 2 lub 3: wystarczy lista pokoi, 30 minut szkolenia i po dwóch tygodniach Państwa placówka zyskuje zupełnie nową jakość relacji z bliskimi.”</p>
       </aside>
     </section>
 
     <!-- 14 · PODSUMOWANIE I CTA -->
     <section class="card" data-form="network" data-t="Podsumowanie">
-      <div class="inner" style="text-align: center; max-width: 860px; margin: 0 auto;">
+      <div class="inner" style="text-align: center; max-width: 880px; margin: 0 auto;">
         <div class="veil"></div>
         <div class="eyebrow" style="justify-content: center;">Partnerstwo · Następny Krok</div>
         <h1 style="font-size: clamp(2.8rem, 6.5vw, 5.2rem);">Zbudujmy ten standard <em>razem</em>.</h1>
-        <p class="lede" style="margin: 1.6rem auto; max-width: 52ch;">
+        <p class="lede" style="margin: 1.4rem auto; max-width: 52ch;">
           Dołącz do elitarnej grupy pierwszych domów seniora w Polsce, które oddają czas opiekunom i dostarczają spokój rodzinom.
         </p>
-        <div style="margin: 2.2rem 0;">
-          <a href="mailto:kontakt@silvercare.pl?subject=Zgłoszenie do Programu Pilotażowego Silver Care" class="btn-cta">
-            Zgłoś placówkę do Programu Pilotażowego →
-          </a>
+        
+        <!-- Interaktywny mini-formularz zgłoszenia -->
+        <div class="lead-form-box">
+          <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem;">
+            Szybkie zgłoszenie placówki do bezpłatnego pilotażu:
+          </div>
+          <div class="lead-form-grid">
+            <input type="text" id="pilot-facility" class="lead-input" placeholder="Nazwa placówki (np. Dom Seniora)" value="Dom Seniora">
+            <input type="text" id="pilot-city" class="lead-input" placeholder="Miejscowość" value="Wrocław">
+            <input type="number" id="pilot-beds" class="lead-input" placeholder="Łóżka" value="45">
+            <button id="btn-pilot-submit" class="btn-cta" type="button" style="white-space:nowrap; padding:0.75rem 1.4rem;">
+              Zgłoś placówkę →
+            </button>
+          </div>
+          <div style="font-family:var(--mono); font-size:0.7rem; color:var(--ink3); margin-top:0.6rem; text-align:center;">
+            0 PLN w pilotażu · Brak zobowiązań abonamentowych · 100% wsparcia wdrożeniowego
+          </div>
         </div>
-        <div class="stat-strip" style="justify-content: center; gap: 2.5rem; text-align: left; margin-top: 2.5rem;">
+
+        <div class="stat-strip" style="justify-content: center; gap: 2.5rem; text-align: left; margin-top: 2rem;">
           <div>
             <b>Dariusz Olszewski-Rink</b>
             <span>Koordynator Pilotażu</span>
@@ -532,11 +723,11 @@
             <span>Zasięg programu pilotażowego</span>
           </div>
         </div>
-        <p class="byline" style="margin-top: 2rem;">Silver Care · Empatyczna warstwa komunikacji dla domów seniora</p>
+        <p class="byline" style="margin-top: 1.8rem;">Silver Care · Empatyczna warstwa komunikacji dla domów seniora</p>
       </div>
       <aside class="notes" style="display:none;">
         <b>19:30 · Zamknięcie</b>
-        <p>„Bardzo dziękujemy za uwagę. Zapraszamy do wspólnego testu w Państwa placówce. Jesteśmy do dyspozycji, aby odpowiedzieć na wszelkie pytania.”</p>
+        <p>„Bardzo dziękujemy za uwagę. Wpisując powyżej dane placówki i klikając przycisk, natychmiast generują Państwo gotowe zgłoszenie do programu pilotażowego. Jesteśmy do dyspozycji, aby odpowiedzieć na wszelkie pytania.”</p>
       </aside>
     </section>
 

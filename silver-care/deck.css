@@ -771,9 +771,414 @@ h1 em, h2 em {
   transform: translateY(-2px);
 }
 
+/* ==========================================
+   INTERAKTYWNE KOMPONENTY SILVER CARE
+   ========================================== */
+
+/* 1. Przełącznik trybu placówki (Slide 02) */
+.mode-switch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.4rem 0 1.2rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(9, 21, 18, 0.6);
+  border: 1px solid var(--line2);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.mode-switch-title {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.mode-switch-pills {
+  display: inline-flex;
+  background: rgba(5, 13, 11, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.switch-pill {
+  background: transparent;
+  border: none;
+  color: var(--ink3);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.switch-pill.active {
+  background: var(--primary);
+  color: #FFFFFF;
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 14px rgba(127, 188, 168, 0.4);
+}
+
+.switch-pill.alert.active {
+  background: #6B2323;
+  color: #FFA39E;
+  border-color: #FF7875;
+  box-shadow: 0 0 14px rgba(255, 120, 117, 0.4);
+}
+
+/* 2. Próbki dyktowania i filtr Non-MDR (Slide 04) */
+.sample-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.sample-pill {
+  background: rgba(9, 21, 18, 0.8);
+  border: 1px solid var(--line);
+  color: var(--ink2);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sample-pill:hover, .sample-pill.active {
+  border-color: var(--accent);
+  color: #FFFFFF;
+  background: rgba(47, 111, 94, 0.35);
+  box-shadow: 0 0 10px rgba(127, 188, 168, 0.25);
+}
+
+/* 3. Eksplorator Modułów (Slide 05) */
+.modules-interactive-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 1.8rem;
+  margin-top: 1.4rem;
+  align-items: stretch;
+}
+
+.modules-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.module-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.1rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.module-nav-item:hover {
+  border-color: var(--accent);
+  background: rgba(47, 111, 94, 0.18);
+  transform: translateX(4px);
+}
+
+.module-nav-item.active {
+  border-color: var(--accent);
+  background: rgba(47, 111, 94, 0.35);
+  box-shadow: 0 0 16px rgba(127, 188, 168, 0.25);
+  transform: translateX(6px);
+}
+
+.module-nav-item b {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.module-nav-item span {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.module-preview-panel {
+  background: var(--termbg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(127, 188, 168, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.module-preview-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--accent-gold));
+}
+
+/* 4. Live Voice Simulator (Slide 07) */
+.voice-test-card {
+  background: rgba(9, 21, 18, 0.85);
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.3rem;
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.btn-record-sim {
+  background: var(--primary);
+  border: 1px solid var(--accent);
+  color: #FFFFFF;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(47, 111, 94, 0.4);
+}
+
+.btn-record-sim:hover {
+  background: var(--primary-light);
+  box-shadow: 0 0 22px rgba(127, 188, 168, 0.6);
+  transform: scale(1.02);
+}
+
+.btn-record-sim.recording {
+  background: #B83232;
+  border-color: #FF7875;
+  box-shadow: 0 0 20px rgba(255, 120, 117, 0.6);
+  animation: pulse-rec 1s infinite alternate;
+}
+
+@keyframes pulse-rec {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
+.waveform {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+}
+
+.waveform .wbar {
+  width: 3px;
+  height: 6px;
+  background: var(--line);
+  border-radius: 2px;
+  transition: height 0.15s ease, background-color 0.2s;
+}
+
+.waveform.active .wbar {
+  background: var(--accent-soft);
+  animation: soundwave 0.6s infinite alternate ease-in-out;
+}
+
+.waveform.active .wbar:nth-child(2) { animation-delay: 0.1s; }
+.waveform.active .wbar:nth-child(3) { animation-delay: 0.2s; }
+.waveform.active .wbar:nth-child(4) { animation-delay: 0.3s; }
+.waveform.active .wbar:nth-child(5) { animation-delay: 0.4s; }
+.waveform.active .wbar:nth-child(6) { animation-delay: 0.25s; }
+.waveform.active .wbar:nth-child(7) { animation-delay: 0.15s; }
+.waveform.active .wbar:nth-child(8) { animation-delay: 0.35s; }
+
+@keyframes soundwave {
+  0% { height: 4px; }
+  100% { height: 24px; }
+}
+
+/* 5. Interaktywny Kalkulator Korzyści (Slide 09) */
+.calc-box {
+  background: linear-gradient(135deg, rgba(47, 111, 94, 0.22), rgba(9, 21, 18, 0.9));
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  margin-top: 1.4rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.calc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.calc-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 1rem 0 1.4rem;
+}
+
+.calc-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(127, 188, 168, 0.25);
+  outline: none;
+}
+
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 3px solid var(--primary);
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--accent);
+  transition: transform 0.15s ease;
+}
+
+.calc-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.calc-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  border-top: 1px solid var(--line2);
+  padding-top: 1.2rem;
+}
+
+.calc-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.calc-stat-val {
+  font-family: var(--display);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--accent-soft);
+  line-height: 1.1;
+}
+
+.calc-stat-lbl {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink3);
+  letter-spacing: 0.06em;
+  margin-top: 0.35rem;
+  line-height: 1.35;
+}
+
+/* 6. Interaktywna Oś Czasu (Slide 13) */
+.timeline-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.timeline-step-btn {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 1.1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.timeline-step-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.timeline-step-btn.active {
+  border-color: var(--accent-gold);
+  background: rgba(226, 194, 133, 0.12);
+  box-shadow: 0 0 20px rgba(226, 194, 133, 0.2);
+}
+
+/* 7. Szybkie Zgłoszenie Pilotażowe (Slide 14) */
+.lead-form-box {
+  background: rgba(9, 21, 18, 0.85);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  max-width: 840px;
+  margin: 1.8rem auto 1rem;
+  text-align: left;
+}
+
+.lead-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 120px auto;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+
+.lead-input {
+  background: rgba(5, 13, 11, 0.95);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius);
+  outline: none;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.lead-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(127, 188, 168, 0.35);
+}
+
 /* Responsywność */
 @media (max-width: 960px) {
   .grid2, .grid3, .grid4, .two { grid-template-columns: 1fr; gap: 1.2rem; }
+  .modules-interactive-wrap { grid-template-columns: 1fr; }
+  .calc-stat-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .lead-form-grid { grid-template-columns: 1fr; }
   .card { padding: 8vh 5vw 10vh; }
   #hud { padding: 0 1rem; }
   #hud .tools { display: none; }
