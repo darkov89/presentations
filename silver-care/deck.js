@@ -711,35 +711,35 @@
       updateCalculator();
     }
 
-    // 6. Interaktywna Oś Czasu (Slide 13)
+    // 6. Interaktywna Oś Czasu (Slide 13) · Strategiczne Partnerstwo z KIDO
     const timelineTabs = document.querySelectorAll('.timeline-step-btn');
     const timelineDetails = document.getElementById('timeline-step-details');
     const timelineData = {
       '1': {
-        title: 'Krok 1 · Dziś: Rozmowa Zerowa (20 minut)',
-        desc: 'Krótka, niezobowiązująca rozmowa z dyrekcją lub koordynatorem opieki.',
+        title: 'Etap 1 · Dziś: Porozumienie o Partnerstwie z KIDO',
+        desc: 'Podpisanie listu intencyjnego i wyznaczenie placówek do programu pilotażowego pod patronatem Izby.',
         checklist: [
-          'Określenie liczby mieszkańców i specyfiki oddziałów',
-          'Wybór 1-2 opiekunów jako koordynatorów testu',
-          'Ustalenie dogodnej godziny wysyłki Peace Letter (np. 15:00)'
+          'Podpisanie listu intencyjnego między Zarządem KIDO a Silver Care',
+          'Wskazanie 10-15 placówek zrzeszonych w Izbie do bezpłatnego pilotażu',
+          'Ustalenie zakresu metryk do wspólnego Ogólnopolskiego Raportu Branżowego'
         ]
       },
       '2': {
-        title: 'Krok 2 · Za 7 dni: Konfiguracja & Lekkie Szkolenie (30 minut)',
-        desc: 'Wprowadzamy strukturę placówki bez angażowania działu IT.',
+        title: 'Etap 2 · Za 30 dni: Uruchomienie & Szkolenia Personelu w Placówkach',
+        desc: 'Sprawne, bezkosztowe wdrożenie w domach członkowskich bez obciążania kadr ani działów IT.',
         checklist: [
-          'Wprowadzenie listy pokoi i podopiecznych (szybki import)',
-          'Zainstalowanie aplikacji PWA na telefonach opiekunów (1 tapnięcie)',
-          'Krótki instruktaż dyktowania notatek głosem'
+          'Zdalna konfiguracja pokoi i instalacja PWA na smartfonach personelu (1 kliknięcie)',
+          '30-minutowe instruktaże dyktowania głosem dla opiekunów i pielęgniarek',
+          'Start codziennej wysyłki Peace Letter do rodzin pensjonariuszy o 15:00'
         ]
       },
       '3': {
-        title: 'Krok 3 · Za 14 dni: Start Pilotażu & Pierwsze Raporty',
-        desc: 'Pierwsze podyktowane notatki i pierwsze wiadomości u rodzin.',
+        title: 'Etap 3 · Za 90 dni: Ogólnopolski Raport KIDO & Prezentacja na Konferencji',
+        desc: 'Podsumowanie wyników, publikacja wspólnego raportu i promocja placówek członkowskich w mediach.',
         checklist: [
-          'Pierwszy Peace Letter dostarczony do córek i synów o 15:00',
-          'Natychmiastowy spadek liczby powtarzalnych telefonów na recepcji',
-          'Cotygodniowy raport dla dyrekcji ze statystykami oszczędności czasu'
+          'Opracowanie Raportu KIDO × Silver Care: „Cyfryzacja a retencja kadr w domach opieki”',
+          'Uroczyste wręczenie certyfikatów „Lider Nowego Standardu KIDO” placówkom pilotażowym',
+          'Wystąpienie Prezesa KIDO z twardymi danymi na ogólnopolskiej konferencji branżowej'
         ]
       }
     };
@@ -765,7 +765,7 @@
       });
     });
 
-    // 7. Szybkie Zgłoszenie Pilotażowe (Slide 14)
+    // 7. Inicjatywa Partnerska KIDO (Slide 14)
     const pilotBtn = document.getElementById('btn-pilot-submit');
     const inputFacility = document.getElementById('pilot-facility');
     const inputCity = document.getElementById('pilot-city');
@@ -774,18 +774,18 @@
     if (pilotBtn && inputFacility) {
       pilotBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        const facility = inputFacility.value.trim() || 'Dom Seniora';
-        const city = inputCity ? inputCity.value.trim() || 'Polska' : 'Polska';
-        const beds = inputBeds ? inputBeds.value.trim() || '40' : '40';
+        const facility = inputFacility.value.trim() || 'Krajowa Izba Domów Opieki';
+        const city = inputCity ? inputCity.value.trim() || 'Warszawa / Cała Polska' : 'Warszawa';
+        const beds = inputBeds ? inputBeds.value.trim() || '10-15 placówek pilotażowych' : '10-15 placówek';
 
-        const subject = encodeURIComponent(`Zgłoszenie do Programu Pilotażowego Silver Care - ${facility}`);
+        const subject = encodeURIComponent(`Inicjatywa Partnerska: Krajowa Izba Domów Opieki x Silver Care`);
         const body = encodeURIComponent(
-          `Dzień dobry,\n\nZgłaszam naszą placówkę do bezpłatnego Programu Pilotażowego Silver Care:\n\n` +
-          `• Nazwa placówki: ${facility}\n` +
-          `• Miejscowość: ${city}\n` +
-          `• Szacunkowa liczba mieszkańców: ${beds}\n\n` +
-          `Prosimy o kontakt w sprawie ustalenia terminu 20-minutowej rozmowy zerowej.\n\n` +
-          `Pozdrawiam,\n`
+          `Szanowny Panie Prezesie,\n\nNawiązując do prezentacji dla Krajowej Izby Domów Opieki, potwierdzamy gotowość do sformalizowania partnerstwa strategicznego oraz uruchomienia bezpłatnego Programu Pilotażowego dla placówek zrzeszonych w KIDO:\n\n` +
+          `• Podmiot: ${facility}\n` +
+          `• Zasięg: ${city}\n` +
+          `• Skala pilotażu: ${beds}\n\n` +
+          `Cel: Ochrona kadr opiekuńczych, wdrożenie standardu komunikacji Non-MDR oraz przygotowanie wspólnego Ogólnopolskiego Raportu Branżowego KIDO.\n\n` +
+          `Z poważaniem,\nDariusz Olszewski-Rink\nŁukasz Romanowicz\nMichał Sznurowski\nSilver Care`
         );
         window.location.href = `mailto:kontakt@silvercare.pl?subject=${subject}&body=${body}`;
       });
