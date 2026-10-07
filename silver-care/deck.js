@@ -1,7 +1,12 @@
-/* Silver Care · Blueprint Deck Engine
-   - Silnik prezentacji: scroll-snap, kropki, klawisze, stoper, notatki (N), pełny ekran (F).
-   - Animowany canvas: sieć węzłów w barwach Silver Care, reorganizująca się per slajd (data-form).
-*/
+/* ==========================================================================
+   Silver Care · Silnik Prezentacji Multimedialnej
+   Zgodny z Kontraktem Wizualnym i Systemem Projektowania Silver Care
+   - Nawigacja klawiaturą, kółkiem, kliknięciem, kroki i pasek postępu
+   - Stoper [T], Notatki prelegenta [N], Pełny ekran [F], Motyw Jasny/Ciemny [M]
+   - Subtelny, organiczny canvas połączeń w palecie marki
+   - Interaktywne widżety: Porównanie Dziś vs Z Silver Care, Filtr Non-MDR,
+     Ramka aplikacji, Symulator dyktowania, Kalkulator korzyści, Oś czasu, Formularz KIDO
+   ========================================================================== */
 
 (function () {
   // Elementy DOM
@@ -16,21 +21,25 @@
   const btnNotes = document.getElementById('btn-notes');
   const btnFs = document.getElementById('btn-fs');
   const btnCloseNotes = document.getElementById('btn-close-notes');
+  const btnTheme = document.getElementById('btn-theme');
 
   const total = cards.length;
   let currentIndex = 0;
 
   // 1. Generowanie kropek nawigacyjnych
-  cards.forEach((card, idx) => {
-    const a = document.createElement('a');
-    a.title = card.getAttribute('data-t') || `Slajd ${idx + 1}`;
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      goToSlide(idx);
+  if (dotsNav) {
+    dotsNav.innerHTML = '';
+    cards.forEach((card, idx) => {
+      const a = document.createElement('a');
+      a.title = card.getAttribute('data-t') || `Slajd ${idx + 1}`;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToSlide(idx);
+      });
+      dotsNav.appendChild(a);
     });
-    dotsNav.appendChild(a);
-  });
-  const dots = Array.from(dotsNav.querySelectorAll('a'));
+  }
+  const dots = dotsNav ? Array.from(dotsNav.querySelectorAll('a')) : [];
 
   // 2. Nawigacja do konkretnego slajdu
   function goToSlide(idx) {
@@ -52,20 +61,22 @@
 
     // Aktualizacja notatek prelegenta
     const activeCard = cards[idx];
-    const notesElem = activeCard.querySelector('.notes');
-    if (notesContent) {
+    if (activeCard && notesContent) {
+      const notesElem = activeCard.querySelector('.notes');
       if (notesElem) {
         notesContent.innerHTML = notesElem.innerHTML;
       } else {
-        notesContent.innerHTML = '<p class="dim">Brak notatek dla tego slajdu.</p>';
+        notesContent.innerHTML = '<p style="color:var(--s-ter);">Brak notatek dla tego slajdu.</p>';
       }
     }
 
     // Zmiana formacji na canvasie
-    const form = activeCard.getAttribute('data-form') || 'network';
-    const side = activeCard.getAttribute('data-side') || 'full';
-    if (window.setCanvasForm) {
-      window.setCanvasForm(form, side);
+    if (activeCard) {
+      const form = activeCard.getAttribute('data-form') || 'network';
+      const side = activeCard.getAttribute('data-side') || 'full';
+      if (window.setCanvasForm) {
+        window.setCanvasForm(form, side);
+      }
     }
   }
 
@@ -86,7 +97,6 @@
 
   // 5. Obsługa klawiatury
   window.addEventListener('keydown', (e) => {
-    // Jeśli użytkownik pisze w inpucie, ignoruj
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
     switch (e.key) {
@@ -151,6 +161,7 @@
   }
 
   function toggleTimer() {
+    if (!clock) return;
     if (timerRunning) {
       clearInterval(timerInterval);
       timerRunning = false;
@@ -166,6 +177,7 @@
   }
 
   function resetTimer() {
+    if (!clock) return;
     clearInterval(timerInterval);
     timerRunning = false;
     seconds = 0;
@@ -196,46 +208,45 @@
       if (document.exitFullscreen) document.exitFullscreen();
     }
   }
-  // 8.5. Dynamiczny Silnik Motywów (Theme Engine)
-  const themes = ['default', 'clinical', 'warm', 'midnight'];
-  const themeNames = {
-    'default': 'Szałwia',
-    'clinical': 'Clinical Blue',
-    'warm': 'Warm Care',
-    'midnight': 'Midnight Tech'
-  };
-  let currentThemeIdx = 0;
-  const btnTheme = document.getElementById('btn-theme');
+  if (btnFs) btnFs.addEventListener('click', toggleFullscreen);
 
-  let colorNode1 = '#E2C285';
-  let colorNode2 = '#7FBCA8';
-  let colorNodeDefault = '#A7E8D4';
-  let lineRgb = '127, 188, 168';
+  // 9. Przełącznik Motywu (Jasny / Ciemny wg Brand Kontraktu)
+  let colorNode1 = '#2F6F5E';
+  let colorNode2 = '#4F8F7C';
+  let colorNodeDefault = '#8C8680';
+  let lineRgb = '47, 111, 94';
 
   function updateThemeColors() {
-    const cs = getComputedStyle(document.documentElement);
-    colorNode1 = cs.getPropertyValue('--node-g1').trim() || '#E2C285';
-    colorNode2 = cs.getPropertyValue('--node-g2').trim() || '#7FBCA8';
-    colorNodeDefault = cs.getPropertyValue('--node-default').trim() || '#A7E8D4';
-    lineRgb = cs.getPropertyValue('--line-rgb').trim() || '127, 188, 168';
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      colorNode1 = '#7FBCA8';
+      colorNode2 = '#5FA08C';
+      colorNodeDefault = '#918B83';
+      lineRgb = '127, 188, 168';
+    } else {
+      colorNode1 = '#2F6F5E';
+      colorNode2 = '#4F8F7C';
+      colorNodeDefault = '#8C8680';
+      lineRgb = '47, 111, 94';
+    }
   }
 
-  function applyTheme(idx) {
-    currentThemeIdx = (idx + themes.length) % themes.length;
-    const t = themes[currentThemeIdx];
-    if (t === 'default') {
-      document.documentElement.removeAttribute('data-theme');
+  function applyTheme(mode) {
+    const isDark = mode === 'dark';
+    if (isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.removeAttribute('data-theme');
     }
     if (btnTheme) {
-      btnTheme.textContent = `Motyw: ${themeNames[t]} [M]`;
+      btnTheme.textContent = isDark ? 'Motyw: Ciemny [M]' : 'Motyw: Jasny [M]';
     }
     updateThemeColors();
   }
 
   function cycleTheme() {
-    applyTheme(currentThemeIdx + 1);
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    applyTheme(isDark ? 'light' : 'dark');
   }
 
   if (btnTheme) btnTheme.addEventListener('click', cycleTheme);
@@ -246,233 +257,220 @@
   initInteractiveWidgets();
 
   // ==========================================
-  // 9. ANIMOWANY CANVAS (Blueprint Topology)
+  // 10. SUBTELNY CANVAS (Organiczna Sieć Węzłów)
   // ==========================================
   const cv = document.getElementById('org');
-  if (!cv) return;
-  const cx = cv.getContext('2d');
+  if (cv) {
+    const cx = cv.getContext('2d');
+    let W = 0, H = 0;
+    const narrow = window.matchMedia('(max-width: 900px)').matches;
+    const N = narrow ? 35 : 75;
+    const nodes = [];
+    const rnd = (a, b) => a + Math.random() * (b - a);
 
-  let W = 0, H = 0;
-  const narrow = window.matchMedia('(max-width: 900px)').matches;
-  const N = narrow ? 45 : 110;
-  const nodes = [];
-  const rnd = (a, b) => a + Math.random() * (b - a);
+    function resize() {
+      W = cv.width = window.innerWidth;
+      H = cv.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
 
-  function resize() {
-    W = cv.width = window.innerWidth;
-    H = cv.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  // Interakcja myszką z canvasem
-  let mouse = { x: -1000, y: -1000, active: false };
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    mouse.active = true;
-  });
-  window.addEventListener('mouseleave', () => {
-    mouse.active = false;
-  });
-
-  for (let i = 0; i < N; i++) {
-    nodes.push({
-      x: rnd(0, W || 1400),
-      y: rnd(0, H || 900),
-      tx: 0,
-      ty: 0,
-      r: rnd(1.8, 3.2),
-      g: 0,
-      pulse: Math.random() * 6.28
+    let mouse = { x: -1000, y: -1000, active: false };
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
     });
-  }
+    window.addEventListener('mouseleave', () => {
+      mouse.active = false;
+    });
 
-  let sideConstraint = 'full';
-  const X0 = () => (sideConstraint === 'right' && !narrow ? W * 0.54 : W * 0.05);
-  const X1 = () => W * 0.95;
-  const xr = (u) => X0() + u * (X1() - X0());
-
-  let activeLinks = [];
-
-  const forms = {
-    // Siatka relacji (Home, opieka, rodzina)
-    network() {
-      const links = [];
-      nodes.forEach((n) => {
-        n.tx = xr(Math.random());
-        n.ty = rnd(H * 0.12, H * 0.88);
-        n.g = 0;
+    for (let i = 0; i < N; i++) {
+      nodes.push({
+        x: rnd(0, W || 1400),
+        y: rnd(0, H || 900),
+        tx: 0,
+        ty: 0,
+        r: rnd(1.6, 2.8),
+        g: 0,
+        pulse: Math.random() * 6.28
       });
-      const lim = Math.min(W, H) * 0.11;
-      for (let i = 0; i < N; i++) {
-        for (let j = i + 1; j < N; j++) {
-          if (Math.hypot(nodes[i].tx - nodes[j].tx, nodes[i].ty - nodes[j].ty) < lim) {
-            links.push([i, j, 0.4]);
+    }
+
+    let sideConstraint = 'full';
+    const X0 = () => (sideConstraint === 'right' && !narrow ? W * 0.52 : W * 0.05);
+    const X1 = () => W * 0.95;
+    const xr = (u) => X0() + u * (X1() - X0());
+
+    let activeLinks = [];
+
+    const forms = {
+      network() {
+        const links = [];
+        nodes.forEach((n) => {
+          n.tx = xr(Math.random());
+          n.ty = rnd(H * 0.12, H * 0.88);
+          n.g = 0;
+        });
+        const lim = Math.min(W, H) * 0.13;
+        for (let i = 0; i < N; i++) {
+          for (let j = i + 1; j < N; j++) {
+            if (Math.hypot(nodes[i].tx - nodes[j].tx, nodes[i].ty - nodes[j].ty) < lim) {
+              links.push([i, j, 0.35]);
+            }
           }
         }
-      }
-      return links;
-    },
+        return links;
+      },
 
-    // Dwa odcięte bieguny (Personel vs Rodzina w problemie)
-    split() {
-      const links = [];
-      const mid = Math.floor(N / 2);
-      nodes.forEach((n, i) => {
-        if (i < mid) {
-          // Lewa grupa (personel)
-          n.tx = X0() + (X1() - X0()) * rnd(0.05, 0.35);
-          n.ty = H * rnd(0.2, 0.8);
-          n.g = 1;
-        } else {
-          // Prawa grupa (rodziny)
-          n.tx = X0() + (X1() - X0()) * rnd(0.65, 0.95);
-          n.ty = H * rnd(0.2, 0.8);
-          n.g = 2;
+      split() {
+        const links = [];
+        const mid = Math.floor(N / 2);
+        nodes.forEach((n, i) => {
+          if (i < mid) {
+            n.tx = X0() + (X1() - X0()) * rnd(0.05, 0.38);
+            n.ty = H * rnd(0.2, 0.8);
+            n.g = 1;
+          } else {
+            n.tx = X0() + (X1() - X0()) * rnd(0.62, 0.95);
+            n.ty = H * rnd(0.2, 0.8);
+            n.g = 2;
+          }
+        });
+        for (let i = 0; i < N; i++) {
+          for (let j = i + 1; j < N; j++) {
+            if (nodes[i].g === nodes[j].g) {
+              if (Math.hypot(nodes[i].tx - nodes[j].tx, nodes[i].ty - nodes[j].ty) < 95) {
+                links.push([i, j, 0.4]);
+              }
+            }
+          }
         }
-      });
-      for (let i = 0; i < N; i++) {
-        for (let j = i + 1; j < N; j++) {
-          if (nodes[i].g === nodes[j].g) {
-            if (Math.hypot(nodes[i].tx - nodes[j].tx, nodes[i].ty - nodes[j].ty) < 90) {
+        return links;
+      },
+
+      streams() {
+        const links = [];
+        const rows = 3;
+        nodes.forEach((n, i) => {
+          const row = i % rows;
+          n.tx = xr((Math.floor(i / rows) / (N / rows)) * 0.9 + 0.05);
+          n.ty = H * (0.3 + row * 0.22) + rnd(-16, 16);
+          n.g = row;
+        });
+        for (let i = 0; i < N; i++) {
+          for (let j = i + 1; j < N; j++) {
+            if (nodes[i].g === nodes[j].g && Math.abs(nodes[i].tx - nodes[j].tx) < W * 0.12) {
               links.push([i, j, 0.45]);
             }
           }
         }
-      }
-      return links;
-    },
+        return links;
+      },
 
-    // 3 strumienie notatki (Medical odcięty, Behavioral & Discomfort lecące do AI)
-    streams() {
-      const links = [];
-      const rows = 3;
-      const stepY = (H * 0.6) / (rows - 1);
-      nodes.forEach((n, i) => {
-        const row = i % rows;
-        n.tx = X0() + (X1() - X0()) * ((i / N) * 0.9 + 0.05);
-        n.ty = H * 0.22 + row * stepY + rnd(-15, 15);
-        n.g = row;
-        if (i > 0 && (i - 1) % rows === row) {
-          links.push([i - 1, i, 0.8]);
+      shield() {
+        const links = [];
+        const cxm = xr(0.5);
+        const cym = H * 0.5;
+        const R = Math.min(X1() - X0(), H) * 0.28;
+        nodes.forEach((n, i) => {
+          const a = (i / N) * 6.28;
+          n.tx = cxm + Math.cos(a) * R * rnd(0.85, 1.15);
+          n.ty = cym + Math.sin(a) * R * rnd(0.85, 1.15);
+          n.g = 0;
+        });
+        for (let i = 0; i < N; i++) {
+          const next = (i + 1) % N;
+          links.push([i, next, 0.5]);
         }
-      });
-      return links;
-    },
+        return links;
+      },
 
-    // Tarcza ochronna (Bezpieczeństwo, RODO Art 9, Non-MDR)
-    shield() {
-      const links = [];
-      const cxm = xr(0.5);
-      const cym = H * 0.52;
-      const R = Math.min(X1() - X0(), H) * 0.36;
-      nodes.forEach((n, i) => {
-        const a = (i / N) * 6.283;
-        const rad = i % 4 === 0 ? R * 0.55 : R;
-        n.tx = cxm + Math.cos(a) * rad;
-        n.ty = cym + Math.sin(a) * rad;
-        n.g = 3;
-        if (i > 0) links.push([i - 1, i, 0.6]);
-      });
-      links.push([N - 1, 0, 0.6]);
-      return links;
-    },
-
-    // Centralny węzeł modułowy (Ekosystem platformy)
-    hub() {
-      const links = [];
-      const cxm = xr(0.5);
-      const cym = H * 0.5;
-      const R = Math.min(X1() - X0(), H) * 0.32;
-      // Węzeł centralny
-      nodes[0].tx = cxm;
-      nodes[0].ty = cym;
-      nodes[0].r = 5;
-
-      for (let i = 1; i < N; i++) {
-        const a = rnd(0, 6.28);
-        const r = rnd(R * 0.3, R);
-        nodes[i].tx = cxm + Math.cos(a) * r;
-        nodes[i].ty = cym + Math.sin(a) * r;
-        if (i < 15) {
-          links.push([0, i, 0.7]);
+      hub() {
+        const links = [];
+        const cxm = xr(0.5);
+        const cym = H * 0.5;
+        const R = Math.min(X1() - X0(), H) * 0.3;
+        nodes[0].tx = cxm;
+        nodes[0].ty = cym;
+        nodes[0].r = 4.5;
+        for (let i = 1; i < N; i++) {
+          const a = rnd(0, 6.28);
+          const r = rnd(R * 0.35, R);
+          nodes[i].tx = cxm + Math.cos(a) * r;
+          nodes[i].ty = cym + Math.sin(a) * r;
+          if (i < 14) {
+            links.push([0, i, 0.55]);
+          }
         }
+        return links;
       }
-      return links;
-    }
-  };
+    };
 
-  window.setCanvasForm = function (name, side) {
-    sideConstraint = side || 'full';
-    const fn = forms[name] || forms.network;
-    activeLinks = fn();
-  };
+    window.setCanvasForm = function (name, side) {
+      sideConstraint = side || 'full';
+      const fn = forms[name] || forms.network;
+      activeLinks = fn();
+    };
 
-  // Pętla renderująca canvas
-  function render() {
-    cx.clearRect(0, 0, W, H);
+    function render() {
+      cx.clearRect(0, 0, W, H);
 
-    // Połączenia (linie)
-    for (let k = 0; k < activeLinks.length; k++) {
-      const [i, j, alpha] = activeLinks[k];
-      const n1 = nodes[i];
-      const n2 = nodes[j];
-      if (!n1 || !n2) continue;
+      for (let k = 0; k < activeLinks.length; k++) {
+        const [i, j, alpha] = activeLinks[k];
+        const n1 = nodes[i];
+        const n2 = nodes[j];
+        if (!n1 || !n2) continue;
 
-      cx.beginPath();
-      cx.moveTo(n1.x, n1.y);
-      cx.lineTo(n2.x, n2.y);
-      cx.strokeStyle = `rgba(${lineRgb}, ${alpha * 0.4})`;
-      cx.lineWidth = 1;
-      cx.stroke();
-    }
+        cx.beginPath();
+        cx.moveTo(n1.x, n1.y);
+        cx.lineTo(n2.x, n2.y);
+        cx.strokeStyle = `rgba(${lineRgb}, ${alpha * 0.28})`;
+        cx.lineWidth = 1;
+        cx.stroke();
+      }
 
-    // Węzły (kropki)
-    const now = Date.now() * 0.003;
-    for (let i = 0; i < N; i++) {
-      const n = nodes[i];
-      // Płynna interpolacja do pozycji docelowej
-      n.x += (n.tx - n.x) * 0.06;
-      n.y += (n.ty - n.y) * 0.06;
+      const now = Date.now() * 0.002;
+      for (let i = 0; i < N; i++) {
+        const n = nodes[i];
+        n.x += (n.tx - n.x) * 0.05;
+        n.y += (n.ty - n.y) * 0.05;
 
-      // Interakcja myszką: delikatne odpychanie cząsteczek wokół kursora
-      if (mouse.active) {
-        const dx = n.x - mouse.x;
-        const dy = n.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < 130 && dist > 1) {
-          const force = (130 - dist) / 130;
-          n.x += (dx / dist) * force * 3.4;
-          n.y += (dy / dist) * force * 3.4;
+        if (mouse.active) {
+          const dx = n.x - mouse.x;
+          const dy = n.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 120 && dist > 1) {
+            const force = (120 - dist) / 120;
+            n.x += (dx / dist) * force * 2.5;
+            n.y += (dy / dist) * force * 2.5;
+          }
         }
+
+        const p = Math.sin(now + n.pulse);
+        const rad = Math.max(1, n.r + p * 0.4);
+
+        cx.beginPath();
+        cx.arc(n.x, n.y, rad, 0, 6.28);
+        if (n.g === 1) {
+          cx.fillStyle = colorNode1;
+        } else if (n.g === 2) {
+          cx.fillStyle = colorNode2;
+        } else {
+          cx.fillStyle = colorNodeDefault;
+        }
+        cx.fill();
       }
 
-      const p = Math.sin(now + n.pulse);
-      const rad = Math.max(1, n.r + p * 0.6);
-
-      cx.beginPath();
-      cx.arc(n.x, n.y, rad, 0, 6.28);
-      // Kolor węzła zależny od grupy i dynamicznego motywu
-      if (n.g === 1) {
-        cx.fillStyle = colorNode1;
-      } else if (n.g === 2) {
-        cx.fillStyle = colorNode2;
-      } else {
-        cx.fillStyle = colorNodeDefault;
-      }
-      cx.fill();
+      requestAnimationFrame(render);
     }
 
-    requestAnimationFrame(render);
+    window.setCanvasForm('network', 'full');
+    render();
   }
 
-  // Uruchomienie pierwszej formacji
-  window.setCanvasForm('network', 'full');
-  render();
-
   // ==========================================
-  // 10. INTERAKTYWNE WIDŻETY PREZENTACJI
+  // 11. INTERAKTYWNE WIDŻETY PREZENTACJI
   // ==========================================
   function initInteractiveWidgets() {
     // 1. Przełącznik trybu placówki (Slide 02)
@@ -487,14 +485,13 @@
         btnSc.classList.remove('active');
         viewStd.style.display = 'grid';
         viewSc.style.display = 'none';
-        if (window.setCanvasForm) window.setCanvasForm('split', 'right');
       });
+
       btnSc.addEventListener('click', () => {
         btnSc.classList.add('active');
         btnStd.classList.remove('active');
         viewStd.style.display = 'none';
         viewSc.style.display = 'grid';
-        if (window.setCanvasForm) window.setCanvasForm('network', 'right');
       });
     }
 
@@ -508,21 +505,21 @@
     const samplesData = {
       'sample-1': {
         audio: '„Pan Stanisław zjadł całe śniadanie, humor dopisuje, spacerował po korytarzu. Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85.”',
-        cut: '<span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85” → Zapisano do wewnętrznego brudnopisu medycznego placówki.',
-        letter: '„Dzień dobry! Pan Stanisław miał dziś wspaniały poranek. Z dużym apetytem zjadł całe śniadanie i z uśmiechem spacerował po oddziale, rozmawiając z personelem. Przesyłamy ciepłe pozdrowienia z placówki!”',
-        metrics: 'Kroki: 1 240 · Aktywność: 1.5h · Posiłek: 100% · Humor: Pogodny'
+        cut: '<strong>Odcięto informacje medyczne przed AI:</strong><br>„Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85” → Zapisano wyłącznie do wewnętrznego brudnopisu placówki.',
+        letter: '„Dzień dobry! Pan Stanisław miał dziś spokojny poranek. Z dużym apetytem zjadł całe śniadanie i z uśmiechem spacerował po oddziale, rozmawiając z personelem. Przesyłamy serdeczne pozdrowienia z placówki!”',
+        metrics: 'Kroki: 1 240 · Aktywność: 1,5 godz. · Posiłek: 100% · Nastrój: Pogodny'
       },
       'sample-2': {
-        audio: '„Pani Helena uczestniczyła w zajęciach plastycznych, zrobiła piękny bukiet z papieru. Skarżyła się na lekki ból kolana przy zmianie pogody, posmarowałam maścią rozgrzewającą.”',
-        cut: '<span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Skarżyła się na lekki ból kolana (...), posmarowałam maścią rozgrzewającą” → Przekazano do pielęgniarki dyżurnej.',
+        audio: '„Pani Helena uczestniczyła w zajęciach plastycznych, zrobiła piękny bukiet z papieru. Skarżyła się na ból kolana przy zmianie pogody, posmarowałam maścią.”',
+        cut: '<strong>Odcięto informacje medyczne przed AI:</strong><br>„Skarżyła się na ból kolana (...), posmarowałam maścią” → Zapisano do wewnętrznego zeszytu dyżuru.',
         letter: '„Dzień dobry! Pani Helena spędziła dziś twórcze popołudnie na warsztatach plastycznych – stworzyła piękny papierowy bukiet, który ozdobił jej stolik. Cieszyła się ze wspólnej herbaty z sąsiadkami.”',
-        metrics: 'Kroki: 980 · Warsztaty: 45 min · Sen nocny: 8h · Humor: Radosna'
+        metrics: 'Kroki: 980 · Warsztaty: 45 min · Sen: 8 godz. · Nastrój: Radosny'
       },
       'sample-3': {
-        audio: '„Pan Jan wypił 1.5 litra wody, po obiedzie uciął sobie regenerującą drzemkę. Zmiana opatrunku na przedramieniu wykonana czysto bez zaczerwienień.”',
-        cut: '<span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Zmiana opatrunku na przedramieniu (...) bez zaczerwienień” → Zapisano do karty zabiegowej placówki.',
-        letter: '„Dzień dobry! Pan Jan miał dziś bardzo spokojny i zrelaksowany dzień. Z apetytem zjadł obiad, dbał o nawodnienie i wypoczął podczas popołudniowej drzemki. Wszystko w najlepszym porządku!”',
-        metrics: 'Nawodnienie: 1.5 L · Drzemka: 45 min · Posiłek: 100% · Spokój: Wysoki'
+        audio: '„Pan Jan wypił 1.5 litra wody, po obiedzie uciął sobie regenerującą drzemkę. Zmiana opatrunku na przedramieniu wykonana czysto.”',
+        cut: '<strong>Odcięto informacje medyczne przed AI:</strong><br>„Zmiana opatrunku na przedramieniu” → Zapisano wyłącznie do karty czynności placówki.',
+        letter: '„Dzień dobry! Pan Jan miał dziś bardzo spokojny dzień. Z apetytem zjadł obiad, dbał o regularne picie wody i wypoczął podczas popołudniowej drzemki. Przesyłamy pozdrowienia!”',
+        metrics: 'Płyny: 1,5 L · Drzemka: 45 min · Posiłek: 100% · Nastrój: Spokojny'
       }
     };
 
@@ -541,7 +538,7 @@
       });
     });
 
-    // 3. Eksplorator Modułów (Slide 05)
+    // 3. Eksplorator Modułów (Slide 05 / Layout S06)
     const moduleItems = document.querySelectorAll('.module-nav-item');
     const modTitle = document.getElementById('mod-preview-title');
     const modDesc = document.getElementById('mod-preview-desc');
@@ -549,89 +546,89 @@
 
     const modulesData = {
       'bed': {
-        title: '01 · Obłożenie i Pokoje (Facility & Bed)',
+        title: '01 · Obłożenie i pokoje (Facility & Bed)',
         desc: 'Interaktywny rejestr sektorów, pokoi i łóżek. Dyrekcja w 3 sekundy widzi stan obłożenia placówki.',
-        ui: `<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.6rem; margin-top:0.8rem;">
-              <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
-                <b style="color:var(--accent-soft);">Pokój 101</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+        ui: `<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:1rem;">
+              <div style="background:var(--s-soft); border:2px solid var(--s-accent); padding:1rem; border-radius:12px; text-align:center;">
+                <b style="color:var(--s-accent); font-size:17px;">Pokój 101</b><div style="font-size:15px; color:var(--s-sec); margin-top:4px;">2/2 zajęte</div>
               </div>
-              <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
-                <b style="color:var(--accent-soft);">Pokój 102</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+              <div style="background:var(--s-soft); border:2px solid var(--s-accent); padding:1rem; border-radius:12px; text-align:center;">
+                <b style="color:var(--s-accent); font-size:17px;">Pokój 102</b><div style="font-size:15px; color:var(--s-sec); margin-top:4px;">2/2 zajęte</div>
               </div>
-              <div style="background:rgba(226,194,133,0.15); border:1px dashed var(--accent-gold); padding:0.6rem; border-radius:4px; text-align:center;">
-                <b style="color:var(--accent-gold);">Pokój 103</b><div style="font-size:0.75rem; color:var(--ink2);"><span style="color:#6ED6A0;">● 1 wolne łóżko</span></div>
+              <div style="background:var(--s-surface); border:2px dashed var(--s-border); padding:1rem; border-radius:12px; text-align:center;">
+                <b style="color:var(--s-text); font-size:17px;">Pokój 103</b><div style="font-size:15px; color:var(--s-accent); margin-top:4px;">● 1 wolne miejsce</div>
               </div>
             </div>
-            <div style="margin-top:1rem; font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">
-              Łączne obłożenie: <strong style="color:var(--accent);">95.6%</strong> (43/45 miejsc aktywnych)
+            <div style="margin-top:1.2rem; font-size:16px; color:var(--s-sec);">
+              Łączne obłożenie placówki: <strong style="color:var(--s-accent);">95,6%</strong> (43 / 45 miejsc aktywnych)
             </div>`
       },
       'agenda': {
-        title: '02 · Agenda i Rytm Dnia',
-        desc: 'Harmonogram posiłków, rehabilitacji i wizyt. Opiekun wie co robić, a rodzina zna plan dnia.',
-        ui: `<div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.8rem;">
-              <div style="display:flex; justify-content:space-between; font-size:0.82rem; border-bottom:1px solid var(--line2); padding-bottom:0.3rem;">
-                <span style="color:var(--accent);">08:30 · Śniadanie & Leki</span><span style="color:#6ED6A0;">✔ Zakończone</span>
+        title: '02 · Agenda i rytm dnia',
+        desc: 'Harmonogram posiłków, aktywności i wizyt. Opiekun wie co robić, a rodzina zna plan dnia.',
+        ui: `<div style="display:flex; flex-direction:column; gap:8px; margin-top:1rem;">
+              <div style="display:flex; justify-content:space-between; font-size:16px; border-bottom:1px solid var(--s-border); padding-bottom:6px;">
+                <span style="font-weight:600; color:var(--s-text);">08:30 · Śniadanie w jadalni</span><span style="color:var(--s-accent);">Zakończone</span>
               </div>
-              <div style="display:flex; justify-content:space-between; font-size:0.82rem; border-bottom:1px solid var(--line2); padding-bottom:0.3rem;">
-                <span style="color:var(--accent);">10:30 · Zajęcia plastyczne / Ogród</span><span style="color:#6ED6A0;">✔ Zakończone</span>
+              <div style="display:flex; justify-content:space-between; font-size:16px; border-bottom:1px solid var(--s-border); padding-bottom:6px;">
+                <span style="font-weight:600; color:var(--s-text);">10:30 · Warsztaty plastyczne / Ogród</span><span style="color:var(--s-accent);">Zakończone</span>
               </div>
-              <div style="display:flex; justify-content:space-between; font-size:0.82rem; border-bottom:1px solid var(--line2); padding-bottom:0.3rem;">
-                <span style="color:var(--accent-gold);">13:30 · Obiad & Drzemka</span><span style="color:var(--accent-gold);">● W toku</span>
+              <div style="display:flex; justify-content:space-between; font-size:16px; border-bottom:1px solid var(--s-border); padding-bottom:6px;">
+                <span style="font-weight:600; color:var(--s-accent);">13:30 · Obiad & Czas na odpoczynek</span><span style="color:var(--s-accent);">W trakcie</span>
               </div>
-              <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding-bottom:0.3rem;">
-                <span style="color:var(--ink2);">15:00 · Wysyłka Peace Letter do rodzin</span><span style="color:var(--ink3);">Zaplanowane</span>
+              <div style="display:flex; justify-content:space-between; font-size:16px; padding-bottom:6px;">
+                <span style="color:var(--s-sec);">15:00 · Wysyłka raportu Peace Letter do bliskich</span><span style="color:var(--s-ter);">Zaplanowane</span>
               </div>
             </div>`
       },
       'chat': {
-        title: '03 · Bezpieczny Czat z Rodziną',
-        desc: 'Wygodna skrzynka zapytań od bliskich. Koniec z gubiącymi się karteczkami i telefonami w trakcie zabiegów.',
-        ui: `<div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.8rem;">
-              <div style="background:rgba(255,255,255,0.06); padding:0.6rem 0.8rem; border-radius:6px; font-size:0.82rem; max-width:85%;">
-                <b style="color:var(--accent-gold);">Córka (Pani Anna):</b><br>Dzień dobry, czy tata potrzebuje cieplejszych skarpet na jesień?
+        title: '03 · Bezpieczny kontakt z rodziną',
+        desc: 'Wygodna skrzynka zapytań od bliskich. Koniec z gubiącymi się karteczkami i telefonami w trakcie opieki.',
+        ui: `<div style="display:flex; flex-direction:column; gap:10px; margin-top:1rem;">
+              <div style="background:var(--s-sunken); padding:0.8rem 1.2rem; border-radius:12px; font-size:16px; max-width:85%; border:1px solid var(--s-border);">
+                <b style="color:var(--s-text);">Córka (Pani Anna):</b><br>Dzień dobry, czy tata potrzebuje cieplejszych ubrań na spacer?
               </div>
-              <div style="background:rgba(47,111,94,0.35); border:1px solid var(--line); padding:0.6rem 0.8rem; border-radius:6px; font-size:0.82rem; align-self:flex-end; max-width:85%;">
-                <b style="color:var(--accent-soft);">Opiekunka dyżurna:</b><br>Dzień dobry! Tak, 2 pary cieplejszych skarpet będą super. Dziękujemy!
+              <div style="background:var(--s-soft); border:2px solid var(--s-accent); padding:0.8rem 1.2rem; border-radius:12px; font-size:16px; align-self:flex-end; max-width:85%;">
+                <b style="color:var(--s-accent);">Opiekunka dyżurna:</b><br>Dzień dobry! Cieplejsza bluza będzie w sam raz na popołudnie. Dziękujemy!
               </div>
             </div>`
       },
       'wizard': {
-        title: '04 · Kreator Przyjęć Mieszkańca',
-        desc: 'Szybkie wprowadzenie podopiecznego do systemu w 3 minuty. Baza kontaktów, dieta i zgody RODO.',
-        ui: `<div style="display:flex; gap:0.5rem; margin-top:0.8rem; font-family:var(--mono); font-size:0.72rem;">
-              <div style="flex:1; background:rgba(47,111,94,0.4); border:1px solid var(--accent); padding:0.5rem; border-radius:4px; text-align:center;">1. Dane & PESEL (Hash)</div>
-              <div style="flex:1; background:rgba(47,111,94,0.4); border:1px solid var(--accent); padding:0.5rem; border-radius:4px; text-align:center;">2. Dieta & Preferencje</div>
-              <div style="flex:1; background:rgba(47,111,94,0.4); border:1px solid var(--accent); padding:0.5rem; border-radius:4px; text-align:center;">3. Telefon do córki</div>
+        title: '04 · Kreator przyjęć podopiecznego',
+        desc: 'Sprawne wprowadzenie seniora do systemu w 3 minuty. Baza kontaktów do bliskich, preferencje i zgody RODO.',
+        ui: `<div style="display:flex; gap:8px; margin-top:1rem; font-size:15px;">
+              <div style="flex:1; background:var(--s-soft); border:2px solid var(--s-accent); padding:0.7rem; border-radius:8px; text-align:center; font-weight:600; color:var(--s-accent);">1. Dane i profil</div>
+              <div style="flex:1; background:var(--s-soft); border:2px solid var(--s-accent); padding:0.7rem; border-radius:8px; text-align:center; font-weight:600; color:var(--s-accent);">2. Preferencje dnia</div>
+              <div style="flex:1; background:var(--s-soft); border:2px solid var(--s-accent); padding:0.7rem; border-radius:8px; text-align:center; font-weight:600; color:var(--s-accent);">3. Kontakt do bliskich</div>
             </div>
-            <div style="margin-top:1rem; font-size:0.82rem; color:var(--ink2);">
-              System natychmiast generuje dedykowany PIN logowania dla rodziny i tworzy bezpieczny profil.
+            <div style="margin-top:1.2rem; font-size:16px; color:var(--s-sec);">
+              System generuje kod dostępu dla bliskich i uruchamia codzienny obieg informacji bez drukowania formularzy.
             </div>`
       },
       'multi': {
         title: '05 · Multi-Resident (Wielu podopiecznych)',
-        desc: 'Rodziny posiadające oboje rodziców w ośrodku przełączają profil jednym tapnięciem bez przelogowywania.',
-        ui: `<div style="display:flex; gap:0.8rem; margin-top:0.8rem;">
-              <div style="flex:1; border:1px solid var(--accent); background:rgba(47,111,94,0.3); padding:0.7rem; border-radius:4px;">
-                <b style="color:#FFFFFF;">Mama (Pani Krystyna)</b>
-                <div style="font-size:0.75rem; color:var(--accent);">Pokój 104 · Aktywny</div>
+        desc: 'Rodziny posiadające oboje rodziców w placówce przełączają profil jednym tapnięciem bez przelogowywania.',
+        ui: `<div style="display:flex; gap:12px; margin-top:1rem;">
+              <div style="flex:1; border:2px solid var(--s-accent); background:var(--s-soft); padding:1rem; border-radius:12px;">
+                <b style="color:var(--s-text); font-size:17px;">Mama (Pani Krystyna)</b>
+                <div style="font-size:15px; color:var(--s-accent); margin-top:4px;">Pokój 104 · Aktywny widok</div>
               </div>
-              <div style="flex:1; border:1px solid var(--line2); background:rgba(9,21,18,0.5); padding:0.7rem; border-radius:4px;">
-                <b style="color:var(--ink2);">Tata (Pan Henryk)</b>
-                <div style="font-size:0.75rem; color:var(--ink3);">Pokój 108 · Kliknij by przełączyć</div>
+              <div style="flex:1; border:2px solid var(--s-border); background:var(--s-surface); padding:1rem; border-radius:12px; cursor:pointer;">
+                <b style="color:var(--s-sec); font-size:17px;">Tata (Pan Henryk)</b>
+                <div style="font-size:15px; color:var(--s-ter); margin-top:4px;">Pokój 108 · Kliknij, aby przełączyć</div>
               </div>
             </div>`
       },
       'gallery': {
-        title: '06 · Bezpieczna Galeria Fotografii',
-        desc: 'Szyfrowane zdjęcia z życia placówki z automatyczną weryfikacją zgody wizerunkowej RODO.',
-        ui: `<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.5rem; margin-top:0.8rem;">
-              <div style="background:rgba(255,255,255,0.06); aspect-ratio:4/3; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent);">📷 Wypiek chleba</div>
-              <div style="background:rgba(255,255,255,0.06); aspect-ratio:4/3; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent);">📷 Spacer jesienny</div>
-              <div style="background:rgba(255,255,255,0.06); aspect-ratio:4/3; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent);">📷 Muzykoterapia</div>
+        title: '06 · Bezpieczna galeria z życia placówki',
+        desc: 'Zdjęcia z warsztatów i spacerów z automatyczną weryfikacją zgody wizerunkowej RODO.',
+        ui: `<div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-top:1rem;">
+              <div style="background:var(--s-sunken); border:1px solid var(--s-border); aspect-ratio:4/3; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; color:var(--s-sec);">📷 Wypiek chleba</div>
+              <div style="background:var(--s-sunken); border:1px solid var(--s-border); aspect-ratio:4/3; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; color:var(--s-sec);">📷 Spacer w ogrodzie</div>
+              <div style="background:var(--s-sunken); border:1px solid var(--s-border); aspect-ratio:4/3; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; color:var(--s-sec);">📷 Muzyka i śpiew</div>
             </div>
-            <div style="margin-top:0.8rem; font-family:var(--mono); font-size:0.7rem; color:#6ED6A0;">
-              ✔ Zgoda RODO zweryfikowana dla 100% widocznych mieszkańców.
+            <div style="margin-top:1rem; font-size:15px; color:var(--s-accent); font-weight:500;">
+              Zgoda wizerunkowa zweryfikowana dla wszystkich widocznych seniorów.
             </div>`
       }
     };
@@ -662,23 +659,22 @@
         if (isRecording) return;
         isRecording = true;
         btnRecord.classList.add('recording');
-        btnRecord.innerHTML = '<span>🔴</span> Nagrywanie głosu (3s)...';
+        btnRecord.innerHTML = '<span>●</span> Nagrywanie notatki (3s)...';
         waveform.classList.add('active');
-        recStatus.textContent = 'Trwa nagrywanie notatki przez mikrofon PWA...';
+        recStatus.textContent = 'Trwa nagrywanie notatki głosowej przez mikrofon PWA...';
 
         setTimeout(() => {
-          btnRecord.innerHTML = '<span>⚡</span> Przetwarzanie Groq Whisper EU...';
+          btnRecord.innerHTML = '<span>⚡</span> Transkrypcja Groq Whisper EU...';
           recStatus.textContent = 'Transkrypcja AI + filtr Guardrails Non-MDR...';
         }, 2000);
 
         setTimeout(() => {
           btnRecord.classList.remove('recording');
-          btnRecord.innerHTML = '<span>✔</span> Sukces! Wysłano w 3.8s';
+          btnRecord.innerHTML = '<span>✔</span> Wysłano pomyślnie w 3.8s';
           waveform.classList.remove('active');
-          recStatus.textContent = 'Notatka przetworzona · Dane medyczne odcięte · Raport w telefonie rodziny!';
+          recStatus.textContent = 'Notatka przetworzona · Dane medyczne odcięte · Raport doręczony do bliskich!';
           if (toastFamily) {
             toastFamily.style.display = 'block';
-            toastFamily.style.animation = 'fadeIn 0.4s ease';
           }
           setTimeout(() => {
             btnRecord.innerHTML = '<span>🎙️</span> Przetestuj dyktowanie (Symulacja 3s)';
@@ -688,7 +684,7 @@
       });
     }
 
-    // 5. Interaktywny Kalkulator Korzyści (Slide 09)
+    // 5. Interaktywny Kalkulator Korzyści (Slide 09 / Layout S07)
     const slider = document.getElementById('slider-residents');
     const valDisplay = document.getElementById('calc-residents-val');
     const outHours = document.getElementById('calc-hours-saved');
@@ -711,31 +707,40 @@
       updateCalculator();
     }
 
-    // 6. Interaktywna Oś Czasu (Slide 13) · Strategiczne Partnerstwo z KIDO
+    // 6. Interaktywna Oś Czasu (Slide 13 / Layout S08 Proces)
     const timelineTabs = document.querySelectorAll('.timeline-step-btn');
     const timelineDetails = document.getElementById('timeline-step-details');
     const timelineData = {
       '1': {
-        title: 'Etap 1 · Dziś: Porozumienie o Partnerstwie z KIDO',
-        desc: 'Podpisanie listu intencyjnego i wyznaczenie placówek do programu pilotażowego pod patronatem Izby.',
+        title: 'Krok 1 · Dziś: Porozumienie partnerskie z KIDO',
+        desc: 'Podpisanie listu intencyjnego i wskazanie placówek członkowskich do bezpłatnego programu pilotażowego pod patronatem Izby.',
         checklist: [
           'Podpisanie listu intencyjnego między Zarządem KIDO a Silver Care',
-          'Wskazanie 10-15 placówek zrzeszonych w Izbie do bezpłatnego pilotażu',
+          'Wskazanie 10-15 placówek zrzeszonych w Izbie do udziału w pilotażu',
           'Ustalenie zakresu metryk do wspólnego Ogólnopolskiego Raportu Branżowego'
         ]
       },
       '2': {
-        title: 'Etap 2 · Za 30 dni: Uruchomienie & Szkolenia Personelu w Placówkach',
-        desc: 'Sprawne, bezkosztowe wdrożenie w domach członkowskich bez obciążania kadr ani działów IT.',
+        title: 'Krok 2 · Za 30 dni: Uruchomienie & Szkolenia personelu',
+        desc: 'Lekkie, bezkosztowe wdrożenie w domach członkowskich bez obciążania kadr ani działów informatycznych.',
         checklist: [
-          'Zdalna konfiguracja pokoi i instalacja PWA na smartfonach personelu (1 kliknięcie)',
+          'Zdalna konfiguracja pokoi i instalacja PWA na telefonach personelu (1 tapnięcie)',
           '30-minutowe instruktaże dyktowania głosem dla opiekunów i pielęgniarek',
-          'Start codziennej wysyłki Peace Letter do rodzin pensjonariuszy o 15:00'
+          'Start codziennej wysyłki Peace Letter do bliskich pensjonariuszy o 15:00'
         ]
       },
       '3': {
-        title: 'Etap 3 · Za 90 dni: Ogólnopolski Raport KIDO & Prezentacja na Konferencji',
-        desc: 'Podsumowanie wyników, publikacja wspólnego raportu i promocja placówek członkowskich w mediach.',
+        title: 'Krok 3 · Za 60 dni: Pilotaż w toku & Bieżące wsparcie',
+        desc: 'Codzienna praca personelu z aplikacją głosową i bezpośrednia opieka nad podopiecznymi bez telefonów na dyżurce.',
+        checklist: [
+          'Codzienne raporty Peace Letter docierające do córek i synów o 15:00',
+          'Spadek powtarzalnych telefonów na recepcji o 60%',
+          'Bieżące zbieranie anonimowych metryk oszczędności czasu personelu'
+        ]
+      },
+      '4': {
+        title: 'Krok 4 · Za 90 dni: Ogólnopolski Raport KIDO & Konferencja',
+        desc: 'Podsumowanie wyników, publikacja wspólnego raportu i uroczyste wręczenie certyfikatów placówkom Izby.',
         checklist: [
           'Opracowanie Raportu KIDO × Silver Care: „Cyfryzacja a retencja kadr w domach opieki”',
           'Uroczyste wręczenie certyfikatów „Lider Nowego Standardu KIDO” placówkom pilotażowym',
@@ -751,12 +756,12 @@
         const step = tab.getAttribute('data-step');
         const d = timelineData[step];
         if (d && timelineDetails) {
-          let listHtml = d.checklist.map(item => `<li><span style="color:#6ED6A0;">✔</span> ${item}</li>`).join('');
+          let listHtml = d.checklist.map(item => `<li style="display:flex; align-items:flex-start; gap:8px;"><span style="color:var(--s-accent); font-weight:600;">✔</span> <span>${item}</span></li>`).join('');
           timelineDetails.innerHTML = `
-            <div style="background:var(--termbg); border:1px solid var(--accent-gold); border-radius:var(--radius); padding:1.2rem; margin-top:1rem;">
-              <h4 style="font-family:var(--display); font-size:1.1rem; color:var(--accent-gold); margin:0 0 0.5rem;">${d.title}</h4>
-              <p style="color:var(--ink2); font-size:0.92rem; margin-bottom:0.8rem;">${d.desc}</p>
-              <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; font-size:0.85rem; color:var(--ink3);">
+            <div style="background:var(--s-surface); border:2px solid var(--s-accent); border-radius:var(--radius-sm); padding:1.5rem; margin-top:1rem;">
+              <h4 style="font-size:20px; font-weight:600; color:var(--s-accent); margin:0 0 0.5rem;">${d.title}</h4>
+              <p style="color:var(--s-sec); font-size:17px; margin-bottom:1rem; line-height:1.5;">${d.desc}</p>
+              <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem; font-size:16px; color:var(--s-text);">
                 ${listHtml}
               </ul>
             </div>
@@ -785,7 +790,7 @@
           `• Zasięg: ${city}\n` +
           `• Skala pilotażu: ${beds}\n\n` +
           `Cel: Ochrona kadr opiekuńczych, wdrożenie standardu komunikacji Non-MDR oraz przygotowanie wspólnego Ogólnopolskiego Raportu Branżowego KIDO.\n\n` +
-          `Z poważaniem,\nDariusz Olszewski-Rink\nŁukasz Romanowicz\nMichał Sznurowski\nSilver Care`
+          `Z poważaniem,\nDariusz Olszewski-Rink\nMichał Sznurowski\nŁukasz Romanowicz\nSilver Care`
         );
         window.location.href = `mailto:kontakt@silvercare.pl?subject=${subject}&body=${body}`;
       });

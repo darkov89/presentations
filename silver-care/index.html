@@ -5,24 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Silver Care × Krajowa Izba Domów Opieki · Program Partnerski</title>
   
-  <!-- Fonty: Inter, Space Grotesk, JetBrains Mono -->
+  <!-- Krój pisma: Inter (latin-ext, wagi 400, 500, 600) wg oficjalnego kontraktu marki -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="deck.css">
 </head>
 <body>
 
-  <!-- Tło animowane canvas i siatka blueprint -->
-  <div class="bgfx"></div>
+  <!-- Subtelne tło: organiczny canvas sieci połączeń -->
   <canvas id="org"></canvas>
 
   <!-- Pasek postępu na samej górze -->
   <div id="bar"></div>
 
-  <!-- Pasek HUD -->
-  <div id="hud">
+  <!-- Górny pasek kontrolny HUD -->
+  <header id="hud">
     <div class="brand">
       <div class="sc-logo" title="Silver Care Logo">
         <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
@@ -31,33 +30,33 @@
     </div>
     <div class="meta">
       <span id="num">01 / 14</span>
-      <span id="clock" title="Kliknij lub naciśnij T, aby włączyć/zatrzymać stoper. R zeruje.">00:00</span>
+      <span id="clock" title="Kliknij lub naciśnij T, aby włączyć stoper. R zeruje.">00:00</span>
       <div class="tools">
-        <a href="../" class="hud-btn" style="text-decoration:none;display:inline-flex;align-items:center;" title="Wróć do katalogu prezentacji">← Hub</a>
-        <button id="btn-theme" class="hud-btn" title="Zmień motyw kolorystyczny / tło [M]">Motyw [M]</button>
-        <button id="btn-notes" class="hud-btn" title="Notatki prelegenta (N)">Notatki [N]</button>
-        <button id="btn-fs" class="hud-btn" title="Pełny ekran (F)">Pełny ekran [F]</button>
+        <a href="../" class="hud-btn" style="text-decoration:none;" title="Wróć do katalogu prezentacji">← Hub</a>
+        <button id="btn-theme" class="hud-btn" title="Przełącz motyw jasny / ciemny [M]">Motyw [M]</button>
+        <button id="btn-notes" class="hud-btn" title="Notatki prelegenta [N]">Notatki [N]</button>
+        <button id="btn-fs" class="hud-btn" title="Pełny ekran [F]">Pełny ekran [F]</button>
       </div>
     </div>
-  </div>
+  </header>
 
   <!-- Kropki nawigacyjne po prawej stronie -->
-  <nav id="dots"></nav>
+  <nav id="dots" aria-label="Nawigacja slajdów"></nav>
 
-  <!-- Pasek pomocy na dole -->
-  <div id="help">↓ / spacja dalej · M motyw · N notatki · T stoper · F pełny ekran</div>
+  <!-- Pasek skrótów klawiszowych -->
+  <footer id="help">↓ / spacja dalej · M motyw · N notatki · T stoper · F pełny ekran</footer>
 
   <!-- Główny kontener prezentacji -->
   <main id="deck">
 
-    <!-- 01 · OKŁADKA -->
-    <section class="card" data-form="network" data-t="Okładka">
+    <!-- 01 · OKŁADKA (Layout S01: Pełne tło akcentu) -->
+    <section class="card card-cover" data-form="network" data-t="Okładka">
       <div class="inner">
-        <div class="eyebrow">Inicjatywa Strategiczna · Propozycja dla Prezesa Krajowej Izby Domów Opieki</div>
+        <div class="eyebrow">Inicjatywa strategiczna · Propozycja dla Prezesa Krajowej Izby Domów Opieki</div>
         <h1>Silver <em>Care</em> × KIDO</h1>
         <p class="lede">
-          Nowy Standard Komunikacji i Ochrony Personelu w Domach Opieki.<br>
-          <strong>Oparty na twardych danych raportów BGK/KIDO, OECD i GUS. Święty spokój dla rodzin, ochrona kadr przed wypaleniem.</strong>
+          Nowy standard komunikacji i ochrony personelu w domach opieki.<br>
+          <strong>Oparty na twardych danych raportów BGK/KIDO, OECD i GUS. Spokój dla rodzin, ochrona kadr przed wypaleniem.</strong>
         </p>
         <div style="margin-top: 2rem;">
           <a href="#deck" onclick="document.querySelectorAll('.card')[1].scrollIntoView({behavior:'smooth'}); return false;" class="btn-cta">
@@ -65,8 +64,8 @@
           </a>
         </div>
         <p class="byline">
-          Dedykowane dla: <strong>Dr Andrzej Lejczak</strong> · Prezes Krajowej Izby Domów Opieki<br>
-          Przygotowali: Dariusz Olszewski-Rink · Łukasz Romanowicz · Michał Sznurowski
+          Dedykowane dla: <strong>dr Andrzej Lejczak</strong> · Prezes Krajowej Izby Domów Opieki<br>
+          Przygotowali: Dariusz Olszewski-Rink · Michał Sznurowski · Łukasz Romanowicz
         </p>
       </div>
       <aside class="notes" style="display:none;">
@@ -75,53 +74,52 @@
       </aside>
     </section>
 
-    <!-- 02 · PROBLEM SYSTEMOWY -->
+    <!-- 02 · PROBLEM SYSTEMOWY (Layout S09: Porównanie) -->
     <section class="card" data-form="split" data-side="right" data-t="Problem">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Diagnoza Branży · Raporty: OECD (XI 2025) & BGK / KIDO (XII 2025)</div>
-        <h2>W polskich domach seniora trwa <em>kryzys kadr i cichy drenaż czasu</em>.</h2>
+        <div class="eyebrow">Stan branży · Raporty: OECD (XI 2025) & BGK / KIDO (XII 2025)</div>
+        <h2>W polskich domach seniora trwa <em>kryzys kadr i drenaż czasu</em>.</h2>
         
         <!-- Interaktywny przełącznik trybu placówki -->
         <div class="mode-switch-bar">
           <div class="mode-switch-title">
-            <span>⚖️ Porównanie operacyjne:</span>
+            <span>Porównanie operacyjne:</span>
           </div>
           <div class="mode-switch-pills">
-            <button id="btn-mode-std" class="switch-pill alert active" type="button">1. Standardowa placówka w Polsce (Wypalenie kadr & Presja)</button>
-            <button id="btn-mode-sc" class="switch-pill" type="button">2. Placówka w Standardzie KIDO × Silver Care (Stabilizacja & Prestiż)</button>
+            <button id="btn-mode-std" class="switch-pill active" type="button">1. Standardowa placówka w Polsce (deficyt kadr i presja)</button>
+            <button id="btn-mode-sc" class="switch-pill" type="button">2. Placówka w standardzie KIDO × Silver Care (stabilizacja i prestiż)</button>
           </div>
         </div>
 
         <!-- Widok 1: Standardowa placówka -->
         <div id="view-mode-std" class="grid2">
-          <div class="block" style="border-color: rgba(255, 120, 117, 0.4);">
-            <h3 style="color:#FFA39E;">Biegun 1 · Personel opiekuńczy (Deficyt & Presja)</h3>
-            <div class="big" style="color:#FF7875;">0,3 vs 5,0</div>
-            <p>Według raportu OECD w Polsce przypada zaledwie <strong>0,3 pracownika opieki długoterminowej na 100 seniorów</strong> (średnia OECD: 5,0 – ponad 16x mniej!). Aż <strong>69% placówek opiekuńczych</strong> miało w ostatnich 2 latach problem ze znalezieniem personelu (Raport BGK / KIDO). Personel fizycznie nie ma możliwości ręcznego kontaktu z rodzinami, tracąc <strong>~140 min/dzień</strong> na ~42 telefonach.</p>
-            <span class="tag" style="background: rgba(255,120,117,0.15); color:#FFA39E; border:1px solid rgba(255,120,117,0.3);">0,3 opiekuna / 100 seniorów · 69% placówek z brakami kadr</span>
+          <div class="block">
+            <h3>Biegun 1 · Personel opiekuńczy (deficyt i presja)</h3>
+            <div class="big">0,3 vs 5,0</div>
+            <p>Według raportu OECD w Polsce przypada zaledwie <strong>0,3 pracownika opieki długoterminowej na 100 seniorów</strong> (średnia OECD: 5,0 – ponad 16x mniej!). Aż <strong>69% placówek opiekuńczych</strong> miało w ostatnich 2 latach problem ze znalezieniem personelu (Raport BGK / KIDO). Personel fizycznie nie ma możliwości ręcznego kontaktu z bliskimi, tracąc <strong>~140 min/dzień</strong> na ~42 telefonach.</p>
+            <span class="tag">0,3 opiekuna / 100 seniorów · 69% placówek z brakami kadr</span>
           </div>
-          <div class="block" style="border-color: rgba(255, 120, 117, 0.4);">
-            <h3 style="color:#FFA39E;">Biegun 2 · Rodziny mieszkańców (Lęk & Roszczenia)</h3>
-            <div class="big" style="color:#FF7875;">Niepokój</div>
-            <p>Poczucie winy i lęk o bliskiego. Badania wskazują, że <strong>brak systematycznej, proaktywnej komunikacji jest głównym źródłem stresu i niepokoju dla bliskich</strong>. 88% telefonów to powtarzające się pytania o podstawy („czy mama zjadła obiad?”). Każda cisza rodzi podejrzenia o zaniedbania i eskalacje do dyrekcji placówki.</p>
-            <span class="tag" style="background: rgba(255,120,117,0.15); color:#FFA39E; border:1px solid rgba(255,120,117,0.3);">Cisza informacyjna rodzi konflikty</span>
+          <div class="block">
+            <h3>Biegun 2 · Bliscy mieszkańców (niepokój i brak wieści)</h3>
+            <div class="big">Niepokój</div>
+            <p>Poczucie winy i lęk o bliskiego. Badania wskazują, że <strong>brak systematycznej, proaktywnej komunikacji jest głównym źródłem stresu dla bliskich</strong>. 88% telefonów to powtarzające się pytania o podstawy („czy mama zjadła obiad?”). Każda cisza rodzi podejrzenia o zaniedbania i eskalacje do dyrekcji placówki.</p>
+            <span class="tag">Cisza informacyjna rodzi konflikty</span>
           </div>
         </div>
 
         <!-- Widok 2: Placówka z Silver Care w standardzie KIDO -->
         <div id="view-mode-sc" class="grid2" style="display: none;">
-          <div class="block" style="border-color: rgba(127, 188, 168, 0.6); background: rgba(47, 111, 94, 0.25);">
-            <h3 style="color:var(--accent-soft);">Biegun 1 · Ochrona Personelu (Retencja & Ulga)</h3>
-            <div class="big" style="color:#6ED6A0;">Odzyskany Czas</div>
+          <div class="block accent">
+            <h3>Biegun 1 · Ochrona personelu (retencja i ulga)</h3>
+            <div class="big">Odzyskany czas</div>
             <p><strong>30 sekund notatki podyktowanej w biegu</strong> na korytarzu. Spadek powtarzalnych telefonów o 60%. Personel w 100% skupiony na mieszkańcach, zabezpieczony przed stresem i agresją słowną.</p>
-            <span class="tag" style="background: rgba(110,214,160,0.15); color:#6ED6A0; border:1px solid rgba(110,214,160,0.3);">Cisza w dyżurce · Godność pracy</span>
+            <span class="tag">Cisza w dyżurce · Godność pracy</span>
           </div>
-          <div class="block" style="border-color: rgba(127, 188, 168, 0.6); background: rgba(47, 111, 94, 0.25);">
-            <h3 style="color:var(--accent-soft);">Biegun 2 · Transparentność & Prestiż KIDO</h3>
-            <div class="big" style="color:#6ED6A0;">Święty Spokój</div>
-            <p>Codzienny, ciepły raport <strong>Peace Letter</strong> w telefonie o stałej porze (np. 15:00). Rodziny widzą troskę i profesjonalizm, a placówki Izby zyskują status liderów nowoczesnej opieki.</p>
-            <span class="tag" style="background: rgba(110,214,160,0.15); color:#6ED6A0; border:1px solid rgba(110,214,160,0.3);">100% rodzin z codzienną informacją</span>
+          <div class="block accent">
+            <h3>Biegun 2 · Transparentność i prestiż KIDO</h3>
+            <div class="big">Święty spokój</div>
+            <p>Codzienny, ciepły raport <strong>Peace Letter</strong> w telefonie o stałej porze (np. 15:00). Bliscy widzą troskę i profesjonalizm, a placówki Izby zyskują status liderów nowoczesnej opieki.</p>
+            <span class="tag">100% rodzin z codzienną informacją</span>
           </div>
         </div>
 
@@ -130,38 +128,37 @@
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>1:30 · Diagnoza Branży (Dwa bieguny placówek KIDO)</b>
+        <b>1:30 · Stan Branży (Dwa bieguny placówek KIDO)</b>
         <p>„Panie Prezesie, Raport KIDO i BGK z grudnia 2025 r. mówi wprost: aż 69% placówek opiekuńczych w Polsce miało w ostatnich dwóch latach problem ze znalezieniem pracowników. Z kolei raport OECD z listopada 2025 r. ujawnia porażający wskaźnik: w Polsce przypada jedynie 0,3 pracownika opieki długoterminowej na 100 seniorów – przy średniej OECD równej 5,0! To oznacza ponad 16-krotną dysproporcję. Personel fizycznie nie ma możliwości ręcznego odbierania 42 telefonów dziennie i tłumaczenia rodzinom podstawowych spraw. Przełączając widok: Standard KIDO × Silver Care zamienia te 140 minut ciągłego stresu w 30-sekundową notatkę głosową. Personel odzyskuje godność, a rodzina ma spokój.”</p>
       </aside>
     </section>
 
-    <!-- 03 · BADANIA POTRZEB -->
+    <!-- 03 · BADANIA POTRZEB (Layout S03 / S05: Badania potrzeb) -->
     <section class="card" data-form="network" data-side="right" data-t="Badania potrzeb">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Wnioski z Raportów i Badań · Marconi · SeniorApp 2025 · Diagnoza DI 2024 · GUS</div>
+        <div class="eyebrow">Wnioski z raportów i badań · Marconi · SeniorApp 2025 · Badanie DI 2024 · GUS</div>
         <h2>Rodziny nie oczekują medycznych raportów. <em>Chcą prostych faktów.</em></h2>
-        <p class="lede">Analiza raportów rynkowych (SeniorApp 2025, Ogólnopolska Diagnoza DI 2024, GUS 2024) oraz badania w Domu Seniora Marconi zdefiniowały kluczowe wzorce zachowań seniorów i ich rodzin:</p>
+        <p class="lede">Analiza raportów rynkowych (SeniorApp 2025, Ogólnopolskie Badanie DI 2024, GUS 2024) oraz doświadczenia w Domu Seniora Marconi zdefiniowały kluczowe wzorce zachowań seniorów i ich bliskich:</p>
         <div class="grid4">
           <div class="block">
-            <h3>Preferencja Seniorów</h3>
+            <h3>Preferencja seniorów</h3>
             <div class="big">94%</div>
-            <p>Seniorów tracących samodzielność preferuje pozostanie w środowisku domowym i znanym otoczeniu (Diagnoza DI).</p>
+            <p>Seniorów tracących samodzielność preferuje pozostanie w środowisku domowym i znanym otoczeniu (Badanie DI).</p>
           </div>
           <div class="block">
-            <h3>Wsparcie Wieku 85+</h3>
+            <h3>Wsparcie wieku 85+</h3>
             <div class="big">68,1%</div>
-            <p>Osób w wieku 85+ w Polsce wymaga codziennego wsparcia zdrowotnego i stałej asysty opiekuńczej (GUS 2024).</p>
+            <p>Osób w wieku 85+ w Polsce wymaga codziennego wsparcia i stałej asysty opiekuńczej (GUS 2024).</p>
           </div>
           <div class="block">
-            <h3>4 Filary Spokoju</h3>
+            <h3>4 filary spokoju</h3>
             <div class="big">Codzienność</div>
-            <p>Kluczowe dla rodzin i seniorów są 4 sfery: jakość snu, nawodnienie/posiłki, nastrój oraz aktywność (SeniorApp).</p>
+            <p>Kluczowe dla rodzin i seniorów są 4 sfery: jakość snu, nawodnienie i posiłki, nastrój oraz aktywność (SeniorApp).</p>
           </div>
-          <div class="block gold">
-            <h3>Główne Źródło Stresu</h3>
+          <div class="block accent">
+            <h3>Główne źródło stresu</h3>
             <div class="big">Cisza</div>
-            <p>Pretensje i niepokój bliskich wynikają z braku kontaktu, a nie ze złej woli kadr. Proaktywny raport gasi 9 na 10 sporów.</p>
+            <p>Pretensje i niepokój bliskich wynikają z braku kontaktu, a nie ze złej woli kadr. Proaktywny raport zapobiega 9 na 10 nieporozumień.</p>
           </div>
         </div>
         <div class="means">
@@ -170,86 +167,87 @@
       </div>
       <aside class="notes" style="display:none;">
         <b>3:00 · Wnioski z badań Marconi, SeniorApp i GUS dla KIDO</b>
-        <p>„Panie Prezesie, twarde dane z Ogólnopolskiej Diagnozy Deinstytucjonalizacji oraz raportu SeniorApp 2025 pokazują jednoznacznie: 94% seniorów ceni przede wszystkim poczucie bezpieczeństwa w znanym otoczeniu, a bliscy wcale nie oczekują skomplikowanych kart medycznych. W grupie 85+ aż 68,1% osób wymaga stałego wsparcia. W badaniach w Domu Seniora Marconi potwierdziliśmy, że 9 na 10 pytań rodzin dotyczy prostych spraw: snu, posiłku, nawodnienia i nastroju. Gdy o 15:00 rodzina otrzymuje prosty fakt w tych 4 obszarach, poziom lęku i pretensji do dyrekcji spada do zera.”</p>
+        <p>„Panie Prezesie, twarde dane z Ogólnopolskiego Badania Deinstytucjonalizacji oraz raportu SeniorApp 2025 pokazują jednoznacznie: 94% seniorów ceni przede wszystkim poczucie bezpieczeństwa w znanym otoczeniu, a bliscy wcale nie oczekują skomplikowanych kart medycznych. W grupie 85+ aż 68,1% osób wymaga stałego wsparcia. W badaniach w Domu Seniora Marconi potwierdziliśmy, że 9 na 10 pytań rodzin dotyczy prostych spraw: snu, posiłku, nawodnienia i nastroju. Gdy o 15:00 rodzina otrzymuje prosty fakt w tych 4 obszarach, poziom lęku i pretensji do dyrekcji spada do zera.”</p>
       </aside>
     </section>
 
-    <!-- 04 · ROZWIĄZANIE -->
+    <!-- 04 · ROZWIĄZANIE & FILTR NON-MDR (Layout S04: Teza i filtr) -->
     <section class="card" data-form="shield" data-side="right" data-t="Rozwiązanie">
       <div class="inner two">
         <div>
-          <div class="veil"></div>
-          <div class="eyebrow">Architektura Prawna · Bezpieczeństwo Członków KIDO</div>
+          <div class="eyebrow">Architektura prawna · Bezpieczeństwo członków KIDO</div>
           <h2>Silver Care: <em>Empatyczna komunikacja</em> i tarcza Non-MDR.</h2>
           <p class="lede">Dajemy opiekunom narzędzie głosowe, zdejmując z dyrekcji placówek ryzyko certyfikacji wyrobów medycznych (MDR) oraz obciążenia kontrolami RODO.</p>
           <div class="stack">
             <div class="layer">
-              <b>GŁOS</b>
-              <span><strong>Dyktowanie zamiast pisania.</strong> Opiekun mówi 30 sekund na korytarzu. Brak konieczności klikania formularzy – zero bariery technologicznej dla personelu w każdym wieku.</span>
+              <b>Głos</b>
+              <span><strong>Dyktowanie zamiast pisania.</strong> Opiekun mówi 30 sekund na korytarzu. Brak konieczności wypełniania formularzy – zero bariery technologicznej dla personelu w każdym wieku.</span>
             </div>
             <div class="layer">
-              <b>AI</b>
-              <span><strong>Tłumacz żargonu na empatię.</strong> Model AI z Guardrails przekłada surowy wsad na ciepły raport (<em>Peace Letter</em>) z bezwzględną blokadą halucynacji.</span>
+              <b>AI z Guardrails</b>
+              <span><strong>Tłumacz faktów na ciepłą relację.</strong> Model AI z bezpiecznymi regułami przekłada surowy wsad na uspokajający raport (<em>Peace Letter</em>) z bezwzględną blokadą halucynacji.</span>
             </div>
             <div class="layer">
-              <b>NON-MDR</b>
+              <b>Status Non-MDR</b>
               <span><strong>Świadomy status wyrobu niemedycznego.</strong> Niewykraczanie poza obszar diagnostyczny <strong>eliminuje wieloletnie, kosztowne procedury certyfikacji medycznej MDR</strong>. Natychmiastowa legalność, wysoki zwrot z inwestycji (ROI) i lekkość wdrożenia w KIDO.</span>
             </div>
             <div class="layer">
-              <b>BEZ KAMER</b>
+              <b>Bez kamer</b>
               <span><strong>100% poszanowania intymności seniora.</strong> Zero monitoringu wideo (94% seniorów i rodzin odrzuca inwigilację). Pełna akceptacja pensjonariuszy, personelu i związków zawodowych.</span>
             </div>
           </div>
         </div>
         <div>
-          <div class="block gold" style="box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
-              <h3 style="margin:0;">Interaktywny Filtr Non-MDR</h3>
-              <span class="tag" style="margin:0;">RODO Art. 9 Compliant</span>
+          <div class="block accent">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+              <h3 style="margin:0;">Interaktywny filtr Non-MDR</h3>
+              <span class="tag" style="margin:0;">RODO art. 9 compliant</span>
             </div>
             
             <!-- Przyciski próbek -->
             <div class="sample-bar">
-              <button class="sample-pill active" data-sample="sample-1" type="button">🎙️ Próbka 1: Poranek</button>
-              <button class="sample-pill" data-sample="sample-2" type="button">🎙️ Próbka 2: Warsztaty</button>
-              <button class="sample-pill" data-sample="sample-3" type="button">🎙️ Próbka 3: Drzemka</button>
+              <button class="sample-pill active" data-sample="sample-1" type="button">Próbka 1: Poranek</button>
+              <button class="sample-pill" data-sample="sample-2" type="button">Próbka 2: Warsztaty</button>
+              <button class="sample-pill" data-sample="sample-3" type="button">Próbka 3: Drzemka</button>
             </div>
 
             <!-- 1. Surowy wsad audio -->
-            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--ink3); margin-bottom:0.2rem;">Surowa transkrypcja opiekunki:</div>
-            <div id="sample-audio-text" style="font-size:0.85rem; background:rgba(0,0,0,0.3); padding:0.6rem; border-radius:4px; border-left:3px solid var(--accent); margin-bottom:0.7rem; color:var(--ink);">
+            <div style="font-size:15px; color:var(--s-sec); margin-bottom:0.3rem;">Surowa transkrypcja opiekunki:</div>
+            <div id="sample-audio-text" style="font-size:16px; background:var(--s-sunken); padding:0.8rem; border-radius:8px; border-left:3px solid var(--s-accent); margin-bottom:0.8rem; color:var(--s-text);">
               „Pan Stanisław zjadł całe śniadanie, humor dopisuje, spacerował po korytarzu. Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85.”
             </div>
 
             <!-- 2. Odcięcie medyczne -->
-            <div id="sample-cut-text" class="cut" style="font-size:0.75rem; padding:0.5rem; margin-bottom:0.7rem;">
-              <span class="no">✖ ODCIĘTO MEDYCZNE PRZED AI:</span><br>„Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85” → Zapisano do wewnętrznego brudnopisu medycznego placówki.
+            <div id="sample-cut-text" class="cut" style="font-size:15px; padding:0.7rem; margin-bottom:0.8rem;">
+              <strong>Odcięto informacje medyczne przed AI:</strong><br>„Podałam tabletkę na nadciśnienie 5mg, ciśnienie 130 na 85” → Zapisano wyłącznie do wewnętrznego brudnopisu placówki.
             </div>
 
             <!-- 3. Wyjście dla rodziny -->
-            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); margin-bottom:0.2rem;">Wiadomość doręczona do córki (Peace Letter):</div>
-            <div id="sample-family-letter" style="font-size:0.88rem; line-height:1.45; background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.7rem; border-radius:4px; color:#FFFFFF; margin-bottom:0.6rem;">
-              „Dzień dobry! Pan Stanisław miał dziś wspaniały poranek. Z dużym apetytem zjadł całe śniadanie i z uśmiechem spacerował po oddziale, rozmawiając z personelem. Przesyłamy ciepłe pozdrowienia z placówki!”
+            <div style="font-size:15px; color:var(--s-accent); margin-bottom:0.3rem; font-weight:600;">Wiadomość doręczona do córki (Peace Letter):</div>
+            <div id="sample-family-letter" style="font-size:16px; line-height:1.5; background:var(--s-surface); border:2px solid var(--s-accent); padding:0.9rem; border-radius:8px; color:var(--s-text); margin-bottom:0.6rem;">
+              „Dzień dobry! Pan Stanisław miał dziś wspaniały poranek. Z dużym apetytem zjadł całe śniadanie i z uśmiechem spacerował po oddziale, rozmawiając z personelem. Przesyłamy serdeczne pozdrowienia z placówki!”
             </div>
 
-            <!-- Metryki -->
-            <div id="sample-metrics" style="font-family:var(--mono); font-size:0.72rem; color:var(--accent-soft);">
-              Kroki: 1 240 · Aktywność: 1.5h · Posiłek: 100% · Humor: Pogodny
+            <!-- Obowiązkowy podpis AI (min 18px) -->
+            <span class="ai-notice">Podsumowanie generowane przy wsparciu AI, zatwierdzone przez personel placówki</span>
+
+            <!-- Metryki behawioralne -->
+            <div id="sample-metrics" style="font-size:15px; color:var(--s-sec); margin-top:0.8rem; font-weight:500;">
+              Kroki: 1 240 · Aktywność: 1,5 godz. · Posiłek: 100% · Nastrój: Pogodny
             </div>
           </div>
         </div>
       </div>
       <aside class="notes" style="display:none;">
         <b>4:30 · Rozwiązanie (Tarcza prawna Non-MDR dla placówek Izby)</b>
-        <p>„Panie Prezesie, dyrektorzy domów opieki panicznie boją się dwóch kwestii: unijnego rozporządzenia MDR o wyrobach medycznych oraz kamer w pokojach, które wywołują natychmiastowy bunt personelu i zarzuty o łamanie intymności. Silver Care został zaprojektowany świadomie jako wyrób niemedyczny (Non-MDR) bez kamer. Nie stawiamy diagnoz, nie rekomendujemy leczenia – dzięki temu unikamy wieloletnich, kosztownych procedur notyfikacji medycznej. Jak widać w próbkach po prawej: słowa o lekach czy ciśnieniu są natychmiast odcinane algorytmicznie przed AI i trafiają wyłącznie do wewnętrznego notatnika placówki. Rodzina dostaje bezpieczny, ciepły list, a dyrektor placówki śpi spokojnie.”</p>
+        <p>„Panie Prezesie, dyrektorzy domów opieki obawiają się dwóch kwestii: unijnego rozporządzenia MDR o wyrobach medycznych oraz kamer w pokojach, które wywołują natychmiastowy bunt personelu i zarzuty o łamanie intymności. Silver Care został zaprojektowany świadomie jako wyrób niemedyczny (Non-MDR) bez kamer. Nie wkraczamy w sferę medyczną, nie prowadzimy leczenia – dzięki temu unikamy wieloletnich, kosztownych procedur notyfikacji medycznej. Jak widać w próbkach po prawej: słowa o lekach czy ciśnieniu są natychmiast odcinane algorytmicznie przed AI i trafiają wyłącznie do wewnętrznego notatnika placówki. Rodzina dostaje bezpieczny, ciepły list z obowiązkowym podpisem o zatwierdzeniu przez personel, a dyrektor placówki śpi spokojnie.”</p>
       </aside>
     </section>
 
-    <!-- 05 · EKOSYSTEM MODUŁÓW -->
+    <!-- 05 · EKOSYSTEM MODUŁÓW (Layout S06: Ekran produktu / Ramka aplikacji) -->
     <section class="card" data-form="hub" data-t="Moduły">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Ekosystem Produktowy · Zintegrowana Platforma dla Domów KIDO</div>
+        <div class="eyebrow">Ekosystem produktowy · Zintegrowana platforma dla domów KIDO</div>
         <h2>Wszystkie narzędzia operacyjne <em>w jednym, intuicyjnym panelu</em>.</h2>
         
         <div class="modules-interactive-wrap">
@@ -257,83 +255,83 @@
           <div class="modules-nav">
             <button class="module-nav-item active" data-mod="bed" type="button">
               <div>
-                <b>01 · Pokoje i Obłożenie</b>
-                <div style="font-size:0.75rem; color:var(--ink2);">Facility & Bed Management</div>
+                <b>01 · Pokoje i obłożenie</b>
+                <div style="font-size:15px; color:var(--s-sec);">Rejestr sektorów, pokoi i wolnych miejsc</div>
               </div>
-              <span>Podgląd →</span>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
             </button>
             <button class="module-nav-item" data-mod="agenda" type="button">
               <div>
-                <b>02 · Agenda i Rytm Dnia</b>
-                <div style="font-size:0.75rem; color:var(--ink2);">Plan posiłków, rehabilitacji i animacji</div>
+                <b>02 · Agenda i rytm dnia</b>
+                <div style="font-size:15px; color:var(--s-sec);">Plan posiłków, zajęć i animacji</div>
               </div>
-              <span>Podgląd →</span>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
             </button>
             <button class="module-nav-item" data-mod="chat" type="button">
               <div>
-                <b>03 · Bezpieczny Czat</b>
-                <div style="font-size:0.75rem; color:var(--ink2);">Family Direct Messages z audytem</div>
+                <b>03 · Bezpieczny kontakt z rodziną</b>
+                <div style="font-size:15px; color:var(--s-sec);">Wiadomości z bliskimi z pełnym audytem</div>
               </div>
-              <span>Podgląd →</span>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
             </button>
             <button class="module-nav-item" data-mod="wizard" type="button">
               <div>
-                <b>04 · Kreator Przyjęć</b>
-                <div style="font-size:0.75rem; color:var(--ink2);">Admission Wizard w 3 minuty</div>
+                <b>04 · Kreator przyjęć pensjonariusza</b>
+                <div style="font-size:15px; color:var(--s-sec);">Wprowadzenie podopiecznego w 3 minuty</div>
               </div>
-              <span>Podgląd →</span>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
             </button>
             <button class="module-nav-item" data-mod="multi" type="button">
               <div>
-                <b>05 · Multi-Resident</b>
-                <div style="font-size:0.75rem; color:var(--ink2);">Obsługa rodzeństw i wielu opiekunów</div>
+                <b>05 · Wielu podopiecznych</b>
+                <div style="font-size:15px; color:var(--s-sec);">Obsługa rodzeństw i wielu opiekunów</div>
               </div>
-              <span>Podgląd →</span>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
             </button>
             <button class="module-nav-item" data-mod="gallery" type="button">
               <div>
-                <b>06 · Bezpieczna Galeria</b>
-                <div style="font-size:0.75rem; color:var(--ink2);">Zgody wizerunkowe & RODO Art. 9</div>
+                <b>06 · Bezpieczna galeria</b>
+                <div style="font-size:15px; color:var(--s-sec);">Zgody wizerunkowe i RODO art. 9</div>
               </div>
-              <span>Podgląd →</span>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
             </button>
           </div>
 
-          <!-- Interaktywny podgląd wybranego modułu po prawej -->
+          <!-- Interaktywny podgląd wybranego modułu w ramce aplikacji 16:10 -->
           <div class="module-preview-panel">
             <div>
-              <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.4rem;">
-                Interaktywny Podgląd Modułu
+              <div style="font-size:15px; color:var(--s-accent); font-weight:600; margin-bottom:0.4rem;">
+                Ramka aplikacji · Podgląd na żywo
               </div>
-              <h3 id="mod-preview-title" style="font-family:var(--display); font-size:1.4rem; color:#FFFFFF; margin:0 0 0.5rem;">
-                01 · Obłożenie i Pokoje (Facility & Bed)
+              <h3 id="mod-preview-title" style="font-size:26px; color:var(--s-text); margin:0 0 0.5rem;">
+                01 · Obłożenie i pokoje (Facility & Bed)
               </h3>
-              <p id="mod-preview-desc" style="color:var(--ink2); font-size:0.95rem; line-height:1.5;">
+              <p id="mod-preview-desc" style="color:var(--s-sec); font-size:18px; line-height:1.5;">
                 Interaktywny rejestr sektorów, pokoi i łóżek. Dyrekcja w 3 sekundy widzi stan obłożenia placówki.
               </p>
             </div>
 
-            <!-- Kontener UI modułu -->
-            <div id="mod-preview-ui" style="background:rgba(0,0,0,0.4); border:1px solid var(--line2); padding:1rem; border-radius:6px; margin-top:1.2rem;">
-              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.6rem; margin-top:0.4rem;">
-                <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
-                  <b style="color:var(--accent-soft);">Pokój 101</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+            <!-- Kontener UI modułu w ramce 16:10 -->
+            <div id="mod-preview-ui" style="background:var(--s-sunken); border:2px solid var(--s-border); padding:1.4rem; border-radius:var(--radius-sm); margin-top:1.2rem;">
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:0.4rem;">
+                <div style="background:var(--s-soft); border:2px solid var(--s-accent); padding:1rem; border-radius:12px; text-align:center;">
+                  <b style="color:var(--s-accent); font-size:17px;">Pokój 101</b><div style="font-size:15px; color:var(--s-sec); margin-top:4px;">2/2 zajęte</div>
                 </div>
-                <div style="background:rgba(47,111,94,0.3); border:1px solid var(--accent); padding:0.6rem; border-radius:4px; text-align:center;">
-                  <b style="color:var(--accent-soft);">Pokój 102</b><div style="font-size:0.75rem; color:var(--ink2);">2/2 Zajęte</div>
+                <div style="background:var(--s-soft); border:2px solid var(--s-accent); padding:1rem; border-radius:12px; text-align:center;">
+                  <b style="color:var(--s-accent); font-size:17px;">Pokój 102</b><div style="font-size:15px; color:var(--s-sec); margin-top:4px;">2/2 zajęte</div>
                 </div>
-                <div style="background:rgba(226,194,133,0.15); border:1px dashed var(--accent-gold); padding:0.6rem; border-radius:4px; text-align:center;">
-                  <b style="color:var(--accent-gold);">Pokój 103</b><div style="font-size:0.75rem; color:var(--ink2);"><span style="color:#6ED6A0;">● 1 wolne łóżko</span></div>
+                <div style="background:var(--s-surface); border:2px dashed var(--s-border); padding:1rem; border-radius:12px; text-align:center;">
+                  <b style="color:var(--s-text); font-size:17px;">Pokój 103</b><div style="font-size:15px; color:var(--s-accent); margin-top:4px;">● 1 wolne miejsce</div>
                 </div>
               </div>
-              <div style="margin-top:1rem; font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">
-                Łączne obłożenie: <strong style="color:var(--accent);">95.6%</strong> (43/45 miejsc aktywnych)
+              <div style="margin-top:1.2rem; font-size:16px; color:var(--s-sec);">
+                Łączne obłożenie: <strong style="color:var(--s-accent);">95,6%</strong> (43/45 miejsc aktywnych)
               </div>
             </div>
             
-            <div style="font-family:var(--mono); font-size:0.72rem; color:var(--ink3); margin-top:1rem; display:flex; justify-content:space-between;">
-              <span>Wszystkie moduły w ramach pilotażu pod patronatem KIDO (0 PLN)</span>
-              <span style="color:var(--accent-soft);">Kliknij inny moduł po lewej ↗</span>
+            <div style="font-size:15px; color:var(--s-ter); margin-top:1.2rem; display:flex; justify-content:space-between; align-items:center;">
+              <span>Zrzut z danych demonstracyjnych placówki</span>
+              <span style="color:var(--s-accent); font-weight:500;">Wszystkie moduły w pilotażu KIDO (0 zł)</span>
             </div>
           </div>
         </div>
@@ -341,42 +339,52 @@
       </div>
       <aside class="notes" style="display:none;">
         <b>6:00 · Ekosystem Modułów (Wartość operacyjna dla placówek Izby)</b>
-        <p>„Panie Prezesie, proponowany standard KIDO to nie jest wąska aplikacja do wiadomości. To kompletny system operacyjny dla dyrekcji domu opieki: od zarządzania pokojami i łóżkami, przez agendę zajęć i posiłków, po błyskawiczny kreator przyjęć nowego mieszkańca w 3 minuty oraz galerię zdjęć z pełną kontrolą zgód RODO. Placówki biorące udział w pilotażu KIDO otrzymują pełen pakiet bez żadnych opłat.”</p>
+        <p>„Panie Prezesie, proponowany standard KIDO to nie jest wąska aplikacja do wiadomości. To kompletny system operacyjny dla dyrekcji domu opieki: od zarządzania pokojami i łóżkami, przez agendę zajęć i posiłków, po błyskawiczny kreator przyjęć nowego pensjonariusza w 3 minuty oraz galerię zdjęć z pełną kontrolą zgód RODO. Placówki biorące udział w pilotażu KIDO otrzymują pełen pakiet bez żadnych opłat.”</p>
       </aside>
     </section>
 
-    <!-- 06 · PRZEPUSTKA DO DEMO -->
-    <section class="card" data-form="streams" data-t="Zapowiedź Demo">
-      <div class="inner" style="text-align: center; max-width: 820px; margin: 0 auto;">
-        <div class="veil"></div>
-        <div class="eyebrow" style="justify-content: center;">Prezentacja Praktyczna · Standard KIDO w Akcji</div>
-        <h1 style="font-size: clamp(2.5rem, 5.5vw, 4.5rem);">Zobaczmy ten standard <em>w praktyce</em>.</h1>
-        <p class="lede" style="margin: 1.5rem auto; max-width: 48ch;">
-          90-sekundowy pokaz: od podyktowania notatki na korytarzu placówki opiekuńczej, przez filtr bezpieczeństwa Non-MDR, aż po ekran smartfona rodziny.
+    <!-- 06 · PRZEPUSTKA DO DEMO (Layout S02: Rozdzielnik sekcji) -->
+    <section class="card card-sunken" data-form="streams" data-t="Zapowiedź Demo">
+      <div class="inner" style="text-align: center; max-width: 900px; margin: 0 auto;">
+        <div class="eyebrow" style="justify-content: center;">Prezentacja praktyczna · Standard KIDO w akcji</div>
+        <h1 style="font-size: clamp(38px, 5.5vw, 68px);">Zobaczmy ten standard <em>w praktyce</em>.</h1>
+        <p class="lede" style="margin: 1.5rem auto; max-width: 50ch;">
+          90-sekundowy pokaz: od podyktowania notatki na korytarzu placówki opiekuńczej, przez filtr bezpieczeństwa Non-MDR, aż po ekran smartfona bliskich.
         </p>
-        <div class="stat-strip" style="justify-content: center; gap: 3rem;">
-          <div><b>Krok 1</b><span>Panel Placówki KIDO</span></div>
-          <div><b>Krok 2</b><span>Mobilne PWA Offline</span></div>
-          <div><b>Krok 3</b><span>Filtr Non-MDR & LLM EU</span></div>
-          <div><b>Krok 4</b><span>Raport Peace Letter</span></div>
+        <div class="grid4" style="text-align: left; margin-top: 2rem;">
+          <div class="block">
+            <h3>Krok 1</h3>
+            <p><strong>Panel placówki KIDO</strong><br>Widok dyrekcji i personelu</p>
+          </div>
+          <div class="block">
+            <h3>Krok 2</h3>
+            <p><strong>Mobilne PWA offline</strong><br>Dyktowanie mowy w biegu</p>
+          </div>
+          <div class="block">
+            <h3>Krok 3</h3>
+            <p><strong>Filtr Non-MDR w UE</strong><br>Ochrona danych i reguły AI</p>
+          </div>
+          <div class="block accent">
+            <h3>Krok 4</h3>
+            <p><strong>Raport Peace Letter</strong><br>Dostarczenie do bliskich o 15:00</p>
+          </div>
         </div>
       </div>
       <aside class="notes" style="display:none;">
         <b>7:30 · Zapowiedź Pokazu na Żywo</b>
-        <p>„Panie Prezesie, technologia musi być banalnie prosta, bo opiekunki w domach seniora nie mają czasu na skomplikowane szkolenia IT. Przejdźmy teraz do 90-sekundowej symulacji: pokażemy dokładnie 4 kroki procesu, w tym dyktowanie notatki na korytarzu bez konieczności ciągłego dostępu do internetu.”</p>
+        <p>„Panie Prezesie, technologia musi być banalnie prosta, bo opiekunki w domach seniora nie mają czasu na skomplikowane szkolenia informatyczne. Przejdźmy teraz do 90-sekundowej symulacji: pokażemy dokładnie 4 kroki procesu, w tym dyktowanie notatki na korytarzu bez konieczności ciągłego dostępu do internetu.”</p>
       </aside>
     </section>
 
-    <!-- 07 · DEMO WIZUALIZACJA / POTOK -->
+    <!-- 07 · DEMO WIZUALIZACJA / POTOK (Layout S06: Potok technologiczny) -->
     <section class="card" data-form="streams" data-side="right" data-t="Potok Demo">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Architektura Bezpieczeństwa · Live Stream</div>
+        <div class="eyebrow">Architektura bezpieczeństwa · Live Stream</div>
         <h2>Jak technologia <em>chroni placówkę KIDO</em> w czasie rzeczywistym.</h2>
         
         <!-- Interaktywny symulator dyktowania -->
         <div class="voice-test-card">
-          <div style="display:flex; align-items:center; gap:1.2rem;">
+          <div style="display:flex; align-items:center; gap:1.4rem;">
             <button id="btn-record-sim" class="btn-record-sim" type="button">
               <span>🎙️</span> Przetestuj dyktowanie (Symulacja 3s)
             </button>
@@ -386,37 +394,41 @@
               <div class="wbar"></div><div class="wbar"></div>
             </div>
           </div>
-          <div id="rec-sim-status" style="font-family:var(--mono); font-size:0.75rem; color:var(--accent);">
+          <div id="rec-sim-status" style="font-size:16px; color:var(--s-sec); font-weight:500;">
             Kliknij przycisk, aby zasymulować dyktowanie notatki na korytarzu...
           </div>
         </div>
 
-        <div class="grid2" style="margin-top: 1rem;">
+        <div class="grid2" style="margin-top: 1.2rem;">
           <!-- Terminal 1: Głos i separacja -->
           <div class="term">
-            <div class="bar"><i></i><i></i><i></i><em>Krok 2 & 3 · Potok Głosu i Bezpieczeństwa Non-MDR</em></div>
-            <div><span class="p">❯</span> PWA: Opiekun dyktuje notatkę (offline-first na telefonie)</div>
-            <div class="dim">resident_id: RES-8491 (Pan Jan K.) · brak nazwiska w pliku audio</div>
-            <div><span class="ok">✔</span> Transkrypcja: Groq Whisper EU (Zero-Data Retention)</div>
-            <div class="cut"><span class="no">✖ STRUMIEŃ MEDYCZNY ODCIĘTY PRZED AI</span><br>„Podano lek nasercowy 10mg, zgłaszał lekki ból w klatce” → Zapisano do wewnętrznego brudnopisu personelu.</div>
-            <div><span class="ok">✔</span> Strumień BEHAVIORAL + DISCOMFORT przekazany do LLM EU</div>
-            <div class="dim">Guardrails: rygorystyczna blokada halucynacji i ton szacunku</div>
-            <div><span class="ok">✔</span> Raport <em>Peace Letter</em> wygenerowany w 3.8 sekundy</div>
+            <div class="bar">Krok 2 & 3 · Potok głosu i bezpieczeństwa Non-MDR</div>
+            <div style="margin-bottom:0.4rem;"><strong>1. PWA:</strong> Opiekun dyktuje notatkę (offline-first na telefonie)</div>
+            <div style="color:var(--s-sec); font-size:15px; margin-bottom:0.4rem;">Identyfikator pensjonariusza: RES-8491 (Pan Jan K.) · brak nazwiska w pliku audio</div>
+            <div style="margin-bottom:0.4rem; color:var(--s-accent); font-weight:600;">✔ Transkrypcja: Model Whisper na serwerach w UE (Zero-Data Retention)</div>
+            <div class="cut" style="margin:0.6rem 0; font-size:15px;">
+              <strong>Odcięto strumień medyczny przed AI:</strong><br>„Podano lek nasercowy 10mg, zgłaszał lekki ból w klatce” → Zapisano do wewnętrznego brudnopisu personelu.
+            </div>
+            <div style="color:var(--s-accent); font-weight:600; margin-bottom:0.4rem;">✔ Strumień behawioralny przekazany do modelu w UE</div>
+            <div style="font-size:15px; color:var(--s-sec); margin-bottom:0.4rem;">Guardrails: rygorystyczna blokada halucynacji i ton szacunku</div>
+            <div style="color:var(--s-accent); font-weight:600;">✔ Raport Peace Letter wygenerowany w 3,8 sekundy</div>
           </div>
 
           <!-- Terminal 2: Wyjście dla rodziny -->
           <div class="term">
-            <div class="bar"><i></i><i></i><i></i><em>Krok 4 · Widok w Portalu Rodziny</em></div>
-            <div><span class="p">❯</span> Wiadomość dla córki (SMS / PWA Rodziny):</div>
-            <div style="background: rgba(47, 111, 94, 0.25); border-left: 3px solid var(--accent); padding: 0.6rem 0.8rem; margin: 0.6rem 0; border-radius: 2px;">
+            <div class="bar">Krok 4 · Widok w portalu bliskich</div>
+            <div style="margin-bottom:0.4rem;"><strong>Wiadomość dla córki (SMS / PWA):</strong></div>
+            <div style="background:var(--s-soft); border-left:4px solid var(--s-accent); padding:0.9rem; margin:0.6rem 0; border-radius:0 8px 8px 0; color:var(--s-text); font-size:16px; line-height:1.5;">
               „Dzień dobry! Pan Jan miał dziś spokojny, bardzo pogodny dzień. Z apetytem zjadł obiad w towarzystwie sąsiadów, a po południu z zaangażowaniem uczestniczył w warsztatach plastycznych. Przesyłamy serdeczne pozdrowienia z placówki.”
             </div>
-            <div><span class="ok">✔</span> Metryki behawioralne: Kroki (1 850), Aktywność (2.5h), Sen (7.5h)</div>
-            <div class="dim">Status: Doręczono natychmiast · Zero niepokojącego żargonu</div>
+            <span class="ai-notice">Podsumowanie generowane przy wsparciu AI, zatwierdzone przez personel placówki</span>
+            <div style="margin-top:0.8rem; font-size:15px; color:var(--s-sec);">
+              <strong>Metryki behawioralne:</strong> Kroki: 1 850 · Czas aktywności: 2,5 godz. · Długość snu: 7,5 godz.
+            </div>
             
             <!-- Toast powiadomienia po symulacji -->
-            <div id="toast-family-sim" style="display:none; background:rgba(110,214,160,0.18); border:1px solid #6ED6A0; padding:0.5rem 0.8rem; border-radius:4px; margin-top:0.6rem; font-size:0.78rem; color:#6ED6A0;">
-              🔔 <strong>Powiadomienie doręczone:</strong> Córka (Pani Anna) otworzyła raport na smartfonie.
+            <div id="toast-family-sim" style="display:none; background:var(--s-soft); border:2px solid var(--s-accent); padding:0.8rem 1rem; border-radius:8px; margin-top:0.8rem; font-size:15px; color:var(--s-accent); font-weight:600;">
+              🔔 Raport doręczony: Córka (Pani Anna) otworzyła powiadomienie na telefonie.
             </div>
           </div>
         </div>
@@ -426,29 +438,28 @@
       </div>
       <aside class="notes" style="display:none;">
         <b>9:00 · Symulator Potoku Bezpieczeństwa (Na żywo)</b>
-        <p>„Panie Prezesie, klikając przycisk 'Przetestuj dyktowanie', uruchamiamy symulację rzeczywistego nagrania. W 3 sekundy silnik Whisper EU transkrybuje mowę, filtr Non-MDR natychmiast wycina zdanie o leku nasercowym i bólu w klatce (widzą to Państwo w czerwonej ramce), a model AI generuje bezpieczną, uspokajającą notatkę dla córki. Zielony komunikat potwierdza odebranie wiadomości przez rodzinę. Dyrektor placówki ma 100% kontroli i zero ryzyka błędu ludzkiego.”</p>
+        <p>„Panie Prezesie, klikając przycisk 'Przetestuj dyktowanie', uruchamiamy symulację rzeczywistego nagrania. W 3 sekundy silnik Whisper UE transkrybuje mowę, filtr Non-MDR natychmiast wycina zdanie o leku i dyskomforcie, a model AI generuje bezpieczną, uspokajającą notatkę dla córki z wymaganym podpisem o zatwierdzeniu przez personel. Zielony komunikat potwierdza odebranie wiadomości przez rodzinę. Dyrektor placówki ma 100% kontroli i zero ryzyka błędu ludzkiego.”</p>
       </aside>
     </section>
 
-    <!-- 08 · BEZPIECZEŃSTWO I RODO -->
+    <!-- 08 · BEZPIECZEŃSTWO I RODO (Layout S05: Trzy kolumny bezpieczeństwa) -->
     <section class="card" data-form="shield" data-side="right" data-t="Bezpieczeństwo">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Zgodność Regulacyjna · Tarcza Prawna dla Domów KIDO · KPO Reforma A4.6</div>
-        <h2>Najwyższy reżim prawny: <em>RODO Art. 9, NIS2 i Standard KPO</em>.</h2>
+        <div class="eyebrow">Zgodność regulacyjna · Tarcza prawna dla domów KIDO · KPO Reforma A4.6</div>
+        <h2>Najwyższy reżim prawny: <em>RODO art. 9, NIS2 i standard KPO</em>.</h2>
         <div class="grid3">
           <div class="block">
-            <h3>Ścisłe Role Prawne</h3>
-            <div class="big">Zgody Art. 9</div>
-            <p>Rozróżnienie ról: <code>legal_guardian</code> vs <code>family</code>. Zwykły członek rodziny nie uzyska wglądu w dane szczególnych kategorii bez pełnomocnictwa.</p>
+            <h3>Ścisłe role prawne</h3>
+            <div class="big">Zgody art. 9</div>
+            <p>Zgodę na przetwarzanie danych szczególnych kategorii wyraża wyłącznie <strong>pensjonariusz lub jego opiekun prawny</strong>. Zwykły członek rodziny nie uzyska wglądu bez formalnego pełnomocnictwa.</p>
           </div>
           <div class="block">
-            <h3>Niezmienialny Rejestr</h3>
+            <h3>Niezmienialny rejestr</h3>
             <div class="big">Audit Logs</div>
-            <p>Każde odtworzenie notatki i modyfikacja profilu seniora trafia do audytowalnego rejestru <code>consent_ledger</code>. Pełna gotowość na kontrolę UODO.</p>
+            <p>Każde odtworzenie notatki i zatwierdzenie raportu trafia do kryptograficznego rejestru <code>consent_ledger</code>. Pełna gotowość na kontrolę UODO.</p>
           </div>
-          <div class="block">
-            <h3>Standard KPO & NIS2</h3>
+          <div class="block accent">
+            <h3>Standard KPO i NIS2</h3>
             <div class="big">KPO A4.6</div>
             <p>Zgodność ze wskaźnikami KPO (Reforma A4.6 / Kamień Milowy A70G – standardy opieki długoterminowej w miejscu zamieszkania) oraz unijną dyrektywą NIS2.</p>
           </div>
@@ -459,90 +470,88 @@
       </div>
       <aside class="notes" style="display:none;">
         <b>10:30 · Tarcza prawna dla członków KIDO (RODO Art. 9, NIS2 i KPO)</b>
-        <p>„Panie Prezesie, doskonale wiemy, że Krajowa Izba Domów Opieki kładzie ogromny nacisk na bezpieczeństwo prawne swoich członków. Silver Care nie jest amatorskim projektem. Spełniamy wymogi RODO Art. 9 dotyczące danych szczególnych kategorii, standardy dyrektywy NIS2 oraz unijnej suwerenności danych. Co niezwykle istotne: wpisujemy się bezpośrednio w wytyczne Krajowego Planu Odbudowy – Reformę A4.6 i Kamień Milowy A70G, definiujący rozwój standardów opieki w miejscu zamieszkania. W razie kontroli UODO dyrektor placówki zrzeszonej w KIDO w 15 sekund pobiera kompletny, kryptograficznie zabezpieczony log audytowy.”</p>
+        <p>„Panie Prezesie, doskonale wiemy, że Krajowa Izba Domów Opieki kładzie ogromny nacisk na bezpieczeństwo prawne swoich członków. Silver Care nie jest eksperymentem. Spełniamy wymogi RODO art. 9 dotyczące danych szczególnych kategorii, standardy dyrektywy NIS2 oraz unijnej suwerenności danych. Co niezwykle istotne: wpisujemy się bezpośrednio w wytyczne Krajowego Planu Odbudowy – Reformę A4.6 i Kamień Milowy A70G, definiujący rozwój standardów opieki w miejscu zamieszkania. W razie kontroli UODO dyrektor placówki zrzeszonej w KIDO w 15 sekund pobiera kompletny, kryptograficznie zabezpieczony log audytowy.”</p>
       </aside>
     </section>
 
-    <!-- 09 · ZAŁOŻENIA I KORZYŚCI PILOTAŻU -->
+    <!-- 09 · ZAŁOŻENIA I KORZYŚCI PILOTAŻU (Layout S07: Liczby i kalkulator) -->
     <section class="card" data-form="network" data-side="right" data-t="Cele Pilotażu">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Efektywność i Skala · Wymierne Oszczędności dla Członków KIDO</div>
+        <div class="eyebrow">Efektywność i skala · Wymierne oszczędności dla członków KIDO</div>
         <h2>Odzyskane zasoby kadrowe: <em>Kalkulator korzyści dla domów opieki</em>.</h2>
-        <p class="lede">Program Pilotażowy KIDO ma na celu potwierdzenie w twardych metrykach skali odzyskanego czasu personelu opiekuńczego:</p>
+        <p class="lede">Program pilotażowy KIDO ma na celu potwierdzenie w twardych metrykach skali odzyskanego czasu personelu opiekuńczego:</p>
         
         <!-- Interaktywny Kalkulator Oszczędności -->
         <div class="calc-box">
           <div class="calc-top">
             <div>
-              <span style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); letter-spacing:0.12em; text-transform:uppercase;">
-                Kalkulator Oszczędności Czasu i Kosztów · Placówki Członkowskie KIDO
-              </span>
-              <h3 style="font-family:var(--display); font-size:1.35rem; margin:0.2rem 0 0; color:#FFFFFF;">
-                Wielkość placówki: <span id="calc-residents-val" style="color:var(--accent-soft);">40 mieszkańców</span>
+              <div style="font-size:15px; color:var(--s-accent); font-weight:600;">
+                Kalkulator oszczędności czasu i kosztów · Placówki członkowskie KIDO
+              </div>
+              <h3 style="font-size:26px; margin:0.2rem 0 0; color:var(--s-text);">
+                Wielkość placówki: <span id="calc-residents-val" style="color:var(--s-accent);">40 mieszkańców</span>
               </h3>
             </div>
-            <span class="tag" style="background:rgba(226,194,133,0.15); color:var(--accent-gold); border:1px solid rgba(226,194,133,0.3);">
+            <span class="tag" style="background:var(--s-surface);">
               Przesuń suwak ↔
             </span>
           </div>
 
           <div class="calc-slider-row">
-            <span style="font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">15</span>
+            <span style="font-size:15px; color:var(--s-sec); font-weight:600;">15</span>
             <input type="range" id="slider-residents" min="15" max="120" step="5" value="40" class="calc-slider" aria-label="Liczba mieszkańców">
-            <span style="font-family:var(--mono); font-size:0.75rem; color:var(--ink3);">120</span>
+            <span style="font-size:15px; color:var(--s-sec); font-weight:600;">120</span>
           </div>
 
           <div class="calc-stat-grid">
             <div class="calc-stat-item">
               <div id="calc-hours-saved" class="calc-stat-val">~64 godz.</div>
-              <div class="calc-stat-lbl">Zaoszczędzonego czasu opiekunów w miesiącu</div>
+              <div class="calc-stat-lbl">Zaoszczędzonego czasu personelu w miesiącu</div>
             </div>
             <div class="calc-stat-item">
               <div id="calc-calls-saved" class="calc-stat-val">~480</div>
-              <div class="calc-stat-lbl">Mniej powtarzalnych telefonów od rodzin</div>
+              <div class="calc-stat-lbl">Mniej powtarzalnych telefonów od bliskich</div>
             </div>
             <div class="calc-stat-item">
-              <div id="calc-fte-saved" class="calc-stat-val">~0.4 etatu</div>
+              <div id="calc-fte-saved" class="calc-stat-val">~0,4 etatu</div>
               <div class="calc-stat-lbl">Odzyskanej mocy personelu na realną opiekę</div>
             </div>
-            <div class="calc-stat-item">
-              <div class="calc-stat-val" style="color:var(--accent-gold);">0 PLN</div>
+            <div class="calc-stat-item" style="border-color:var(--s-accent); background:var(--s-soft);">
+              <div class="calc-stat-val" style="color:var(--s-accent);">0 zł</div>
               <div class="calc-stat-lbl">Koszt licencji w pilotażu pod patronatem KIDO</div>
             </div>
           </div>
         </div>
 
-        <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); margin-top:0.9rem; text-align:center;">
-          ⚡ Przy zapaści publicznego finansowania (0,6% PKB), Silver Care daje natychmiastowy zwrot z inwestycji (ROI): ~64–192 godz. personelu odzyskanych miesięcznie za 0 PLN w pilotażu KIDO.
+        <div style="font-size:16px; color:var(--s-accent); font-weight:600; margin-top:1rem; text-align:center;">
+          Przy zapaści publicznego finansowania (0,6% PKB), Silver Care daje natychmiastowy zwrot z inwestycji: ~64–192 godz. personelu odzyskanych miesięcznie za 0 zł w pilotażu KIDO.
         </div>
 
         <div class="grid3" style="margin-top: 1.2rem;">
           <div class="block">
-            <h3>Dla Personelu Placówek KIDO</h3>
-            <p>Znika uciążliwa papierologia i stres dyżurki. 30-sekundowa notatka głosem na korytarzu oddaje cenne godziny na bezpośrednią opiekę nad seniorem.</p>
+            <h3>Dla personelu placówek KIDO</h3>
+            <p>Znika uciążliwa papierologia i stres dyżurki. 30-sekundowa notatka głosem na korytarzu oddaje cenne godziny na bezpośrednią opiekę nad pensjonariuszem.</p>
           </div>
           <div class="block">
-            <h3>Dla Dyrektorów Domów KIDO</h3>
+            <h3>Dla dyrektorów domów KIDO</h3>
             <p>Spadek rotacji pracowników, wyciszenie telefonów na recepcji, eliminacja konfliktów z rodzinami i przewaga konkurencyjna w regionie.</p>
           </div>
-          <div class="block gold">
-            <h3>W Skali Całej Izby (KIDO)</h3>
-            <p>10-15 domów w pilotażu to <strong>~1 000 odzyskanych godzin opieki</strong> miesięcznie oraz bezcenne, twarde dane do ogólnopolskiego raportu branżowego.</p>
+          <div class="block accent">
+            <h3>W skali całej Izby (KIDO)</h3>
+            <p>10–15 domów w pilotażu to <strong>~1 000 odzyskanych godzin opieki</strong> miesięcznie oraz bezcenne, twarde dane do ogólnopolskiego raportu branżowego.</p>
           </div>
         </div>
       </div>
       <aside class="notes" style="display:none;">
         <b>12:00 · Wymierne Korzyści dla Członków KIDO (Kalkulator)</b>
-        <p>„Panie Prezesie, spójrzmy na twarde liczby, które zainteresują każdego członka KIDO. Przesuwając suwak: w średniej wielkości placówce na 50-60 łóżek odzyskujemy miesięcznie blisko 100 godzin pracy opiekunek i ucinamy ponad 700 powtarzających się telefonów. W skali programu pilotażowego dla 10-15 placówek zrzeszonych w KIDO mówimy o odzyskaniu ponad 1 000 godzin opieki każdego miesiąca. Przy zapaści publicznych nakładów na poziomie 0,6% PKB, Silver Care działa jako lekki, wysokomarżowy overlay, który przynosi natychmiastowy zwrot z inwestycji – dostępny dla placówek Izby za 0 zł.”</p>
+        <p>„Panie Prezesie, spójrzmy na twarde liczby, które zainteresują każdego członka KIDO. Przesuwając suwak: w średniej wielkości placówce na 50-60 łóżek odzyskujemy miesięcznie blisko 100 godzin pracy opiekunek i ucinamy ponad 700 powtarzających się telefonów. W skali programu pilotażowego dla 10-15 placówek zrzeszonych w KIDO mówimy o odzyskaniu ponad 1 000 godzin opieki każdego miesiąca. Przy zapaści publicznych nakładów na poziomie 0,6% PKB, Silver Care działa jako lekki, niemedyczny overlay, który przynosi natychmiastowy zwrot z inwestycji – dostępny dla placówek Izby za 0 zł.”</p>
       </aside>
     </section>
 
-    <!-- 10 · RYNEK I OTOCZENIE SYSTEMOWE -->
+    <!-- 10 · RYNEK I OTOCZENIE SYSTEMOWE (Layout S11: Kondycja rynku) -->
     <section class="card" data-form="network" data-side="right" data-t="Rynek">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Diagnoza Systemu & Otoczenie Rynkowe · Raporty: OECD XI 2025 · BGK / KIDO XII 2025 · GUS 2024 · Diagnoza DI</div>
+        <div class="eyebrow">Kondycja systemu i otoczenie rynkowe · Raporty: OECD XI 2025 · BGK / KIDO XII 2025 · GUS 2024 · Badanie DI</div>
         <h2>KIDO jako lider transformacji w obliczu <em>zapaści systemu opieki</em>.</h2>
         
         <div class="grid4">
@@ -553,7 +562,7 @@
             <span class="tag">OECD XI 2025 · 3. od końca</span>
           </div>
           <div class="block">
-            <h3>Dostępność Łóżek LTC</h3>
+            <h3>Dostępność łóżek LTC</h3>
             <div class="big">11 / 1 000</div>
             <p>Tylko 11 łóżek opieki na 1 000 seniorów 65+ (średnia OECD: 41). Średni czas oczekiwania na miejsce w DPS wynosi <strong>aż 6 miesięcy</strong>.</p>
             <span class="tag">Średnia OECD: 41 · Kolejka 6 mies.</span>
@@ -564,45 +573,47 @@
             <p>W Polsce żyje 10 mln osób 60+ (26,6%). Liczba osób 75+ wzrośnie z 2,9 mln do <strong>4,6 mln w 2040 r. (+58%)</strong> i 5,8 mln w 2060 r. (GUS / BGK).</p>
             <span class="tag">10 mln 60+ · 4,6 mln 75+ (2040)</span>
           </div>
-          <div class="block gold">
-            <h3>Baza Placówek & SAM</h3>
-            <div class="big">150-200 mln</div>
-            <p>2 201 placówek całodobowych (>151 tys. łóżek): 1 583 domy opieki (903 DPS + 680 prywatnych PDOC) oraz 618 ZOL/ZPO. SAM: 150–200 mln PLN.</p>
-            <span class="tag">2 201 placówek · 151k łóżek</span>
+          <div class="block accent">
+            <h3>Baza placówek i SAM</h3>
+            <div class="big">150–200 mln</div>
+            <p>2 201 placówek całodobowych (>151 tys. łóżek): 1 583 domy opieki (903 DPS + 680 prywatnych) oraz 618 ZOL/ZPO. SAM: 150–200 mln zł.</p>
+            <span class="tag">2 201 placówek · 151 tys. łóżek</span>
           </div>
         </div>
 
         <div class="means">
-          <p><strong>Deinstytucjonalizacja & Odpowiedź Silver Care:</strong> Aż <strong>59% pracowników wsparcia popiera deinstytucjonalizację</strong> (badanie w 16 województwach 2024), lecz barierą jest brak kadr i finanse. Przy zapaści publicznego systemu (0,6% PKB), Silver Care działa jako lekki, niemedyczny overlay (Non-MDR), który bez wieloletnich certyfikacji daje placówkom natychmiastowe odciążenie kadr i transparentność dla rodzin.</p>
+          <p><strong>Deinstytucjonalizacja i odpowiedź Silver Care:</strong> Aż <strong>59% pracowników wsparcia popiera deinstytucjonalizację</strong> (badanie w 16 województwach 2024), lecz barierą jest brak kadr i finanse. Przy zapaści publicznego finansowania (0,6% PKB), Silver Care działa jako lekki, niemedyczny overlay (Non-MDR), który bez wieloletnich certyfikacji daje placówkom natychmiastowe odciążenie kadr i transparentność dla rodzin.</p>
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>13:30 · Diagnoza Systemu i Rola KIDO</b>
+        <b>13:30 · Kondycja Systemu i Rola KIDO</b>
         <p>„Panie Prezesie, zestawienie raportu OECD z listopada 2025 r. oraz Raportu BGK i KIDO z grudnia 2025 r. obnaża skalę kryzysu: Polska wydaje na opiekę długoterminową zaledwie 0,6% PKB, podczas gdy średnia OECD to 1,8%. Mamy zaledwie 11 łóżek LTC na 1 000 seniorów przy średniej OECD 41 – co plasuje nas na 3. miejscu od końca w całym OECD. Mamy w Polsce 2 201 placówek całodobowych i ponad 151 tysięcy łóżek, a kolejka do DPS wynosi średnio pół roku. Populacja 75+ eksploduje o 58% do 4,6 miliona w 2040 roku. Silver Care to sprawdzony, lekki overlay Non-MDR o wartości SAM 150-200 mln PLN, który pozwala placówkom KIDO natychmiast załatać tę lukę bez czekania na publiczne reformy budżetowe i bez wieloletnich procedur certyfikacji medycznej.”</p>
       </aside>
     </section>
 
-    <!-- 11 · ZESPÓŁ -->
+    <!-- 11 · ZESPÓŁ (Layout S12: Zespół i kontakt) -->
     <section class="card" data-form="hub" data-side="right" data-t="Zespół">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Doświadczenie i Odpowiedzialność · Zespół Projektowy</div>
+        <div class="eyebrow">Doświadczenie i odpowiedzialność · Zespół projektowy</div>
         <h2>Partnerzy gotowi do <em>współpracy z Izbą</em>.</h2>
         <div class="grid3">
           <div class="block">
             <h3>Dariusz Olszewski-Rink</h3>
-            <div class="big">Operacje, Audyt & Compliance</div>
+            <div class="big" style="font-size:24px; margin-bottom:0.8rem;">Operacje, audyt i compliance</div>
             <p>Wieloletnie doświadczenie korporacyjne w zarządzaniu procesami, bezpieczeństwem informacji, audytach i wdrażaniu rygorystycznych procedur regulacyjnych.</p>
+            <span class="tag">Koordynator Inicjatywy Partnerskiej</span>
+          </div>
+          <div class="block accent">
+            <h3>Michał Sznurowski</h3>
+            <div class="big" style="font-size:24px; margin-bottom:0.8rem;">Architektura i suwerenność AI</div>
+            <p>Projektowanie odpornych systemów chmurowych w UE, bezkompromisowe bezpieczeństwo danych, podejście agile i interfejsy zoptymalizowane pod personel opiekuńczy.</p>
+            <span class="tag">Lider Technologii i Produktu</span>
           </div>
           <div class="block">
             <h3>Łukasz Romanowicz</h3>
-            <div class="big">Finanse & Realia Sektora</div>
+            <div class="big" style="font-size:24px; margin-bottom:0.8rem;">Finanse i realia sektora</div>
             <p>Doświadczony CFO. Dogłębne zrozumienie struktury kosztowej, specyfiki personelu i ekonomii placówek dzięki bliskiej współpracy z Domem Seniora Marconi.</p>
-          </div>
-          <div class="block">
-            <h3>Michał Sznurowski</h3>
-            <div class="big">Architektura & Suwerenność AI</div>
-            <p>Projektowanie odpornych systemów chmurowych w UE, bezkompromisowe bezpieczeństwo danych, podejście Agile i interfejsy zoptymalizowane pod personel opiekuńczy.</p>
+            <span class="tag">Partner Finansowy</span>
           </div>
         </div>
         <div class="means">
@@ -611,33 +622,32 @@
       </div>
       <aside class="notes" style="display:none;">
         <b>15:00 · Zespół Projektowy</b>
-        <p>„Panie Prezesie, powierzając nam placówki zrzeszone w Izbie, powierza je Pan zespołowi o twardych kompetencjach. Łączymy rygor operacyjny, korporacyjny ład i compliance, praktyczną znajomość finansów domów seniora oraz technologię AI najwyższej próby. Nie eksperymentujemy na żywym organizmie – wdrażamy sprawdzone, dopracowane komponenty i bierzemy za nie pełną odpowiedzialność.”</p>
+        <p>„Panie Prezesie, powierzając nam placówki zrzeszone w Izbie, powierza je Pan zespołowi o twardych kompetencjach. Łączymy rygor operacyjny, korporacyjny ład i compliance Dariusza, architekturę AI i chmurową suwerenność Michała oraz praktyczną znajomość finansów domów seniora Łukasza. Nie eksperymentujemy na żywym organizmie – wdrażamy sprawdzone, dopracowane komponenty i bierzemy za nie pełną odpowiedzialność.”</p>
       </aside>
     </section>
 
-    <!-- 12 · OFERTA PROGRAMU PILOTAŻOWEGO -->
+    <!-- 12 · OFERTA PROGRAMU PILOTAŻOWEGO (Layout S10: Oferta pilotażu KIDO) -->
     <section class="card" data-form="shield" data-side="right" data-t="Oferta Pilotażu">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Inicjatywa Instytucjonalna · Patronat Prezesa KIDO</div>
-        <h2>Propozycja dla KIDO: <em>Ogólnopolski Program Pilotażowy</em>.</h2>
+        <div class="eyebrow">Inicjatywa instytucjonalna · Patronat Prezesa KIDO</div>
+        <h2>Propozycja dla KIDO: <em>Ogólnopolski program pilotażowy</em>.</h2>
         <div class="grid2">
-          <div class="block gold">
-            <h3>01 · Bezpłatny Pilotaż dla 10-15 Placówek Izby</h3>
-            <div class="big">0 PLN</div>
+          <div class="block accent">
+            <h3>01 · Bezpłatny pilotaż dla 10–15 placówek Izby</h3>
+            <div class="big">0 zł</div>
             <p>90 dni pełnego dostępu do platformy Silver Care dla personelu, dyrekcji i rodzin w wytypowanych domach opieki KIDO bez jakichkolwiek opłat abonamentowych.</p>
           </div>
           <div class="block">
-            <h3>02 · Wdrożenie Hands-on & Szkolenia Concierge</h3>
-            <div class="big">Pełne Wsparcie</div>
+            <h3>02 · Wdrożenie hands-on i szkolenia concierge</h3>
+            <div class="big">Pełne wsparcie</div>
             <p>Nasz zespół osobiście konfiguruje placówki, importuje strukturę pokoi i prowadzi lekkie, 30-minutowe instruktaże personelu. Zero obciążenia dla sekretariatu KIDO.</p>
           </div>
           <div class="block">
-            <h3>03 · Wspólny Ogólnopolski Raport Branżowy</h3>
+            <h3>03 · Wspólny ogólnopolski raport branżowy</h3>
             <div class="big">KIDO × Silver Care</div>
             <p>Publikacja oficjalnego raportu: <em>„Cyfryzacja komunikacji a retencja kadr w polskich domach opieki 2026”</em> – zestawienie empirycznych wyników pilotażu KIDO z benchmarkami OECD (0,3 opiekuna / 100 seniorów) i danymi Raportu BGK / KIDO.</p>
           </div>
-          <div class="block">
+          <div class="block accent">
             <h3>04 · Certyfikacja „Lider Nowego Standardu KIDO”</h3>
             <div class="big">Prestiż Izby</div>
             <p>Uroczyste wyróżnienie placówek pilotażowych certyfikatem innowacyjności i prezentacja wyników przez Prezesa KIDO na forum ogólnokrajowym.</p>
@@ -650,41 +660,45 @@
       </aside>
     </section>
 
-    <!-- 13 · HARMONOGRAM WSPÓŁPRACY -->
+    <!-- 13 · HARMONOGRAM WSPÓŁPRACY (Layout S08: Proces) -->
     <section class="card" data-form="network" data-side="right" data-t="Jak zacząć">
       <div class="inner">
-        <div class="veil"></div>
-        <div class="eyebrow">Harmonogram Wdrożenia · Wspólna Oś Czasu KIDO</div>
-        <h2>Trzy etapy powołania <em>Nowego Standardu Izby</em>.</h2>
+        <div class="eyebrow">Harmonogram wdrożenia · Wspólna oś czasu KIDO</div>
+        <h2>Cztery etapy powołania <em>Nowego Standardu Izby</em>.</h2>
         
-        <!-- Interaktywne etapy wdrożenia -->
-        <div class="timeline-tabs">
+        <!-- Interaktywne 4 etapy wdrożenia -->
+        <div class="timeline-tabs" style="grid-template-columns: repeat(4, 1fr);">
           <button class="timeline-step-btn active" data-step="1" type="button">
-            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); margin-bottom:0.2rem;">ETAP 1 · DZIŚ</div>
-            <b style="font-family:var(--display); font-size:1.15rem; color:#FFFFFF;">Porozumienie KIDO</b>
-            <div style="font-size:0.78rem; color:var(--ink2); margin-top:0.3rem;">List intencyjny & wybór 10-15 placówek</div>
+            <div style="font-size:14px; color:var(--s-accent); font-weight:600; margin-bottom:0.2rem;">Krok 1 · Dziś</div>
+            <b style="font-size:18px; color:var(--s-text);">Porozumienie KIDO</b>
+            <div style="font-size:14px; color:var(--s-sec); margin-top:0.3rem;">List intencyjny & wybór domów</div>
           </button>
           <button class="timeline-step-btn" data-step="2" type="button">
-            <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent); margin-bottom:0.2rem;">ETAP 2 · ZA 30 DNI</div>
-            <b style="font-family:var(--display); font-size:1.15rem; color:#FFFFFF;">Uruchomienie & Szkolenia</b>
-            <div style="font-size:0.78rem; color:var(--ink2); margin-top:0.3rem;">PWA w domach, instruktaże & Peace Letter</div>
+            <div style="font-size:14px; color:var(--s-accent); font-weight:600; margin-bottom:0.2rem;">Krok 2 · Za 30 dni</div>
+            <b style="font-size:18px; color:var(--s-text);">Uruchomienie PWA</b>
+            <div style="font-size:14px; color:var(--s-sec); margin-top:0.3rem;">Instruktaże kadr & Peace Letter</div>
           </button>
           <button class="timeline-step-btn" data-step="3" type="button">
-            <div style="font-family:var(--mono); font-size:0.75rem; color:#6ED6A0; margin-bottom:0.2rem;">ETAP 3 · ZA 90 DNI</div>
-            <b style="font-family:var(--display); font-size:1.15rem; color:#FFFFFF;">Ogólnopolski Raport</b>
-            <div style="font-size:0.78rem; color:var(--ink2); margin-top:0.3rem;">Raport KIDO, certyfikaty & konferencja</div>
+            <div style="font-size:14px; color:var(--s-accent); font-weight:600; margin-bottom:0.2rem;">Krok 3 · Za 60 dni</div>
+            <b style="font-size:18px; color:var(--s-text);">Pilotaż w toku</b>
+            <div style="font-size:14px; color:var(--s-sec); margin-top:0.3rem;">Wyciszenie dyżurek & metryki</div>
+          </button>
+          <button class="timeline-step-btn" data-step="4" type="button">
+            <div style="font-size:14px; color:var(--s-accent); font-weight:600; margin-bottom:0.2rem;">Krok 4 · Za 90 dni</div>
+            <b style="font-size:18px; color:var(--s-text);">Ogólnopolski Raport</b>
+            <div style="font-size:14px; color:var(--s-sec); margin-top:0.3rem;">Raport KIDO & certyfikaty</div>
           </button>
         </div>
 
         <!-- Dynamiczne szczegóły wybranego kroku -->
         <div id="timeline-step-details">
-          <div style="background:var(--termbg); border:1px solid var(--accent-gold); border-radius:var(--radius); padding:1.2rem; margin-top:1rem;">
-            <h4 style="font-family:var(--display); font-size:1.1rem; color:var(--accent-gold); margin:0 0 0.5rem;">Etap 1 · Dziś: Porozumienie o Partnerstwie z KIDO</h4>
-            <p style="color:var(--ink2); font-size:0.92rem; margin-bottom:0.8rem;">Podpisanie listu intencyjnego i wyznaczenie placówek do programu pilotażowego pod patronatem Izby.</p>
-            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; font-size:0.85rem; color:var(--ink3);">
-              <li><span style="color:#6ED6A0;">✔</span> Podpisanie listu intencyjnego między Zarządem KIDO a Silver Care</li>
-              <li><span style="color:#6ED6A0;">✔</span> Wskazanie 10-15 placówek zrzeszonych w Izbie do bezpłatnego pilotażu</li>
-              <li><span style="color:#6ED6A0;">✔</span> Ustalenie zakresu metryk do wspólnego Ogólnopolskiego Raportu Branżowego</li>
+          <div style="background:var(--s-surface); border:2px solid var(--s-accent); border-radius:var(--radius-sm); padding:1.5rem; margin-top:1rem;">
+            <h4 style="font-size:20px; font-weight:600; color:var(--s-accent); margin:0 0 0.5rem;">Krok 1 · Dziś: Porozumienie partnerskie z KIDO</h4>
+            <p style="color:var(--s-sec); font-size:17px; margin-bottom:1rem; line-height:1.5;">Podpisanie listu intencyjnego i wskazanie placówek członkowskich do bezpłatnego programu pilotażowego pod patronatem Izby.</p>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem; font-size:16px; color:var(--s-text);">
+              <li style="display:flex; align-items:flex-start; gap:8px;"><span style="color:var(--s-accent); font-weight:600;">✔</span> <span>Podpisanie listu intencyjnego między Zarządem KIDO a Silver Care</span></li>
+              <li style="display:flex; align-items:flex-start; gap:8px;"><span style="color:var(--s-accent); font-weight:600;">✔</span> <span>Wskazanie 10-15 placówek zrzeszonych w Izbie do udziału w pilotażu</span></li>
+              <li style="display:flex; align-items:flex-start; gap:8px;"><span style="color:var(--s-accent); font-weight:600;">✔</span> <span>Ustalenie zakresu metryk do wspólnego Ogólnopolskiego Raportu Branżowego</span></li>
             </ul>
           </div>
         </div>
@@ -694,62 +708,84 @@
         </div>
       </div>
       <aside class="notes" style="display:none;">
-        <b>18:00 · Oś Czasu Partnerstwa (Interaktywny harmonogram)</b>
-        <p>„Panie Prezesie, harmonogram jest przejrzysty i nie wymaga żadnego wysiłku ze strony aparatu Izby. Etap 1 to formalne podpisanie listu intencyjnego i wytypowanie domów seniora. W Etapie 2 osobiście szkolimy personel i uruchamiamy codzienne Peace Letters. W Etapie 3, po 90 dniach, zbieramy metryki, tworzymy prestiżowy Raport KIDO × Silver Care i wręczamy certyfikaty liderom innowacji. Mają Państwo gotowy sukces medialny i instytucjonalny.”</p>
+        <b>18:00 · Oś Czasu Partnerstwa (Interaktywny harmonogram 4 kroków)</b>
+        <p>„Panie Prezesie, harmonogram jest przejrzysty i nie wymaga żadnego wysiłku ze strony aparatu Izby. Krok 1 to formalne podpisanie listu intencyjnego i wytypowanie domów seniora. W Kroku 2 osobiście szkolimy personel i uruchamiamy codzienne Peace Letters. W Kroku 3 monitorujemy pracę i spadek obciążenia personelu. W Kroku 4, po 90 dniach, zbieramy metryki, tworzymy prestiżowy Raport KIDO × Silver Care i wręczamy certyfikaty liderom innowacji. Mają Państwo gotowy sukces medialny i instytucjonalny.”</p>
       </aside>
     </section>
 
-    <!-- 14 · PODSUMOWANIE I CTA -->
+    <!-- 14 · INFORMACJA PRAWNA & ZAMKNIĘCIE (Layout S14: Informacja prawna + Layout S13: Zamknięcie) -->
     <section class="card" data-form="network" data-t="Podsumowanie">
-      <div class="inner" style="text-align: center; max-width: 880px; margin: 0 auto;">
-        <div class="veil"></div>
-        <div class="eyebrow" style="justify-content: center;">Decyzja Strategiczna · Następny Krok dla Izby</div>
-        <h1 style="font-size: clamp(2.8rem, 6.5vw, 5.2rem);">Zbudujmy ten standard <em>z KIDO</em>.</h1>
-        <p class="lede" style="margin: 1.4rem auto; max-width: 52ch;">
-          Zapraszamy Krajową Izbę Domów Opieki do objęcia patronatu nad inicjatywą, która realnie chroni personel opiekuńczy i buduje zaufanie polskich rodzin.
-        </p>
+      <div class="inner" style="max-width: 1200px; margin: 0 auto;">
         
-        <!-- Interaktywny mini-formularz zgłoszenia -->
-        <div class="lead-form-box">
-          <div style="font-family:var(--mono); font-size:0.75rem; color:var(--accent-gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem;">
-            Inicjatywa Partnerska Krajowej Izby Domów Opieki:
+        <!-- Sekcja 1: Obowiązkowy slajd prawny S14 (3 kolumny granic produktu wg kontraktu marki) -->
+        <div class="eyebrow">Granice produktu · Zasady odpowiedzialności prawnej</div>
+        <h2>O czym warto pamiętać: <em>Ramy prawne i RODO</em>.</h2>
+        
+        <div class="grid3" style="margin-top: 1.2rem; margin-bottom: 2.4rem;">
+          <div class="block">
+            <h3>Czym jest</h3>
+            <p>Narzędzie komunikacji i organizacji codziennego życia placówki. Pokazuje obiektywne fakty o zachowaniu, np. spacer w ogrodzie czy obecność na wspólnym obiedzie.</p>
           </div>
-          <div class="lead-form-grid">
-            <input type="text" id="pilot-facility" class="lead-input" placeholder="Instytucja / Podmiot" value="Krajowa Izba Domów Opieki">
-            <input type="text" id="pilot-city" class="lead-input" placeholder="Zasięg / Miejscowość" value="Warszawa / Cała Polska">
-            <input type="text" id="pilot-beds" class="lead-input" placeholder="Skala pilotażu (placówki)" value="10-15 placówek pilotażowych">
-            <button id="btn-pilot-submit" class="btn-cta" type="button" style="white-space:nowrap; padding:0.75rem 1.4rem;">
-              Zainicjuj Porozumienie z KIDO →
-            </button>
+          <div class="block">
+            <h3>Czym nie jest</h3>
+            <p>Nie jest wyrobem medycznym ani systemem ratunkowym. Nie ocenia stanu zdrowia i nie stawia diagnoz.</p>
           </div>
-          <div style="font-family:var(--mono); font-size:0.7rem; color:var(--ink3); margin-top:0.6rem; text-align:center;">
-            0 PLN w programie pilotażowym · Zgodność z KPO Reforma A4.6 · Wspólny Ogólnopolski Raport 2026
+          <div class="block accent">
+            <h3>Dane osobowe</h3>
+            <p>To dane szczególnej kategorii (art. 9 RODO). Zgodę na ich przetwarzanie wyraża wyłącznie <strong>pensjonariusz lub jego opiekun prawny</strong>. Nie rodzina.</p>
           </div>
         </div>
 
-        <div class="stat-strip" style="justify-content: center; gap: 2rem; text-align: left; margin-top: 2rem;">
-          <div>
-            <b>Dariusz Olszewski-Rink</b>
-            <span>Koordynator Inicjatywy Partnerskiej</span>
+        <!-- Sekcja 2: Zamknięcie i Deklaracja KIDO (Layout S13) -->
+        <div style="text-align: center; max-width: 880px; margin: 0 auto;">
+          <h2 style="font-size: clamp(34px, 4.5vw, 54px);">Zbudujmy ten standard <em>z KIDO</em>.</h2>
+          <p class="lede" style="margin: 1rem auto 1.4rem; max-width: 52ch;">
+            Zapraszamy Krajową Izbę Domów Opieki do objęcia patronatu nad inicjatywą, która realnie chroni personel opiekuńczy i buduje zaufanie polskich rodzin.
+          </p>
+          
+          <!-- Interaktywny mini-formularz zgłoszenia -->
+          <div class="lead-form-box">
+            <div style="font-size:15px; color:var(--s-accent); font-weight:600; margin-bottom:0.4rem;">
+              Inicjatywa partnerska Krajowej Izby Domów Opieki:
+            </div>
+            <div class="lead-form-grid">
+              <input type="text" id="pilot-facility" class="lead-input" placeholder="Instytucja / Podmiot" value="Krajowa Izba Domów Opieki">
+              <input type="text" id="pilot-city" class="lead-input" placeholder="Zasięg / Miejscowość" value="Warszawa / Cała Polska">
+              <input type="text" id="pilot-beds" class="lead-input" placeholder="Skala pilotażu (placówki)" value="10-15 placówek pilotażowych">
+              <button id="btn-pilot-submit" class="btn-cta" type="button" style="white-space:nowrap; padding:12px 24px;">
+                Zainicjuj Porozumienie z KIDO →
+              </button>
+            </div>
+            <div style="font-size:14px; color:var(--s-ter); margin-top:0.6rem; text-align:center;">
+              0 zł w programie pilotażowym · Zgodność z KPO Reforma A4.6 · Wspólny Ogólnopolski Raport 2026
+            </div>
           </div>
-          <div>
-            <b>Michał Sznurowski</b>
-            <span>Lider Technologii i Produktu</span>
+
+          <div class="stat-strip" style="text-align: left; margin-top: 1.8rem;">
+            <div>
+              <b>Dariusz Olszewski-Rink</b>
+              <span>Koordynator Inicjatywy Partnerskiej</span>
+            </div>
+            <div>
+              <b>Michał Sznurowski</b>
+              <span>Lider Technologii i Produktu</span>
+            </div>
+            <div>
+              <b>kontakt@silvercare.pl</b>
+              <span>Dedykowany kontakt dla Izby</span>
+            </div>
+            <div>
+              <b>Warszawa · Wrocław · Cała Polska</b>
+              <span>Ogólnopolski zasięg inicjatywy</span>
+            </div>
           </div>
-          <div>
-            <b>kontakt@silvercare.pl</b>
-            <span>Dedykowany kontakt dla Izby</span>
-          </div>
-          <div>
-            <b>Warszawa · Wrocław · Cała Polska</b>
-            <span>Ogólnopolski zasięg inicjatywy</span>
-          </div>
+          <p class="byline" style="margin-top: 1.4rem;">Silver Care · Narzędzie komunikacji i organizacji dla domów opieki pod patronatem KIDO</p>
         </div>
-        <p class="byline" style="margin-top: 1.8rem;">Silver Care · Empatyczna warstwa komunikacji dla domów seniora pod patronatem KIDO</p>
+
       </div>
       <aside class="notes" style="display:none;">
         <b>19:30 · Zamknięcie (Apel do Prezesa Dr. Andrzeja Lejczaka)</b>
-        <p>„Panie Prezesie, podsumowując: nie prosimy Izby o budżet ani podejmowanie ryzyka. Razem z Michałem i całym zespołem prosimy o zaufanie i wspólne przetestowanie rozwiązania, które odpowiada na największy ból polskich domów seniora – wypalenie opiekunów i brak rąk do pracy. Formularz powyżej generuje bezpośrednią deklarację intencji partnerskiej, wpisującej się w cele reformy KPO A4.6. Jesteśmy z Michałem do Pana pełnej dyspozycji, aby podpisać porozumienie i uruchomić pierwsze domy opieki pod egidą KIDO już w najbliższych tygodniach. Dziękujemy bardzo za uwagę i otwartość na współpracę.”</p>
+        <p>„Panie Prezesie, podsumowując: nie prosimy Izby o budżet ani podejmowanie ryzyka. Razem z Michałem i całym zespołem prosimy o zaufanie i wspólne przetestowanie rozwiązania, które odpowiada na największy ból polskich domów seniora – wypalenie opiekunów i brak rąk do pracy. Prezentowane ramy prawne gwarantują 100% bezpieczeństwa prawnego dla każdego dyrektora. Formularz powyżej generuje bezpośrednią deklarację intencji partnerskiej, wpisującej się w cele reformy KPO A4.6. Jesteśmy z Michałem do Pana pełnej dyspozycji, aby podpisać porozumienie i uruchomić pierwsze domy opieki pod egidą KIDO już w najbliższych tygodniach. Dziękujemy bardzo za uwagę i otwartość na współpracę.”</p>
       </aside>
     </section>
 
