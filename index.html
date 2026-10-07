@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Presentations Hub · Dariusz Olszewski</title>
+  <title>Presentations Hub · Silver Care Deck System</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambient glow */
     body::before {
       content: '';
       position: fixed;
@@ -100,16 +99,15 @@
     }
 
     .brand-icon svg {
-      width: 14px;
-      height: 14px;
-      fill: #fff;
-      transform: translateX(1px);
+      width: 16px;
+      height: 16px;
+      fill: var(--mint);
     }
 
     .brand-name {
       font-family: var(--font-display);
-      font-weight: 700;
       font-size: 1.15rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
     }
 
@@ -123,8 +121,8 @@
       color: var(--mint);
       background: rgba(47, 111, 94, 0.2);
       border: 1px solid rgba(127, 188, 168, 0.3);
-      padding: 0.3rem 0.65rem;
-      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -136,13 +134,7 @@
       height: 6px;
       border-radius: 50%;
       background: var(--mint-glow);
-      box-shadow: 0 0 8px var(--mint-glow);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+      box-shadow: 0 0 8px var(--mint);
     }
 
     main {
@@ -163,7 +155,6 @@
       font-family: var(--font-mono);
       font-size: 0.8rem;
       color: var(--mint);
-      text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 0.75rem;
       display: inline-block;
@@ -186,7 +177,7 @@
     .hero p {
       color: var(--muted);
       font-size: 1.1rem;
-      max-width: 640px;
+      max-width: 680px;
       line-height: 1.6;
     }
 
@@ -264,7 +255,6 @@
       font-weight: 600;
       padding: 0.25rem 0.55rem;
       border-radius: 4px;
-      text-transform: uppercase;
       letter-spacing: 0.04em;
     }
 
@@ -322,21 +312,6 @@
       color: #fff;
     }
 
-    /* Template / Add Card */
-    .card-new {
-      border-style: dashed;
-      background: rgba(14, 30, 26, 0.4);
-    }
-
-    .card-new::before {
-      display: none;
-    }
-
-    .card-new:hover {
-      border-color: var(--mint);
-      background: rgba(14, 30, 26, 0.8);
-    }
-
     footer {
       border-top: 1px solid var(--surface-border);
       padding: 2rem;
@@ -345,11 +320,6 @@
       font-size: 0.75rem;
       color: var(--muted);
       background: rgba(9, 21, 18, 0.7);
-    }
-
-    footer a {
-      color: var(--mint);
-      text-decoration: none;
     }
   </style>
 </head>
@@ -363,7 +333,7 @@
         </div>
         <div class="brand-name">presentations<span>.deck</span></div>
       </a>
-      <div class="sys-badge">Netlify Connected · Ready</div>
+      <div class="sys-badge">Netlify Connected · Live</div>
     </div>
   </header>
 
@@ -372,54 +342,57 @@
       <span class="hero-eyebrow">// Centralny Katalog Prezentacji</span>
       <h1>Interaktywne <em>Prezentacje</em> & Pitch Decki</h1>
       <p>
-        Wszystkie prezentacje internetowe, pitch decki inwestorskie oraz oferty pilotażowe zgromadzone w jednym miejscu. Każdy deck działa z wbudowanym HUD-em, notatkami prelegenta oraz stoperem.
+        Dwa dedykowane deki dla projektu <strong>Silver Care</strong>: wersja strategiczna dla Izby (KIDO) oraz wersja komercyjna dla pojedynczych placówek z kalkulatorem ROI i cennikiem.
       </p>
     </section>
 
     <div class="section-title">Dostępne Prezentacje</div>
 
     <div class="decks-grid">
-      <!-- DECK 1: SILVER CARE -->
+      <!-- DECK 1: SILVER CARE × KIDO -->
       <a href="./silver-care/" class="deck-card">
         <div>
           <div class="card-tags">
-            <span class="tag tag-mint">Pilotaż B2B</span>
-            <span class="tag tag-mint">Interaktywny</span>
-            <span class="tag tag-sage">Kalkulator ROI</span>
-            <span class="tag tag-sage">MDR Compliant</span>
+            <span class="tag tag-mint">Dla KIDO</span>
+            <span class="tag tag-mint">Pilotaż 0 PLN</span>
+            <span class="tag tag-sage">Dane OECD & BGK</span>
+            <span class="tag tag-sage">Tarcza Non-MDR</span>
           </div>
-          <div class="card-title">Silver Care · Blueprint Deck</div>
+          <div class="card-title">1. Silver Care × KIDO · Inicjatywa Strategiczna</div>
           <div class="card-desc">
-            Interaktywna prezentacja pilotażowa dla domów seniora. Oferta partnerska: dynamiczny symulator głosu AI, eksplorator modułów, kalkulator oszczędności czasu i spokój dla rodzin.
+            Prezentacja partnerska dedykowana dla Prezesa dr. Andrzeja Lejczaka i Zarządu Izby. Zapaść kadr (0,3 vs 5,0 OECD), program pilotażowy 0 zł dla 10–15 domów, tarcza Non-MDR i wspólny ogólnopolski raport branżowy 2026.
           </div>
         </div>
         <div class="card-meta">
-          <span>~20 min · 14 slajdów interaktywnych</span>
-          <span class="btn-launch">Uruchom deck →</span>
+          <span>14 slajdów · Interaktywny</span>
+          <span class="btn-launch">Uruchom deck KIDO →</span>
         </div>
       </a>
 
-      <!-- NEW DECK HELPER -->
-      <div class="deck-card card-new">
+      <!-- DECK 2: DLA PLACÓWEK OPIEKUŃCZYCH (B2B) -->
+      <a href="./dom-opieki/" class="deck-card">
         <div>
           <div class="card-tags">
-            <span class="tag tag-sage">+ Nowa Prezentacja</span>
+            <span class="tag tag-mint">Oferta B2B</span>
+            <span class="tag tag-mint">Cennik & ROI</span>
+            <span class="tag tag-sage">Opinie Google (87,9%)</span>
+            <span class="tag tag-sage">Smart Bed Mapper</span>
           </div>
-          <div class="card-title">Dodaj kolejną prezentację</div>
+          <div class="card-title">2. Silver Care dla Placówek · Oferta Komercyjna</div>
           <div class="card-desc">
-            Wystarczy utworzyć nowy folder w projekcie (np. <code>/nowy-projekt/</code>) z plikami <code>index.html</code>, <code>deck.css</code> i <code>deck.js</code>, a następnie dodać kafelek w tym pliku.
+            Dedykowana dla Dyrektorów, Właścicieli i CFO domów opieki, DPS i ZOL. Precyzyjny cennik SaaS (2,5–5k zł), kalkulator ROI, zaadresowanie luki opieki nocnej, model samofinansowania B2B2C i wdrożenie concierge w 7 dni.
           </div>
         </div>
         <div class="card-meta">
-          <span>Szablon gotowy</span>
-          <span style="color: var(--mint);">Gotowe do rozbudowy</span>
+          <span>12 slajdów · Interaktywny</span>
+          <span class="btn-launch">Uruchom deck Placówki →</span>
         </div>
-      </div>
+      </a>
     </div>
   </main>
 
   <footer>
-    <p>Presentations Engine · Powered by Netlify &amp; GitHub · Dariusz Olszewski Rink</p>
+    <p>Presentations Engine · Powered by Netlify &amp; GitHub · Dariusz Olszewski-Rink &amp; Michał Sznurowski</p>
   </footer>
 
 </body>

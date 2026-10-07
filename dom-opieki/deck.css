@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Silver Care · Prezentacja Multimedialna
-   Oficjalny System Projektowania i Kontrakt Wizualny (design.contract.mjs)
-   Paleta: Ciepła biel (#FBFAF8), Skala szarości (#57534E, #E8E4DD), Akcent marki (#2F6F5E / #7FBCA8)
+   Silver Care · Prezentacja Komercyjna B2B dla Placówek Opiekuńczych
+   Oficjalny System Projektowania i Kontrakt Wizualny Silver Care
+   Paleta: Ciepła biel (#FBFAF8), Skala szarości (#38342F, #DCD7CE), Akcent marki (#235F50 / #7FBCA8)
    Typografia: Inter (latin-ext, wagi 400, 500, 600, bez wersalików)
    Styl: Płaskie tła, obrysy 2px, promień 24px/16px, zero cieni i rozmyć.
    ========================================================================== */
@@ -77,7 +77,7 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-/* Animowany canvas w tle (Subtelna, elegancka sieć połączeń) */
+/* Animowany canvas w tle */
 #org {
   position: fixed;
   inset: 0;
@@ -237,7 +237,7 @@ html, body {
   position: fixed;
   bottom: 12px;
   left: 2rem;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--s-ter);
   z-index: 80;
   pointer-events: none;
@@ -289,9 +289,9 @@ html, body {
 }
 
 h1 {
-  font-size: clamp(40px, 5.5vw, 76px);
+  font-size: clamp(38px, 5.2vw, 72px);
   font-weight: 600;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.025em;
   margin: 0.1em 0 0.35em;
   color: var(--s-text);
@@ -317,7 +317,7 @@ h1 em, h2 em {
   font-size: clamp(18px, 1.6vw, 24px);
   line-height: 1.45;
   color: var(--s-sec);
-  max-width: 62ch;
+  max-width: 64ch;
   margin-bottom: 1.6rem;
 }
 
@@ -339,7 +339,7 @@ h1 em, h2 em {
   border-left: 4px solid var(--s-accent);
   background: var(--s-sunken);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  max-width: 82ch;
+  max-width: 86ch;
 }
 
 .means p {
@@ -353,7 +353,7 @@ h1 em, h2 em {
   color: var(--s-text);
 }
 
-/* Karty (surface, obrys 2px, promień 24px, zero cieni) */
+/* Karty i kafelki */
 .block {
   position: relative;
   border: 2px solid var(--s-border);
@@ -363,7 +363,7 @@ h1 em, h2 em {
   transition: border-color 0.18s, background-color 0.18s;
 }
 
-.block.gold, .block.accent {
+.block.accent {
   background: var(--s-soft);
   border-color: var(--s-accent);
 }
@@ -399,9 +399,9 @@ h1 em, h2 em {
   font-size: 15px;
   font-weight: 500;
   color: var(--s-accent);
-  background: var(--s-soft);
-  border: 1px solid var(--s-border);
-  padding: 4px 10px;
+  background: var(--s-surface);
+  border: 1.5px solid var(--s-border);
+  padding: 4px 12px;
   border-radius: var(--radius-pill);
 }
 
@@ -457,7 +457,7 @@ h1 em, h2 em {
   transform: translateY(-1px);
 }
 
-/* Slajd 01: Pełne tło akcentu (Layout S01) */
+/* Slajd 01: Pełne tło akcentu */
 .card-cover {
   background: var(--s-accent) !important;
   color: var(--s-onacc) !important;
@@ -465,7 +465,7 @@ h1 em, h2 em {
 
 .card-cover .eyebrow {
   color: var(--s-onacc) !important;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 .card-cover .eyebrow::before {
   background: var(--s-onacc) !important;
@@ -479,7 +479,7 @@ h1 em, h2 em {
 }
 .card-cover .byline {
   color: var(--s-onacc) !important;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .card-cover .btn-cta {
@@ -491,55 +491,12 @@ h1 em, h2 em {
   background: var(--s-soft) !important;
 }
 
-/* Slajd Rozdzielnika (Layout S02) */
+/* Slajd Rozdzielnika */
 .card-sunken {
   background: var(--s-sunken);
 }
 
-/* Pasek przełącznika trybu (Slide 02) */
-.mode-switch-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--s-sunken);
-  border: 2px solid var(--s-border);
-  padding: 8px 16px;
-  border-radius: var(--radius-pill);
-  margin-top: 1.2rem;
-  margin-bottom: 1.4rem;
-}
-
-.mode-switch-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--s-sec);
-}
-
-.mode-switch-pills {
-  display: flex;
-  gap: 8px;
-}
-
-.switch-pill {
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 8px 18px;
-  border-radius: var(--radius-pill);
-  background: var(--s-surface);
-  color: var(--s-sec);
-  border: 1px solid var(--s-border);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.switch-pill.active {
-  background: var(--s-accent);
-  color: var(--s-onacc);
-  border-color: var(--s-accent);
-}
-
-/* Warstwy / Stack (Slide 04) */
+/* Warstwy / Stack */
 .stack {
   display: flex;
   flex-direction: column;
@@ -580,40 +537,6 @@ h1 em, h2 em {
   color: var(--s-text);
 }
 
-/* Próbki filtrów głosu (Slide 04) */
-.sample-bar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 1rem;
-}
-
-.sample-pill {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  background: var(--s-surface);
-  border: 1px solid var(--s-border);
-  color: var(--s-sec);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.sample-pill.active {
-  background: var(--s-accent);
-  color: var(--s-onacc);
-  border-color: var(--s-accent);
-}
-
-.cut {
-  background: var(--s-sunken);
-  border-left: 4px solid var(--s-ter);
-  padding: 0.8rem 1rem;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  color: var(--s-sec);
-}
-
 .ai-notice {
   font-size: 18px;
   color: var(--s-ter);
@@ -621,7 +544,7 @@ h1 em, h2 em {
   display: block;
 }
 
-/* Ekran produktu / Ramka aplikacji 16:10 (Slide 05 / Layout S06) */
+/* Ekran produktu / Ramka aplikacji 16:10 */
 .modules-interactive-wrap {
   display: grid;
   grid-template-columns: 360px 1fr;
@@ -676,90 +599,7 @@ h1 em, h2 em {
   justify-content: space-between;
 }
 
-/* Symulator dyktowania głosu (Slide 07) */
-.voice-test-card {
-  border: 2px solid var(--s-border);
-  background: var(--s-sunken);
-  border-radius: var(--radius);
-  padding: 1.4rem 2rem;
-  margin-top: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.btn-record-sim {
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
-  border-radius: var(--radius-pill);
-  background: var(--s-accent);
-  color: var(--s-onacc);
-  border: 2px solid var(--s-accent);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-record-sim.recording {
-  background: var(--s-text);
-  border-color: var(--s-text);
-}
-
-.waveform {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  height: 24px;
-}
-
-.wbar {
-  width: 4px;
-  height: 8px;
-  background: var(--s-ter);
-  border-radius: 2px;
-  transition: height 0.15s ease;
-}
-
-.waveform.active .wbar {
-  background: var(--s-accent);
-  animation: wave 0.8s ease-in-out infinite alternate;
-}
-
-.waveform.active .wbar:nth-child(2) { animation-delay: 0.1s; }
-.waveform.active .wbar:nth-child(3) { animation-delay: 0.2s; }
-.waveform.active .wbar:nth-child(4) { animation-delay: 0.3s; }
-.waveform.active .wbar:nth-child(5) { animation-delay: 0.4s; }
-.waveform.active .wbar:nth-child(6) { animation-delay: 0.5s; }
-
-@keyframes wave {
-  0% { height: 6px; }
-  100% { height: 26px; }
-}
-
-.term {
-  border: 2px solid var(--s-border);
-  background: var(--s-surface);
-  border-radius: var(--radius-sm);
-  padding: 1.4rem;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.term .bar {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--s-accent);
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid var(--s-border);
-}
-
-/* Kalkulator oszczędności (Slide 09 / Layout S07) */
+/* Kalkulator oszczędności & B2B2C */
 .calc-box {
   border: 2px solid var(--s-accent);
   background: var(--s-soft);
@@ -830,7 +670,7 @@ h1 em, h2 em {
   line-height: 1.4;
 }
 
-/* Oś czasu / Proces (Slide 13 / Layout S08) */
+/* Oś czasu / Proces */
 .timeline-tabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -857,21 +697,7 @@ h1 em, h2 em {
   background: var(--s-soft);
 }
 
-.step-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--s-accent);
-  color: var(--s-onacc);
-  font-weight: 600;
-  font-size: 18px;
-  margin-bottom: 0.8rem;
-}
-
-/* Formularz zgłoszeniowy (Slide 14) */
+/* Formularz zgłoszeniowy */
 .lead-form-box {
   border: 2px solid var(--s-border);
   background: var(--s-surface);
@@ -904,7 +730,7 @@ h1 em, h2 em {
   background: var(--s-surface);
 }
 
-/* Pasek stopki kontaktowej (Layout S12 / S14) */
+/* Pasek stopki kontaktowej */
 .stat-strip {
   display: flex;
   gap: 2rem;

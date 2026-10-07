@@ -6,3 +6,13 @@
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
+
+[[redirects]]
+  from = "/silver-care-b2b"
+  to = "/dom-opieki/"
+  status = 301
+
+[[redirects]]
+  from = "/silver-care-b2b/*"
+  to = "/dom-opieki/:splat"
+  status = 301

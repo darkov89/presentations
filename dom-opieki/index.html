@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Silver Care · Oferta dla Domów Opieki, DPS i ZOL</title>
+  
+  <!-- Krój pisma: Inter (latin-ext, wagi 400, 500, 600) wg oficjalnego kontraktu marki -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+  <!-- Subtelny, organiczny canvas w tle -->
+  <canvas id="org"></canvas>
+
+  <!-- Pasek postępu -->
+  <div id="bar"></div>
+
+  <!-- Górny pasek HUD -->
+  <header id="hud">
+    <div class="brand">
+      <div class="sc-logo" title="Silver Care Logo">
+        <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+      </div>
+      <span>Silver Care · Oferta dla Placówek</span>
+    </div>
+    <div class="meta">
+      <span id="num">01 / 12</span>
+      <span id="clock" title="Kliknij lub naciśnij T, aby włączyć stoper. R zeruje.">00:00</span>
+      <div class="tools">
+        <a href="../" class="hud-btn" style="text-decoration:none;" title="Wróć do katalogu prezentacji">← Hub</a>
+        <button id="btn-theme" class="hud-btn" title="Przełącz motyw jasny / ciemny [M]">Motyw [M]</button>
+        <button id="btn-notes" class="hud-btn" title="Notatki prelegenta [N]">Notatki [N]</button>
+        <button id="btn-fs" class="hud-btn" title="Pełny ekran [F]">Pełny ekran [F]</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Kropki nawigacyjne -->
+  <nav id="dots" aria-label="Nawigacja slajdów"></nav>
+
+  <!-- Pasek skrótów klawiszowych -->
+  <footer id="help">↓ / spacja dalej · M motyw · N notatki · T stoper · F pełny ekran</footer>
+
+  <!-- Główny kontener prezentacji -->
+  <main id="deck">
+
+    <!-- 01 · OKŁADKA BIZNESOWA (Layout S01: Pełne tło akcentu) -->
+    <section class="card card-cover" data-form="network" data-t="Okładka">
+      <div class="inner">
+        <div class="eyebrow">Oferta komercyjna i kalkulacja ROI · System dla domów opieki</div>
+        <h1>Silver <em>Care</em> dla Placówek</h1>
+        <p class="lede">
+          Więcej czasu na opiekę, święty spokój dla rodzin, wyższa marża placówki.<br>
+          <strong>Nowoczesny system organizacji pracy personelu i empatycznej komunikacji z bliskimi. Oszczędność do 0,5 etatu i koniec ze stresem dyżurki.</strong>
+        </p>
+        <div style="margin-top: 2rem;">
+          <a href="#deck" onclick="document.querySelectorAll('.card')[1].scrollIntoView({behavior:'smooth'}); return false;" class="btn-cta">
+            Poznaj kalkulację korzyści i cennik →
+          </a>
+        </div>
+        <p class="byline">
+          Dedykowane dla: <strong>Właścicieli, Dyrektorów i Kierowników Placówek Opiekuńczych</strong> (DPS, Domy Prywatne, ZOL)<br>
+          Przygotowali: Dariusz Olszewski-Rink · Michał Sznurowski · Łukasz Romanowicz
+        </p>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>0:00 · Otwarcie Prezentacji Biznesowej dla Dyrekcji Domu Opieki</b>
+        <p>„Dzień dobry Państwu. Wiemy, z jakimi wyzwaniami mierzy się dziś każda placówka opiekuńcza w Polsce: dramatyczny deficyt opiekunek, rosnące koszty pracy, nieustannie dzwoniący telefon w dyżurce i niepokój rodzin. Silver Care nie jest kolejnym skomplikowanym programem medycznym, który wymusi godziny szkoleń. To lekki, intuicyjny system, który oddaje personelowi 60% czasu marnowanego na biurokrację i telefony, dając rodzinom codzienny raport o 15:00. Pokażemy dziś twarde liczby, cennik, zwrot z inwestycji i to, jak system może sfinansować się sam.”</p>
+      </aside>
+    </section>
+
+    <!-- 02 · PROBLEM: ANALIZA OPINII GOOGLE MAPS 2023-2026 (Layout S09) -->
+    <section class="card" data-form="split" data-side="right" data-t="Problem & Rynek">
+      <div class="inner">
+        <div class="eyebrow">Analiza rynkowa · Raport opinii Google Maps z lat 2023–2026</div>
+        <h2>Główne źródło skarg rodzin: <em>Opieka nocna i asymetria informacji</em>.</h2>
+        <p class="lede">Niezależna analiza opinii i recenzji domów opieki w Polsce ujawnia krytyczny punkt zapalny w relacjach z rodzinami pensjonariuszy:</p>
+        
+        <div class="grid2">
+          <div class="block">
+            <h3>Punkt zapalny: Opieka nocna & Ciągły niepokój</h3>
+            <div class="big">87,9%</div>
+            <p>Aż <strong>87,9% negatywnych opinii i skarg</strong> zgłaszanych przez rodziny dotyczy braku wiedzy o przebiegu dyżurów nocnych oraz asymetrii informacyjnej. Bliscy czują się odcięci, a brak wiadomości interpretują jako zaniedbanie.</p>
+            <span class="tag">87,9% skarg o brak informacji nocnej</span>
+          </div>
+          <div class="block accent">
+            <h3>Koszty ukryte dla Twojej placówki</h3>
+            <div class="big">~140 min.</div>
+            <p>Personel traci dziennie ponad <strong>2 godziny na odbieranie powtarzalnych telefonów</strong> („czy mama zjadła obiad?”). Prowadzi to do frustracji opiekunek, wypalenia zawodowego, rotacji kadr i ryzyka utraty mieszkańców.</p>
+            <span class="tag">Paraliż dyżurki · Koszt rotacji personelu</span>
+          </div>
+        </div>
+
+        <div class="means">
+          <p>Problem nie wynika ze złej woli personelu, lecz z <strong>braku narzędzia do proaktywnej, automatycznej komunikacji</strong>. Rodziny nie szukają medycznych wykresów – chcą prostego potwierdzenia spokoju.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>1:30 · Raport Opinii Google Maps & Ból Placówki</b>
+        <p>„Szanowni Państwo, nasz raport opinii Google Maps z lat 2023–2026 pokazuje twardą rzeczywistość: blisko 88% skarg rodzin dotyczy braku informacji o tym, co działo się w nocy i w ciągu dnia. Rodziny dzwonią nie ze złośliwości, ale ze strachu. Opiekunki odbierają 40 telefonów dziennie, tracąc 140 minut cennego czasu. Zamiast karmić i asystować seniorom, stają się telefonistkami pod ciągłym ostrzałem pretensji. Silver Care całkowicie likwiduje to zjawisko.”</p>
+      </aside>
+    </section>
+
+    <!-- 03 · DOWÓD: CASE STUDY DOMU SENIORA MARCONI (Layout S07) -->
+    <section class="card" data-form="network" data-side="right" data-t="Case Study Marconi">
+      <div class="inner">
+        <div class="eyebrow">Twarde dowody · Wdrożenie w Domu Seniora Marconi w Świdnicy</div>
+        <h2>Spadek telefonów o 60% <em>i ulga dla dyżurki od pierwszego tygodnia</em>.</h2>
+        <p class="lede">Doświadczenia operacyjne z Domu Seniora Marconi potwierdziły natychmiastowe rezultaty wdrożenia platformy:</p>
+        
+        <div class="grid4">
+          <div class="block">
+            <h3>Telefony od rodzin</h3>
+            <div class="big">-60%</div>
+            <p>Spadek liczby rutynowych telefonów z pytaniami o podstawowe samopoczucie pensjonariusza.</p>
+          </div>
+          <div class="block">
+            <h3>Czas biurokracji</h3>
+            <div class="big">30 sek.</div>
+            <p>Zamiast ręcznego wypełniania kart – 30-sekundowa notatka głosem podyktowana na korytarzu.</p>
+          </div>
+          <div class="block">
+            <h3>Opieka nocna</h3>
+            <div class="big">100%</div>
+            <p>Pełna transparentność nocy w porannym raporcie Peace Letter likwiduje poranny paraliż recepcji.</p>
+          </div>
+          <div class="block accent">
+            <h3>Pozycja rynkowa</h3>
+            <div class="big">Premium</div>
+            <p>Wzrost zaufania rodzin, polecenia placówki i budowa silnej przewagi konkurencyjnej w regionie.</p>
+          </div>
+        </div>
+
+        <div class="means">
+          <p><strong>Wniosek wdrożeniowy:</strong> Przejście na notatki głosowe w PWA oszczędza do 60% czasu przeznaczanego na biurokrację podczas przekazywania dyżurów i stabilizuje retencję personelu opiekuńczego.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>3:00 · Case Study Domu Seniora Marconi</b>
+        <p>„Nie opowiadamy teorii. W Domu Seniora Marconi w Świdnicy sprawdziliśmy to w praktyce. Gdy rodziny zaczęły otrzymywać o 15:00 ciepły raport z 4 podstawowymi informacjami (sen, posiłek, płyny, nastrój), liczba telefonów spadła o 60%. Opiekunki przestały bać się dzwoniącego telefonu, a dyrekcja zyskała opinię najnowocześniejszego i najbardziej transparentnego domu opieki w regionie.”</p>
+      </aside>
+    </section>
+
+    <!-- 04 · 5 FILARÓW USP (Layout S05 / S04) -->
+    <section class="card" data-form="shield" data-side="right" data-t="Wyróżniki USP">
+      <div class="inner">
+        <div class="eyebrow">Przewaga rynkowa · Dlaczego Silver Care wygrywa?</div>
+        <h2>Pięć filarów, które dają <em>natychmiastowy zwrot i spokój dyrekcji</em>.</h2>
+        
+        <div class="stack" style="margin-top: 1.6rem;">
+          <div class="layer">
+            <b>1. Zero-Touch Voice PWA</b>
+            <span><strong>Brak skomplikowanych formularzy i tabelek.</strong> Cała obsługa sprowadza się do 30-sekundowej notatki głosowej. Działa w trybie offline nawet w grubych murach dworków i piwnicach.</span>
+          </div>
+          <div class="layer">
+            <b>2. AI Guardrails & Peace Letter</b>
+            <span><strong>Automatyczny tłumacz faktów na empatię.</strong> Model AI z blokadą halucynacji wycina dane medyczne do wewnętrznego zeszytu, a rodzinie wysyła ciepły, uspokajający list o 15:00.</span>
+          </div>
+          <div class="layer">
+            <b>3. Asynchroniczny Helpdesk (SLA 24h)</b>
+            <span><strong>Koniec z przerywaniem toalety czy karmienia dzwonkiem telefonu.</strong> Rodziny piszą w aplikacji – personel odpowiada w dogodnej chwili, a panel automatycznie grupuje wątki.</span>
+          </div>
+          <div class="layer">
+            <b>4. Zero Kamer & 100% Intymności</b>
+            <span><strong>Żadnego inwazyjnego monitoringu wideo.</strong> 94% seniorów i rodzin odrzuca kamery w pokojach. Silver Care gwarantuje pełną akceptację pensjonariuszy i personelu.</span>
+          </div>
+          <div class="layer">
+            <b>5. Tarcza Prawna Non-MDR</b>
+            <span><strong>Narzędzie wyłącznie organizacyjno-komunikacyjne.</strong> Brak ingerencji w diagnostykę medyczną eliminuje wieloletnie certyfikacje wyrobów medycznych (MDR) – start od dnia 1.</span>
+          </div>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>4:30 · 5 Filarów Wyróżniających Silver Care</b>
+        <p>„Dlaczego Silver Care deklasuje tradycyjne programy? Po pierwsze: zero pisania na klawiaturze – opiekunka dyktuje w biegu na korytarzu. Po drugie: brak kamer, co daje 100% poparcia personelu i pensjonariuszy. Po trzecie: asynchroniczny czat, który ucina telefony. Po czwarte: status Non-MDR, który chroni dyrekcję przed kontrolami i certyfikacją medyczną.”</p>
+      </aside>
+    </section>
+
+    <!-- 05 · NARZĘDZIA OPERACYJNE: IMPORT W 60S & KREATOR (Layout S06) -->
+    <section class="card" data-form="hub" data-t="Narzędzia Operacyjne">
+      <div class="inner">
+        <div class="eyebrow">Ekosystem narzędzi · Sprawna organizacja placówki</div>
+        <h2>Od cyfrowej mapy pokoi <em>po błyskawiczne przyjęcie podopiecznego</em>.</h2>
+        
+        <div class="modules-interactive-wrap">
+          <div class="modules-nav">
+            <button class="module-nav-item active" data-mod="bed-mapper" type="button">
+              <div>
+                <b>01 · Smart Bed Mapper</b>
+                <div style="font-size:15px; color:var(--s-sec);">Import z Excela w 60s & Drag-and-drop</div>
+              </div>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="admission" type="button">
+              <div>
+                <b>02 · Admission Wizard</b>
+                <div style="font-size:15px; color:var(--s-sec);">Przyjęcie podopiecznego w 3 minuty</div>
+              </div>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="handover" type="button">
+              <div>
+                <b>03 · Shift Handover Digest</b>
+                <div style="font-size:15px; color:var(--s-sec);">Pigułka AI dla zmiany nocnej i dziennej</div>
+              </div>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
+            </button>
+            <button class="module-nav-item" data-mod="export" type="button">
+              <div>
+                <b>04 · 1-klikowy Eksport Kontrolny</b>
+                <div style="font-size:15px; color:var(--s-sec);">Gotowe raporty dla Sanepidu, UW i NFZ</div>
+              </div>
+              <span style="font-size:15px; color:var(--s-accent);">Podgląd →</span>
+            </button>
+          </div>
+
+          <div class="module-preview-panel">
+            <div>
+              <div style="font-size:15px; color:var(--s-accent); font-weight:600; margin-bottom:0.4rem;">
+                Moduł Operacyjny · Podgląd na żywo
+              </div>
+              <h3 id="mod-preview-title" style="font-size:26px; color:var(--s-text); margin:0 0 0.5rem;">
+                01 · Smart Bed Mapper (Import w 60 sekund)
+              </h3>
+              <p id="mod-preview-desc" style="color:var(--s-sec); font-size:18px; line-height:1.5;">
+                Błyskawiczny import struktury pokoi z pliku Excel/CSV oraz wizualne przypisywanie podopiecznych metodą drag-and-drop.
+              </p>
+            </div>
+
+            <div id="mod-preview-ui" style="background:var(--s-sunken); border:2px solid var(--s-border); padding:1.4rem; border-radius:var(--radius-sm); margin-top:1.2rem;">
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:0.8rem;">
+                <div style="background:var(--s-soft); border:2px solid var(--s-accent); padding:1rem; border-radius:12px; text-align:center;">
+                  <b style="color:var(--s-accent); font-size:17px;">Sektor A · Pokój 101</b><div style="font-size:15px; color:var(--s-sec); margin-top:4px;">2/2 zajęte (Jan K., Anna W.)</div>
+                </div>
+                <div style="background:var(--s-soft); border:2px solid var(--s-accent); padding:1rem; border-radius:12px; text-align:center;">
+                  <b style="color:var(--s-accent); font-size:17px;">Sektor A · Pokój 102</b><div style="font-size:15px; color:var(--s-sec); margin-top:4px;">2/2 zajęte (Stanisław M., Piotr B.)</div>
+                </div>
+                <div style="background:var(--s-surface); border:2px dashed var(--s-border); padding:1rem; border-radius:12px; text-align:center;">
+                  <b style="color:var(--s-text); font-size:17px;">Sektor B · Pokój 103</b><div style="font-size:15px; color:var(--s-accent); margin-top:4px;">● 1 wolne łóżko (przeciągnij tutaj)</div>
+                </div>
+              </div>
+              <div style="margin-top:1rem; font-size:15px; color:var(--s-sec);">
+                Status: <strong style="color:var(--s-accent);">Import z Excela zakończony sukcesem (48 łóżek zaindeksowanych)</strong>
+              </div>
+            </div>
+            
+            <div style="font-size:15px; color:var(--s-ter); margin-top:1.2rem; display:flex; justify-content:space-between; align-items:center;">
+              <span>Zrzut z danych demonstracyjnych placówki</span>
+              <span style="color:var(--s-accent); font-weight:600;">Kliknij inny moduł po lewej ↗</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>6:00 · Narzędzia Operacyjne Placówki</b>
+        <p>„Silver Care rozwiązuje codzienne bolączki administracyjne. Zamiast żmudnego wpisywania każdego łóżka: wgrywają Państwo arkusz Excel, a system w 60 sekund tworzy cyfrową mapę placówki. Przeniesienie mieszkańca to jedno przeciągnięcie myszką. Kreator przyjęć w 3 minuty rejestruje zwyczaje podopiecznego i wysyła SMS z kodem do córki. A w razie kontroli Sanepidu czy UW – jednym kliknięciem generują Państwo kompletny raport czynności.”</p>
+      </aside>
+    </section>
+
+    <!-- 06 · CENNIK: ILE I ZA CO PŁACI PLACÓWKA? (Layout S10) -->
+    <section class="card" data-form="shield" data-side="right" data-t="Cennik">
+      <div class="inner">
+        <div class="eyebrow">Model biznesowy · Przejrzyste warunki finansowe</div>
+        <h2>Transparentny cennik: <em>Dwa proste warianty wdrożenia</em>.</h2>
+        
+        <div class="grid2" style="margin-top: 1.6rem;">
+          <!-- Wariant 1: SaaS Flat Fee -->
+          <div class="block accent" style="border-width: 3px;">
+            <div style="font-size:15px; color:var(--s-accent); font-weight:600;">Główny Pakiet · Chmura & Aplikacja</div>
+            <h3 style="font-size:26px; margin:0.3rem 0; color:var(--s-text);">B2B SaaS Flat Fee</h3>
+            <div class="big" style="color:var(--s-accent);">2 500 – 5 000 zł</div>
+            <div style="font-size:16px; color:var(--s-sec); font-weight:600; margin-bottom:1rem;">netto / miesiąc na placówkę (średnio ~3 500 zł)</div>
+            
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem; font-size:16px; color:var(--s-text);">
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Nielimitowane konta personelu:</strong> opiekunki, pielęgniarki, dyrekcja</span></li>
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Nielimitowane notatki głosowe:</strong> transkrypcja i filtr AI w UE</span></li>
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Wysyłka Peace Letter:</strong> codzienne raporty dla wszystkich rodzin</span></li>
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Smart Bed Mapper & Kreator przyjęć:</strong> pełen pakiet modułów</span></li>
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Infrastruktura w UE & RODO art. 9:</strong> codzienne backupy, SLA 99.5%</span></li>
+            </ul>
+          </div>
+
+          <!-- Wariant 2: Opcjonalny CAPEX IoT -->
+          <div class="block">
+            <div style="font-size:15px; color:var(--s-ter); font-weight:600;">Opcja Rozszerzona · Urządzenia IoT</div>
+            <h3 style="font-size:26px; margin:0.3rem 0; color:var(--s-text);">Pakiet Sprzętowy IoT (Polar 360)</h3>
+            <div class="big" style="color:var(--s-text);">24 500 – 28 600 zł</div>
+            <div style="font-size:16px; color:var(--s-sec); font-weight:600; margin-bottom:1rem;">netto jednorazowo (dla obiektu ~50 łóżek)</div>
+            
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem; font-size:16px; color:var(--s-sec);">
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>30 opasek monitorujących Polar 360:</strong> bezinwazyjny sen i kroki</span></li>
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Tablety i stacje bazowe (Huby):</strong> stacje dokujące w dyżurkach</span></li>
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Onboarding & Szkolenie na miejscu:</strong> pełna konfiguracja sieci</span></li>
+              <li style="display:flex; gap:8px;"><span>✔</span> <span><strong>Gwarancja sprzętowa i serwis:</strong> wymiana door-to-door</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="means">
+          <p>Większość domów opieki rozpoczyna od <strong>samego pakietu SaaS (0 zł CAPEX)</strong>, wykorzystując smartfony opiekunek. Pakiet sprzętowy Polar 360 jest w 100% opcjonalny.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>7:30 · Cennik i Zasady Rozliczeń</b>
+        <p>„Przejdźmy do finansów: cennik jest w 100% przejrzysty. Podstawowy abonament B2B SaaS wynosi od 2 500 do 5 000 zł netto miesięcznie, w zależności od wielkości obiektu – średnio 3 500 zł dla typowego domu na 50 łóżek. W tej cenie placówka ma wszystko: nielimitowaną liczbę kont dla personelu, nielimitowane notatki głosowe i wysyłkę raportów do wszystkich rodzin. Nie ma żadnych ukrytych opłat za użytkownika. Pakiet sprzętowy z opaskami Polar 360 jest opcją dla placówek, które chcą dodatkowo mierzyć aktywność fizyczną bez kamer.”</p>
+      </aside>
+    </section>
+
+    <!-- 07 · MODEL B2B2C: JAK SYSTEM FINANSUJE SIĘ SAM? (Layout S07) -->
+    <section class="card" data-form="network" data-side="right" data-t="Model B2B2C">
+      <div class="inner">
+        <div class="eyebrow">Monetyzacja i optymalizacja kosztowa · Model B2B2C</div>
+        <h2>Jak system finansuje się sam: <em>Opcjonalny pakiet dla rodzin</em>.</h2>
+        <p class="lede">Placówka może zaoferować rodzinom pensjonariuszy opcjonalny moduł <em>Spokój Premium</em>, który pokrywa większość lub całość kosztów abonamentu:</p>
+        
+        <div class="calc-box">
+          <div class="calc-top">
+            <div>
+              <div style="font-size:15px; color:var(--s-accent); font-weight:600;">
+                Symulator przychodu z modułu rodzinnego (50–100 zł / rodzina / mies.)
+              </div>
+              <h3 style="font-size:26px; margin:0.2rem 0 0; color:var(--s-text);">
+                Liczba rodzin korzystających z pakietu: <span id="b2b2c-count-display" style="color:var(--s-accent);">35 rodzin</span>
+              </h3>
+            </div>
+            <span class="tag" style="background:var(--s-surface);">Przesuń suwak ↔</span>
+          </div>
+
+          <div class="calc-slider-row">
+            <span style="font-size:15px; color:var(--s-sec); font-weight:600;">10</span>
+            <input type="range" id="slider-b2b2c" min="10" max="80" step="5" value="35" class="calc-slider" aria-label="Liczba rodzin">
+            <span style="font-size:15px; color:var(--s-sec); font-weight:600;">80</span>
+          </div>
+
+          <div class="calc-stat-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="calc-stat-item">
+              <div id="b2b2c-revenue" class="calc-stat-val">+2 625 zł / mies.</div>
+              <div class="calc-stat-lbl">Miesięczny przychód placówki z pakietu rodzinnego</div>
+            </div>
+            <div class="calc-stat-item" style="border-color:var(--s-accent); background:var(--s-soft);">
+              <div id="b2b2c-coverage" class="calc-stat-val" style="color:var(--s-accent);">75% abonamentu</div>
+              <div class="calc-stat-lbl">Stopień pokrycia kosztu B2B SaaS (przy opłacie 3 500 zł)</div>
+            </div>
+            <div class="calc-stat-item">
+              <div class="calc-stat-val">31 500 zł</div>
+              <div class="calc-stat-lbl">Roczny dodatkowy strumień przychodowy dla placówki</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="means">
+          <p><strong>Efekt biznesowy:</strong> Rodziny chętnie płacą 50–100 zł miesięcznie za dedykowany czat, galerię zdjęć i bieżący wgląd. Dla placówki oznacza to <strong>technologię klasy enterprise pracującą niemal bezkosztowo</strong>.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>9:00 · Model Samofinansowania B2B2C</b>
+        <p>„Oto unikalna dźwignia finansowa Silver Care: model B2B2C. Placówka może udostępnić rodzinom podstawowe Peace Letters bezpłatnie, a moduł rozszerzony (bezpośredni czat z opiekunem, nielimitowana galeria zdjęć z warsztatów, archiwum relacji) zaoferować za 50 do 100 zł miesięcznie. Przy 35 rodzinach w 50-osobowym domu, daje to 2 625 zł miesięcznie czystego przychodu – co pokrywa 75% do 100% kosztu abonamentu. Wdrożenie staje się samofinansującym się centrum zysku.”</p>
+      </aside>
+    </section>
+
+    <!-- 08 · TWARDY KALKULATOR ROI (Layout S07) -->
+    <section class="card" data-form="network" data-side="right" data-t="Kalkulator ROI">
+      <div class="inner">
+        <div class="eyebrow">Kalkulator korzyści · Wymierne oszczędności placówki</div>
+        <h2>Sprawdź, ile godzin pracy personelu <em>odzyskasz w skali miesiąca</em>.</h2>
+        <p class="lede">Przesuń suwak i zobacz realny wpływ wdrożenia Silver Care na czas i koszty Twojego zespołu opiekuńczego:</p>
+        
+        <div class="calc-box">
+          <div class="calc-top">
+            <div>
+              <div style="font-size:15px; color:var(--s-accent); font-weight:600;">
+                Wielkość Twojej placówki (liczba aktywnych łóżek / pensjonariuszy)
+              </div>
+              <h3 style="font-size:26px; margin:0.2rem 0 0; color:var(--s-text);">
+                Placówka: <span id="roi-beds-display" style="color:var(--s-accent);">50 łóżek</span>
+              </h3>
+            </div>
+            <span class="tag" style="background:var(--s-surface);">Przesuń suwak ↔</span>
+          </div>
+
+          <div class="calc-slider-row">
+            <span style="font-size:15px; color:var(--s-sec); font-weight:600;">15</span>
+            <input type="range" id="slider-roi-beds" min="15" max="120" step="5" value="50" class="calc-slider" aria-label="Liczba łóżek">
+            <span style="font-size:15px; color:var(--s-sec); font-weight:600;">120</span>
+          </div>
+
+          <div class="calc-stat-grid">
+            <div class="calc-stat-item">
+              <div id="roi-hours-saved" class="calc-stat-val">~80 godz.</div>
+              <div class="calc-stat-lbl">Zaoszczędzonego czasu opiekunów w miesiącu</div>
+            </div>
+            <div class="calc-stat-item">
+              <div id="roi-calls-saved" class="calc-stat-val">~600</div>
+              <div class="calc-stat-lbl">Mniej powtarzalnych telefonów w recepcji</div>
+            </div>
+            <div class="calc-stat-item">
+              <div id="roi-fte-saved" class="calc-stat-val">~0,5 etatu</div>
+              <div class="calc-stat-lbl">Odzyskanej mocy personelu na realną opiekę</div>
+            </div>
+            <div class="calc-stat-item" style="border-color:var(--s-accent); background:var(--s-soft);">
+              <div id="roi-price-est" class="calc-stat-val" style="color:var(--s-accent);">3 500 zł</div>
+              <div class="calc-stat-lbl">Szacowany abonament miesięczny netto</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:16px; color:var(--s-accent); font-weight:600; margin-top:1rem; text-align:center;">
+          ⚡ Zwrot z inwestycji (Payback Period): 5–8 miesięcy. Wartość odzyskanego czasu personelu znacznie przewyższa koszt abonamentu.
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>10:30 · Kalkulator ROI dla Dyrekcji</b>
+        <p>„Spójrzmy na twardy zwrot z inwestycji: przy 50 mieszkańcach odzyskujemy miesięcznie około 80 godzin pracy wykwalifikowanego personelu. To dokładnie pół etatu opiekunki, która zamiast odbierać telefony i pisać raporty, spędza czas przy seniorze. Koszt zatrudnienia dodatkowego pracownika to dziś ponad 6 000 zł miesięcznie. Silver Care daje ten sam efekt za 3 500 zł, a zwrot z wdrożenia następuje w zaledwie 5 do 8 miesięcy.”</p>
+      </aside>
+    </section>
+
+    <!-- 09 · BEZPIECZEŃSTWO IT, RODO ART. 9 & NIS2 (Layout S05) -->
+    <section class="card" data-form="shield" data-side="right" data-t="Bezpieczeństwo IT">
+      <div class="inner">
+        <div class="eyebrow">Standard korporacyjny · Tarcza prawna i technologiczna</div>
+        <h2>Najwyższy poziom bezpieczeństwa: <em>RODO, NIS2 i suwerenność UE</em>.</h2>
+        
+        <div class="grid3" style="margin-top: 1.6rem;">
+          <div class="block">
+            <h3>Izolacja Danych (RLS)</h3>
+            <div class="big">Zero-Trust</div>
+            <p>Baza PostgreSQL z mechanizmem <strong>Row Level Security (RLS)</strong>. Każda placówka posiada w 100% odseparowane środowisko danych – brak ryzyka wycieku.</p>
+          </div>
+          <div class="block">
+            <h3>RODO & Zero-Data Retention</h3>
+            <div class="big">Art. 9 RODO</div>
+            <p>Nagrania głosowe są przetwarzane na serwerach w UE i natychmiast usuwane po transkrypcji. Zgody art. 9 weryfikowane cyfrowo.</p>
+          </div>
+          <div class="block accent">
+            <h3>Cyber Resilience (NIS2)</h3>
+            <div class="big">Offline PWA</div>
+            <p>System działa w trybie offline-first dzięki lokalnej bazie `IndexedDB`. Brak internetu w skrzydle budynku nie wstrzymuje pracy opiekunek.</p>
+          </div>
+        </div>
+
+        <div class="means">
+          <p>Infrastruktura spełnia rygorystyczne normy unijnej dyrektywy <strong>NIS2</strong> oraz standardy kryptograficzne TLS 1.3 z codziennym backupem Point-in-Time Recovery (PITR).</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>12:00 · Bezpieczeństwo i Zgodność Prawna</b>
+        <p>„Bezpieczeństwo danych to nasz priorytet. Silver Care jest w 100% hostowany na terenie Unii Europejskiej (Frankfurt). Stosujemy politykę Row Level Security, co oznacza, że żadne dane nie mogą wyciec między placówkami. Transkrypcja głosu działa w modelu Zero-Data Retention – pliki audio nie są wykorzystywane do trenowania żadnych modeli publicznych i są kasowane natychmiast po wygenerowaniu podsumowania. W razie kontroli UODO dyrekcja jest w 100% zabezpieczona.”</p>
+      </aside>
+    </section>
+
+    <!-- 10 · ROADMAPA PRZYSZŁOŚCI (Layout S08) -->
+    <section class="card" data-form="network" data-side="right" data-t="Roadmapa Przyszłości">
+      <div class="inner">
+        <div class="eyebrow">Innowacje i rozwój · System gotowy na wyzwania jutra</div>
+        <h2>Przyszłość opieki: <em>Wczesne wykrywanie zmian i asystent AI</em>.</h2>
+        <p class="lede">Inwestując w Silver Care, zyskujesz platformę, która stale rozwija się wraz z rynkiem CareTech:</p>
+        
+        <div class="grid3" style="margin-top: 1.6rem;">
+          <div class="block">
+            <h3>Dziś · Faza 1 (MVP & Głos)</h3>
+            <div class="big" style="font-size:24px; margin-bottom:0.6rem;">Stabilny Fundament</div>
+            <p>• Notatki głosowe PWA Offline<br>• Raport Peace Letter o 15:00<br>• Smart Bed Mapper & Czat<br>• Weryfikacja zgód RODO art. 9</p>
+            <span class="tag">Dostępne od zaraz</span>
+          </div>
+          <div class="block accent">
+            <h3>Q4 2026 · Faza 2 (Analityka)</h3>
+            <div class="big" style="font-size:24px; margin-bottom:0.6rem;">Clinical Triage</div>
+            <p>• Shift Handover Digest dla zmian<br>• Centralny Dashboard Dyrektorski<br>• Wskaźniki retencji i zadowolenia<br>• Automatyczne flagowanie alertów</p>
+            <span class="tag">W trakcie wdrożeń</span>
+          </div>
+          <div class="block">
+            <h3>2027 · Faza 3 (Ekosystem AI)</h3>
+            <div class="big" style="font-size:24px; margin-bottom:0.6rem;">Predykcja & Asystent</div>
+            <p>• Behavioral Drift (wykrywanie apatii)<br>• AI Asystent i Animator „Antoś”<br>• Integracje IoT bez kamer (radar mmWave)<br>• Gotowość do integracji EDM/HL7</p>
+            <span class="tag">Przyszłość placówki</span>
+          </div>
+        </div>
+
+        <div class="means">
+          <p>Wszystkie aktualizacje i nowe moduły analityczne są <strong>automatycznie udostępniane w ramach stałego abonamentu SaaS</strong> bez dopłat za nowe wersje oprogramowania.</p>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>13:30 · Roadmapa Przyszłości i Trwałość Rozwiązania</b>
+        <p>„Wdrażając Silver Care, nie kupują Państwo zamkniętego pudełka, lecz stale rozwijaną platformę. Już w Q4 2026 wprowadzamy automatyczny moduł przekazywania dyżurów i panel analityczny. W 2027 roku wdrożymy inteligentne wykrywanie zmian behawioralnych (Behavioral Drift), które podpowie personelowi np. spadek aktywności seniora zanim przerodzi się to w problem, oraz asystenta AI 'Antoś' pomagającego układać plany animacji. Wszystko w ramach jednej subskrypcji.”</p>
+      </aside>
+    </section>
+
+    <!-- 11 · WDROŻENIE CONCIERGE (Layout S08: Proces) -->
+    <section class="card" data-form="network" data-side="right" data-t="Wdrożenie Concierge">
+      <div class="inner">
+        <div class="eyebrow">Harmonogram startu · Bezproblemowa integracja</div>
+        <h2>Start w 7 dni: <em>Pełne wdrożenie concierge bez obciążania kadr</em>.</h2>
+        <p class="lede">Wiemy, jak zajęty jest Twój personel. Cały proces techniczny i konfiguracyjny bierzemy na siebie:</p>
+        
+        <div class="timeline-tabs" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="timeline-step-btn active">
+            <div style="font-size:14px; color:var(--s-accent); font-weight:600; margin-bottom:0.2rem;">Dni 1–3</div>
+            <b style="font-size:18px; color:var(--s-text);">Import & Konfiguracja</b>
+            <div style="font-size:14px; color:var(--s-sec); margin-top:0.3rem;">Wgrywamy bazę pokoi i strukturę łóżek</div>
+          </div>
+          <div class="timeline-step-btn active">
+            <div style="font-size:14px; color:var(--s-accent); font-weight:600; margin-bottom:0.2rem;">Dni 4–6</div>
+            <b style="font-size:18px; color:var(--s-text);">30-min. Szkolenie</b>
+            <div style="font-size:14px; color:var(--s-sec); margin-top:0.3rem;">Instruktaż personelu (1 tapnięcie w PWA)</div>
+          </div>
+          <div class="timeline-step-btn active">
+            <div style="font-size:14px; color:var(--s-accent); font-weight:600; margin-bottom:0.2rem;">Dzień 7+</div>
+            <b style="font-size:18px; color:var(--s-text);">Start Peace Letter</b>
+            <div style="font-size:14px; color:var(--s-sec); margin-top:0.3rem;">Wysyłka raportów o 15:00 i cisza w dyżurce</div>
+          </div>
+        </div>
+
+        <div class="grid3" style="margin-top: 1.4rem;">
+          <div class="block">
+            <h3>Dedykowany Opiekun</h3>
+            <p>Otrzymujesz bezpośredni kontakt do inżyniera wdrożenia, który osobiście asystuje przy pierwszych dniach pracy zespołu.</p>
+          </div>
+          <div class="block">
+            <h3>Zero Zmian Sprzętowych</h3>
+            <p>Aplikacja działa na dowolnym telefonie opiekunek lub tabletach placówki przez przeglądarkę – bez instalacji ze sklepów App Store/Google Play.</p>
+          </div>
+          <div class="block accent">
+            <h3>30 Dni Gwarancji Satysfakcji</h3>
+            <p>Jeśli po 30 dniach nie zauważysz spadku liczby telefonów i ulgi personelu – zwracamy 100% poniesionych kosztów abonamentu.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>15:00 · Wdrożenie Concierge i Gwarancja</b>
+        <p>„Dyrektorzy często pytają: 'Kiedy znajdziemy czas na szkolenia?'. Odpowiedź brzmi: wdrożenie zajmuje 7 dni i nie wymaga wysiłku z Państwa strony. My importujemy bazę pokoi, szkolenie opiekunek trwa zaledwie 30 minut, bo obsługa polega na wciśnięciu jednego przycisku mikrofonu. Dajemy 30-dniową gwarancję satysfakcji – jeśli nie odczują Państwo wyraźnego spadku liczby telefonów, anulujemy umowę bez żadnych konsekwencji.”</p>
+      </aside>
+    </section>
+
+    <!-- 12 · PODSUMOWANIE I CTA (Layout S13: Zamknięcie) -->
+    <section class="card" data-form="network" data-t="Zamówienie">
+      <div class="inner" style="max-width: 960px; margin: 0 auto; text-align: center;">
+        <div class="eyebrow" style="justify-content: center;">Decyzja biznesowa · Następny krok dla Twojej placówki</div>
+        <h1 style="font-size: clamp(34px, 4.8vw, 56px);">Zapewnij spokój rodzinom <em>i oddech personelowi</em>.</h1>
+        <p class="lede" style="margin: 1.2rem auto 1.6rem; max-width: 54ch;">
+          Umów bezpłatną, 20-minutową prezentację na żywo w Twojej placówce i przetestuj system na wybranym oddziale.
+        </p>
+        
+        <!-- Formularz zamówienia wdrożenia -->
+        <div class="lead-form-box">
+          <div style="font-size:15px; color:var(--s-accent); font-weight:600; margin-bottom:0.4rem;">
+            Formularz zgłoszenia na bezpłatną prezentację i kalkulację:
+          </div>
+          <div class="lead-form-grid">
+            <input type="text" id="b2b-fac-name" class="lead-input" placeholder="Nazwa Domu Opieki / Podmiotu" value="Dom Seniora">
+            <input type="text" id="b2b-fac-beds" class="lead-input" placeholder="Liczba łóżek (np. 50)" value="50 łóżek">
+            <input type="text" id="b2b-fac-city" class="lead-input" placeholder="Miejscowość" value="Wrocław / Warszawa / Cała Polska">
+            <button id="btn-b2b-submit" class="btn-cta" type="button" style="white-space:nowrap; padding:12px 24px;">
+              Zamów Bezpłatną Prezentację →
+            </button>
+          </div>
+          <div style="font-size:14px; color:var(--s-ter); margin-top:0.6rem; text-align:center;">
+            Wdrożenie w 7 dni · 30 dni gwarancji satysfakcji · Zgodność z RODO art. 9 i NIS2
+          </div>
+        </div>
+
+        <div class="stat-strip" style="text-align: left; margin-top: 2rem;">
+          <div>
+            <b>Dariusz Olszewski-Rink</b>
+            <span>Koordynator Wdrożeń & Compliance</span>
+          </div>
+          <div>
+            <b>Michał Sznurowski</b>
+            <span>Lider Technologii & AI</span>
+          </div>
+          <div>
+            <b>kontakt@silvercare.pl</b>
+            <span>Dedykowany kontakt biznesowy</span>
+          </div>
+          <div>
+            <b>+48 500 000 000</b>
+            <span>Infolinia wdrożeniowa dla placówek</span>
+          </div>
+        </div>
+        <p class="byline" style="margin-top: 1.6rem;">Silver Care · System organizacji pracy i empatycznej komunikacji dla domów opieki</p>
+      </div>
+      <aside class="notes" style="display:none;">
+        <b>16:30 · Zamknięcie Prezentacji Biznesowej i Call to Action</b>
+        <p>„Podsumowując: Silver Care to inwestycja, która zwraca się w kilka miesięcy, uwalnia pół etatu pracy opiekunek, eliminuje 60% telefonów i buduje reputację Państwa placówki jako lidera opieki w regionie. Zapraszamy do wypełnienia formularza – przyjedziemy, pokażemy działanie systemu na żywo na Państwa telefonach i bezpłatnie skonfigurujemy wersję testową na 14 dni. Dziękujemy bardzo za uwagę.”</p>
+      </aside>
+    </section>
+
+  </main>
+
+  <!-- Panel Notatek Prelegenta (N) -->
+  <div id="notes-drawer">
+    <div class="notes-content" id="notes-content"></div>
+    <button id="btn-close-notes" class="close-btn" title="Zamknij notatki [Esc]">Zamknij [Esc]</button>
+  </div>
+
+  <script src="deck.js"></script>
+</body>
+</html>
